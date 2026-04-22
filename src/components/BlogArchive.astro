@@ -1,0 +1,889 @@
+---
+import {
+  BLOG_ARCHIVE_PAGE_SIZE,
+  findTagSummary,
+  toTagSlug,
+  type BlogArchivePost,
+  type BlogTagSummary,
+} from "../lib/blogArchive";
+
+type PageItem = number | "ellipsis";
+
+const {
+  posts = [],
+  tagSummaries = [],
+  requestedTag = "",
+  requestedPage = 1,
+  basePath = "/blog/",
+} = Astro.props as {
+  posts: BlogArchivePost[];
+  tagSummaries: BlogTagSummary[];
+  requestedTag?: string;
+  requestedPage?: number;
+  basePath?: string;
+};
+
+const normalizedRequestedTag = toTagSlug(requestedTag);
+const activeTag = findTagSummary(tagSummaries, requestedTag);
+const hasRequestedTag = normalizedRequestedTag.length > 0;
+const activeFilterSlug = activeTag?.slug ?? normalizedRequestedTag;
+
+const filteredPosts = !hasRequestedTag
+  ? posts
+  : activeTag
+    ? posts.filter((post) => post.tagSlug === activeTag.slug)
+    : [];
+
+const totalPosts = filteredPosts.length;
+const totalPages = Math.max(1, Math.ceil(totalPosts / BLOG_ARCHIVE_PAGE_SIZE));
+const parsedRequestedPage = Number.isFinite(requestedPage) ? requestedPage : 1;
+const currentPage = Math.min(Math.max(1, parsedRequestedPage), totalPages);
+const startIndex = totalPosts === 0 ? 0 : (currentPage - 1) * BLOG_ARCHIVE_PAGE_SIZE;
+const endIndex = Math.min(startIndex + BLOG_ARCHIVE_PAGE_SIZE, totalPosts);
+const visiblePosts = filteredPosts.slice(startIndex, endIndex);
+
+const buildArchiveUrl = (tagSlug = "", page = 1) => {
+  const search = new URLSearchParams();
+
+  if (tagSlug) search.set("tag", tagSlug);
+  if (page > 1) search.set("page", String(page));
+
+  const query = search.toString();
+  return `${basePath}${query ? `?${query}` : ""}`;
+};
+
+const getPageItems = (page: number, pageCount: number): PageItem[] => {
+  if (pageCount <= 7) {
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+  const items: PageItem[] = [1];
+  const windowStart = Math.max(2, page - 1);
+  const windowEnd = Math.min(pageCount - 1, page + 1);
+
+  if (windowStart > 2) items.push("ellipsis");
+
+  for (let index = windowStart; index <= windowEnd; index += 1) {
+    items.push(index);
+  }
+
+  if (windowEnd < pageCount - 1) items.push("ellipsis");
+  items.push(pageCount);
+
+  return items;
+};
+
+const pageItems = getPageItems(currentPage, totalPages);
+const archiveHeading = !hasRequestedTag
+  ? "All articles"
+  : activeTag
+    ? activeTag.label
+    : "Topic not found";
+const archiveSummary = !hasRequestedTag
+  ? `${posts.length} published articles across ${tagSummaries.length} tags.`
+  : activeTag
+    ? `${totalPosts} articles filed under ${activeTag.label}.`
+    : `No tag matches "${requestedTag}".`;
+const resultLabel =
+  totalPosts === 0 ? "No articles available" : `Showing ${startIndex + 1}-${endIndex} of ${totalPosts}`;
+---
+
+<style is:global>
+  .archiveShell{
+    display:grid;
+    grid-template-columns:280px minmax(0, 1fr);
+    gap:24px;
+    padding:22px 0 30px;
+  }
+
+  .archiveSidebar{
+    min-width:0;
+  }
+
+  .sidebarCard{
+    position:sticky;
+    top:96px;
+    padding:18px;
+    border:1px solid rgba(29,42,54,.10);
+    border-radius:22px;
+    background:linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
+    box-shadow:0 10px 24px rgba(17,31,67,.04);
+  }
+
+  .sidebarHeader{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:16px;
+  }
+
+  .sidebarEyebrow{
+    margin:0 0 6px;
+    font-size:.74rem;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#6b7790;
+  }
+
+  .sidebarHeader h2{
+    margin:0;
+    font-size:1.02rem;
+    color:#111F43;
+  }
+
+  .sidebarCount{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:72px;
+    padding:.5rem .7rem;
+    border-radius:999px;
+    border:1px solid rgba(29,42,54,.10);
+    background:#fff;
+    color:#56637c;
+    font-size:.82rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+
+  .tagList{
+    display:grid;
+    gap:8px;
+  }
+
+  .tagLink{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 14px;
+    border:1px solid rgba(29,42,54,.10);
+    border-radius:16px;
+    background:#fff;
+    color:#1d2a36;
+    text-decoration:none;
+    transition:border-color .12s ease, background .12s ease, transform .12s ease;
+  }
+
+  .tagLink:hover{
+    border-color:rgba(29,42,54,.18);
+    background:#fcfdff;
+    transform:translateY(-1px);
+  }
+
+  .tagLink.is-active{
+    border-color:rgba(57,87,233,.28);
+    background:rgba(57,87,233,.08);
+  }
+
+  .tagLabelWrap{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    min-width:0;
+  }
+
+  .tagLabelWrap strong{
+    font-size:.94rem;
+    line-height:1.2;
+    color:#111F43;
+  }
+
+  .tagLabelWrap small{
+    color:#6b7790;
+    font-size:.76rem;
+    line-height:1.2;
+  }
+
+  .tagValue{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:34px;
+    padding:.3rem .55rem;
+    border-radius:999px;
+    background:#f2f5f9;
+    color:#56637c;
+    font-size:.8rem;
+    font-weight:700;
+  }
+
+  .archiveMain{
+    min-width:0;
+  }
+
+  .archiveIntro{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+    padding:4px 0 10px;
+  }
+
+  .archiveEyebrow{
+    margin:0 0 6px;
+    font-size:.76rem;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#6b7790;
+  }
+
+  .archiveIntro h2{
+    margin:0 0 8px;
+    font-size:1.85rem;
+    line-height:1.15;
+    letter-spacing:-.03em;
+    color:#111F43;
+  }
+
+  .archiveIntro p{
+    margin:0;
+    color:#5f6d86;
+    line-height:1.7;
+    max-width:56ch;
+  }
+
+  .archiveStats{
+    display:grid;
+    gap:6px;
+    padding:14px 16px;
+    min-width:190px;
+    border:1px solid rgba(29,42,54,.10);
+    border-radius:18px;
+    background:#fff;
+    text-align:right;
+    box-shadow:0 10px 24px rgba(17,31,67,.03);
+  }
+
+  .archiveStats strong{
+    color:#111F43;
+    font-size:.95rem;
+  }
+
+  .archiveStats span{
+    color:#6b7790;
+    font-size:.84rem;
+  }
+
+  .entryList{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .entryCard{
+    display:block;
+    padding:22px 24px;
+    border:1px solid rgba(29,42,54,.10);
+    border-radius:22px;
+    background:#fff;
+    box-shadow:0 10px 24px rgba(17,31,67,.04);
+    text-decoration:none;
+    transition:border-color .12s ease, transform .12s ease, box-shadow .12s ease;
+  }
+
+  .entryCard:hover{
+    border-color:rgba(29,42,54,.18);
+    box-shadow:0 14px 28px rgba(17,31,67,.06);
+    transform:translateY(-1px);
+  }
+
+  .entryMeta{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    font-size:.84rem;
+    color:#6b7790;
+  }
+
+  .entryTag{
+    display:inline-flex;
+    align-items:center;
+    padding:.25rem .65rem;
+    border-radius:999px;
+    border:1px solid rgba(57,87,233,.14);
+    background:rgba(57,87,233,.08);
+    color:#3957E9;
+    font-size:.78rem;
+    font-weight:800;
+  }
+
+  .entryDot{
+    color:rgba(95,109,134,.55);
+  }
+
+  .entryTitle{
+    margin:0 0 10px;
+    font-size:1.3rem;
+    line-height:1.3;
+    letter-spacing:-.02em;
+    color:#111F43;
+  }
+
+  .entryExcerpt{
+    margin:0;
+    color:#5f6d86;
+    line-height:1.75;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+  }
+
+  .entryFooter{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px solid rgba(29,42,54,.08);
+  }
+
+  .entryFooter span{
+    color:#6b7790;
+    font-size:.82rem;
+  }
+
+  .readLink{
+    color:#3957E9;
+    font-size:.92rem;
+    font-weight:800;
+  }
+
+  .emptyState{
+    padding:28px 24px;
+    border:1px dashed rgba(29,42,54,.14);
+    border-radius:22px;
+    background:#fff;
+  }
+
+  .emptyState h3{
+    margin:0 0 8px;
+    font-size:1.05rem;
+    color:#111F43;
+  }
+
+  .emptyState p{
+    margin:0;
+    color:#5f6d86;
+    line-height:1.7;
+  }
+
+  .emptyState a{
+    color:#3957E9;
+    font-weight:800;
+  }
+
+  .pager{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:8px;
+    padding-top:6px;
+  }
+
+  .pagerSummary{
+    color:#6b7790;
+    font-size:.9rem;
+    white-space:nowrap;
+  }
+
+  .pagerLinks{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .pagerBtn,
+  .pageLink{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:.55rem .85rem;
+    border:1px solid rgba(29,42,54,.10);
+    border-radius:14px;
+    background:#fff;
+    color:#1d2a36;
+    font-size:.9rem;
+    font-weight:700;
+    text-decoration:none;
+    transition:border-color .12s ease, background .12s ease, transform .12s ease;
+  }
+
+  .pagerBtn:hover,
+  .pageLink:hover{
+    border-color:rgba(29,42,54,.18);
+    background:#fcfdff;
+    transform:translateY(-1px);
+  }
+
+  .pagerBtn.is-disabled{
+    color:#9aa5b8;
+    background:#f8fafc;
+    cursor:default;
+    transform:none;
+  }
+
+  .pageLink{
+    min-width:42px;
+    padding:.55rem .65rem;
+  }
+
+  .pageLink.is-active{
+    border-color:rgba(57,87,233,.28);
+    background:rgba(57,87,233,.08);
+    color:#3957E9;
+  }
+
+  .pageEllipsis{
+    padding:0 .25rem;
+    color:#6b7790;
+  }
+
+  @media (max-width: 980px){
+    .archiveShell{
+      grid-template-columns:1fr;
+      gap:18px;
+    }
+
+    .sidebarCard{
+      position:static;
+    }
+
+    .tagList{
+      grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .archiveIntro{
+      flex-direction:column;
+    }
+
+    .archiveStats{
+      width:100%;
+      text-align:left;
+    }
+
+    .pager{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+
+    .pagerLinks{
+      justify-content:flex-start;
+    }
+  }
+
+  @media (max-width: 640px){
+    .archiveShell{
+      padding:18px 0 24px;
+    }
+
+    .sidebarCard,
+    .entryCard,
+    .emptyState{
+      border-radius:18px;
+    }
+
+    .archiveIntro h2{
+      font-size:1.55rem;
+    }
+
+    .entryCard{
+      padding:18px;
+    }
+
+    .entryTitle{
+      font-size:1.16rem;
+    }
+
+    .entryFooter{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+  }
+</style>
+
+<section
+  class="archiveShell"
+  id="blogArchive"
+  data-base-path={basePath}
+  data-initial-tag={activeFilterSlug}
+  data-initial-page={String(currentPage)}
+>
+  <aside class="archiveSidebar">
+    <div class="sidebarCard">
+      <div class="sidebarHeader">
+        <div>
+          <p class="sidebarEyebrow">Knowledge Base</p>
+          <h2>Browse by Topic</h2>
+        </div>
+        <span class="sidebarCount">{tagSummaries.length} tags</span>
+      </div>
+
+      <nav class="tagList" id="tagList" aria-label="Browse posts by topic">
+        <a class:list={["tagLink", !hasRequestedTag && "is-active"]} href={buildArchiveUrl()}>
+          <span class="tagLabelWrap">
+            <strong>All</strong>
+            <small>All articles</small>
+          </span>
+          <span class="tagValue">{posts.length}</span>
+        </a>
+
+        {tagSummaries.map((tag) => (
+          <a
+            class:list={["tagLink", activeTag?.slug === tag.slug && "is-active"]}
+            href={buildArchiveUrl(tag.slug)}
+          >
+            <span class="tagLabelWrap">
+              <strong>{tag.label}</strong>
+              <small>Topic archive</small>
+            </span>
+            <span class="tagValue">{tag.count}</span>
+          </a>
+        ))}
+      </nav>
+    </div>
+  </aside>
+
+  <div class="archiveMain">
+    <div class="archiveIntro" id="archiveIntro">
+      <div>
+        <p class="archiveEyebrow">Knowledge Archive</p>
+        <h2 id="archiveHeading">{archiveHeading}</h2>
+        <p id="archiveSummary">{archiveSummary}</p>
+      </div>
+
+      <div class="archiveStats" id="archiveStats">
+        <strong id="archiveResultLabel">{resultLabel}</strong>
+        <span id="archivePageLabel">Page {currentPage} of {totalPages}</span>
+      </div>
+    </div>
+
+    <section class="entryList" id="entryList" aria-label="Blog post archive">
+      {visiblePosts.length > 0 ? (
+        visiblePosts.map((post) => (
+          <a class="entryCard" href={post.href}>
+            <div class="entryMeta">
+              <span class="entryTag">{post.tag}</span>
+              <span>{post.date}</span>
+              <span class="entryDot">&middot;</span>
+              <span>{post.readTime}</span>
+            </div>
+
+            <h3 class="entryTitle">{post.title}</h3>
+            <p class="entryExcerpt">{post.excerpt}</p>
+
+            <div class="entryFooter">
+              <span>Professional sourcing insight</span>
+              <span class="readLink">Read &rarr;</span>
+            </div>
+          </a>
+        ))
+      ) : (
+        <div class="emptyState">
+          <h3>No articles found</h3>
+          <p>
+            {activeTag ? (
+              <>There are no published articles in this topic yet. <a href={buildArchiveUrl()}>View all articles</a>.</>
+            ) : hasRequestedTag ? (
+              <>This topic does not exist in the archive. <a href={buildArchiveUrl()}>Clear the filter</a>.</>
+            ) : (
+              <>No articles are available right now.</>
+            )}
+          </p>
+        </div>
+      )}
+    </section>
+
+    {totalPages > 1 && (
+      <nav class="pager" id="archivePager" aria-label="Archive pagination">
+        <div class="pagerSummary" id="pagerSummary">Page {currentPage} of {totalPages}</div>
+
+        <div class="pagerLinks" id="pagerLinks">
+          {currentPage > 1 ? (
+            <a class="pagerBtn" href={buildArchiveUrl(activeFilterSlug, currentPage - 1)}>Previous</a>
+          ) : (
+            <span class="pagerBtn is-disabled">Previous</span>
+          )}
+
+          {pageItems.map((item) =>
+            item === "ellipsis" ? (
+              <span class="pageEllipsis" aria-hidden="true">&hellip;</span>
+            ) : (
+              <a
+                class:list={["pageLink", item === currentPage && "is-active"]}
+                href={buildArchiveUrl(activeFilterSlug, item)}
+                aria-current={item === currentPage ? "page" : undefined}
+              >
+                {item}
+              </a>
+            )
+          )}
+
+          {currentPage < totalPages ? (
+            <a class="pagerBtn" href={buildArchiveUrl(activeFilterSlug, currentPage + 1)}>Next</a>
+          ) : (
+            <span class="pagerBtn is-disabled">Next</span>
+          )}
+        </div>
+      </nav>
+    )}
+  </div>
+</section>
+
+<script
+  id="blogArchiveData"
+  type="application/json"
+  set:html={JSON.stringify({
+    posts,
+    tagSummaries,
+    pageSize: BLOG_ARCHIVE_PAGE_SIZE,
+    initialTag: activeFilterSlug,
+    initialPage: currentPage,
+    basePath,
+  })}
+></script>
+
+<script is:inline>
+  (() => {
+    const root = document.getElementById("blogArchive");
+    const dataEl = document.getElementById("blogArchiveData");
+    if (!root || !dataEl) return;
+
+    const archiveData = JSON.parse(dataEl.textContent || "{}");
+    const allPosts = Array.isArray(archiveData.posts) ? archiveData.posts : [];
+    const allTags = Array.isArray(archiveData.tagSummaries) ? archiveData.tagSummaries : [];
+    const pageSize = Number(archiveData.pageSize) || 5;
+    const basePath = String(archiveData.basePath || "/blog/");
+
+    const tagList = document.getElementById("tagList");
+    const entryList = document.getElementById("entryList");
+    const archiveHeading = document.getElementById("archiveHeading");
+    const archiveSummary = document.getElementById("archiveSummary");
+    const archiveResultLabel = document.getElementById("archiveResultLabel");
+    const archivePageLabel = document.getElementById("archivePageLabel");
+    const pager = document.getElementById("archivePager");
+    const pagerSummary = document.getElementById("pagerSummary");
+    const pagerLinks = document.getElementById("pagerLinks");
+
+    const toSlug = (value) =>
+      String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+    const normalizePath = (value) => {
+      const trimmed = String(value || "").trim();
+      if (!trimmed) return "/";
+      return trimmed.endsWith("/") ? trimmed : `${trimmed}/`;
+    };
+
+    const escapeHtml = (value) =>
+      String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+
+    const getState = () => {
+      const url = new URL(window.location.href);
+      const normalizedBasePath = normalizePath(basePath);
+      const normalizedPathname = normalizePath(url.pathname);
+
+      let tag = toSlug(url.searchParams.get("tag") || "");
+      if (!tag && normalizedPathname.startsWith(`${normalizedBasePath}tag/`)) {
+        tag = toSlug(normalizedPathname.slice(`${normalizedBasePath}tag/`.length));
+      }
+
+      const pageRaw = Number.parseInt(url.searchParams.get("page") || "1", 10);
+      const page = Number.isFinite(pageRaw) && pageRaw > 0 ? pageRaw : 1;
+      return { tag, page };
+    };
+
+    const buildUrl = (tag, page) => {
+      const url = new URL(basePath, window.location.origin);
+      if (tag) url.searchParams.set("tag", tag);
+      if (page > 1) url.searchParams.set("page", String(page));
+      return `${url.pathname}${url.search}`;
+    };
+
+    const pageItems = (currentPageValue, totalPagesValue) => {
+      if (totalPagesValue <= 7) {
+        return Array.from({ length: totalPagesValue }, (_, index) => index + 1);
+      }
+
+      const items = [1];
+      const start = Math.max(2, currentPageValue - 1);
+      const end = Math.min(totalPagesValue - 1, currentPageValue + 1);
+
+      if (start > 2) items.push("ellipsis");
+      for (let index = start; index <= end; index += 1) items.push(index);
+      if (end < totalPagesValue - 1) items.push("ellipsis");
+      items.push(totalPagesValue);
+
+      return items;
+    };
+
+    const cardHtml = (post) => `
+      <a class="entryCard" href="${escapeHtml(post.href)}">
+        <div class="entryMeta">
+          <span class="entryTag">${escapeHtml(post.tag)}</span>
+          <span>${escapeHtml(post.date)}</span>
+          <span class="entryDot">&middot;</span>
+          <span>${escapeHtml(post.readTime)}</span>
+        </div>
+        <h3 class="entryTitle">${escapeHtml(post.title)}</h3>
+        <p class="entryExcerpt">${escapeHtml(post.excerpt)}</p>
+        <div class="entryFooter">
+          <span>Professional sourcing insight</span>
+          <span class="readLink">Read &rarr;</span>
+        </div>
+      </a>
+    `;
+
+    const emptyHtml = (tagExists, hasTag) => `
+      <div class="emptyState">
+        <h3>No articles found</h3>
+        <p>${
+          tagExists
+            ? 'There are no published articles in this topic yet. <a href="/blog/">View all articles</a>.'
+            : hasTag
+              ? 'This topic does not exist in the archive. <a href="/blog/">Clear the filter</a>.'
+              : "No articles are available right now."
+        }</p>
+      </div>
+    `;
+
+    const renderTagList = (activeTag) => {
+      if (!tagList) return;
+
+      const allLink = tagList.querySelector('a.tagLink[href^="/blog"]');
+      if (allLink) {
+        allLink.classList.toggle("is-active", !activeTag);
+        allLink.setAttribute("href", buildUrl("", 1));
+      }
+
+      const links = Array.from(tagList.querySelectorAll("a.tagLink")).slice(1);
+      links.forEach((link, index) => {
+        const tag = allTags[index];
+        if (!tag) return;
+        link.classList.toggle("is-active", tag.slug === activeTag);
+        link.setAttribute("href", buildUrl(tag.slug, 1));
+      });
+    };
+
+    const renderPager = (tag, page, totalPagesValue) => {
+      if (!pager || !pagerSummary || !pagerLinks) return;
+
+      if (totalPagesValue <= 1) {
+        pager.hidden = true;
+        return;
+      }
+
+      pager.hidden = false;
+      pagerSummary.textContent = `Page ${page} of ${totalPagesValue}`;
+
+      const items = pageItems(page, totalPagesValue);
+      const prevHtml =
+        page > 1
+          ? `<a class="pagerBtn" href="${buildUrl(tag, page - 1)}" data-page="${page - 1}">Previous</a>`
+          : '<span class="pagerBtn is-disabled">Previous</span>';
+
+      const nextHtml =
+        page < totalPagesValue
+          ? `<a class="pagerBtn" href="${buildUrl(tag, page + 1)}" data-page="${page + 1}">Next</a>`
+          : '<span class="pagerBtn is-disabled">Next</span>';
+
+      const pagesHtml = items
+        .map((item) =>
+          item === "ellipsis"
+            ? '<span class="pageEllipsis" aria-hidden="true">&hellip;</span>'
+            : `<a class="pageLink${item === page ? " is-active" : ""}" href="${buildUrl(tag, item)}" data-page="${item}"${item === page ? ' aria-current="page"' : ""}>${item}</a>`
+        )
+        .join("");
+
+      pagerLinks.innerHTML = `${prevHtml}${pagesHtml}${nextHtml}`;
+    };
+
+    const render = (replace = false) => {
+      const { tag, page } = getState();
+      const activeTag = allTags.find((item) => item.slug === tag) || null;
+      const filteredPosts = tag ? allPosts.filter((post) => post.tagSlug === tag) : allPosts;
+      const total = filteredPosts.length;
+      const totalPagesValue = Math.max(1, Math.ceil(total / pageSize));
+      const currentPageValue = Math.min(Math.max(1, page), totalPagesValue);
+      const start = total === 0 ? 0 : (currentPageValue - 1) * pageSize;
+      const end = Math.min(start + pageSize, total);
+      const visiblePosts = filteredPosts.slice(start, end);
+
+      if (replace || currentPageValue !== page) {
+        history.replaceState(null, "", buildUrl(tag, currentPageValue));
+      }
+
+      root.dataset.initialTag = tag;
+      root.dataset.initialPage = String(currentPageValue);
+
+      renderTagList(tag);
+
+      if (archiveHeading) {
+        archiveHeading.textContent = !tag ? "All articles" : activeTag ? activeTag.label : "Topic not found";
+      }
+
+      if (archiveSummary) {
+        archiveSummary.textContent = !tag
+          ? `${allPosts.length} published articles across ${allTags.length} tags.`
+          : activeTag
+            ? `${total} articles filed under ${activeTag.label}.`
+            : `No tag matches "${tag}".`;
+      }
+
+      if (archiveResultLabel) {
+        archiveResultLabel.textContent = total === 0 ? "No articles available" : `Showing ${start + 1}-${end} of ${total}`;
+      }
+
+      if (archivePageLabel) {
+        archivePageLabel.textContent = `Page ${currentPageValue} of ${totalPagesValue}`;
+      }
+
+      if (entryList) {
+        entryList.innerHTML = visiblePosts.length > 0
+          ? visiblePosts.map(cardHtml).join("")
+          : emptyHtml(Boolean(activeTag), Boolean(tag));
+      }
+
+      renderPager(tag, currentPageValue, totalPagesValue);
+    };
+
+    document.addEventListener("click", (event) => {
+      const link = event.target instanceof Element
+        ? event.target.closest("#blogArchive a.tagLink, #blogArchive a.pagerBtn, #blogArchive a.pageLink")
+        : null;
+
+      if (!link) return;
+
+      const href = link.getAttribute("href");
+      if (!href) return;
+
+      event.preventDefault();
+      history.pushState(null, "", href);
+      render();
+      window.scrollTo({ top: root.offsetTop - 24, behavior: "smooth" });
+    });
+
+    window.addEventListener("popstate", () => render(true));
+    render(true);
+  })();
+</script>

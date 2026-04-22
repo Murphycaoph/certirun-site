@@ -1,0 +1,86 @@
+---
+import PartInquiryPage from "../../../components/PartInquiryPage.astro";
+
+const painPoints = [
+  {
+    title: "Same part name, different chassis fitment",
+    desc: "Bushings, torque rods, stabilizer bars, and springs can look similar but differ by size, load rating, or chassis application.",
+  },
+  {
+    title: "Quotes can ignore load and size details",
+    desc: "Without clear bushing size, load spec, or pin size, suppliers may quote parts that fit the name but not the vehicle.",
+  },
+  {
+    title: "Mixed suspension RFQs are hard to compare",
+    desc: "Torque rods, bushings, springs, and hardware are often quoted separately, which makes the order harder to review as one scope.",
+  },
+];
+
+const matchingInputs = [
+  "OE number or part number",
+  "Chassis application or truck model",
+  "Bushing size, load spec, or pin size",
+  "Part photos",
+  "Quantity list and destination",
+];
+
+const processSteps = [
+  { title: "You send the details", desc: "Share the references you already have, including OE numbers, truck model, specs, photos, or a parts list." },
+  { title: "We check specs and fitment first", desc: "We review the technical scope before quotation starts so suspension items stay aligned." },
+  { title: "We compare workable suppliers", desc: "We compare suppliers on fitment, quality basis, and execution instead of quoting blind." },
+  { title: "We move into inspection and shipping", desc: "After confirmation, we continue with QC, packing checks, documents, and shipment coordination." },
+];
+
+const whyWorkWithUs = [
+  {
+    title: "We check application before quoting",
+    desc: "Suspension parts depend on chassis application, bushing size, load spec, and pin dimensions, so we confirm first.",
+  },
+  {
+    title: "We align suppliers on the same scope",
+    desc: "Quotes only help when they match the same fitment and quality basis.",
+  },
+  {
+    title: "We handle mixed suspension orders",
+    desc: "We can organize rods, bushings, springs, and hardware into one workable sourcing flow.",
+  },
+];
+
+const faq = [
+  { q: "Can I start without OE numbers?", a: "Yes. Truck model, chassis details, bushing size, load spec, or photos can also work." },
+  { q: "Can you handle mixed suspension parts in one order?", a: "Yes. We can organize multiple suspension items into one structured inquiry and shipment plan." },
+  { q: "Do you support inspection before shipment?", a: "Yes. We follow up on QC, packing checks, and shipment coordination." },
+];
+
+const relatedPaths = [
+  { title: "Shacman parts sourcing", desc: "For suspension RFQs tied to a known truck platform.", href: "/product/brand/shacman/" },
+  { title: "Dongfeng parts sourcing", desc: "For chassis-led inquiries under a Dongfeng platform.", href: "/product/brand/dongfeng/" },
+  { title: "Axle and wheel-end parts", desc: "If the RFQ also includes hub, bearing, or axle-side support.", href: "/product/part/axle-and-wheel-end-parts/" },
+];
+
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "WebPage", name: "Suspension Parts Sourcing from China", description: "Send your suspension parts inquiry with OE numbers, specs, photos, or part lists and get clearer matching, workable quotes, and shipment follow-up.", url: "https://certirun.com/product/part/suspension-parts/" },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: "https://certirun.com/" }, { "@type": "ListItem", position: 2, name: "Product", item: "https://certirun.com/product/" }, { "@type": "ListItem", position: 3, name: "Suspension Parts", item: "https://certirun.com/product/part/suspension-parts/" } ] },
+];
+---
+
+<PartInquiryPage
+  pageTitle="Send Your Suspension Parts Inquiry | Clear Matching and Workable Quotes"
+  pageDescription="Send your suspension parts inquiry with OE numbers, specs, photos, or part lists. CertiRun checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
+  keywords={["suspension parts sourcing from China", "suspension parts RFQ", "suspension parts supplier China", "suspension quote support", "suspension parts inquiry"]}
+  canonical="/product/part/suspension-parts/"
+  ogImage="/images/Suspension.png"
+  jsonLd={jsonLd}
+  systemLabel="Suspension parts"
+  heroTitle="Send your suspension parts inquiry and get clearer matching"
+  heroLead="Send OE numbers, chassis application, bushing size, load spec, pin size, photos, or your parts list. We review the scope first, then move into quotation, inspection, and shipment follow-up."
+  primaryCtaLabel="Send Suspension Inquiry"
+  painPointsHeading="Running into these issues when sourcing suspension parts?"
+  painPoints={painPoints}
+  matchingInputs={matchingInputs}
+  processSteps={processSteps}
+  whyWorkWithUsHeading="Why buyers use us for suspension parts inquiries"
+  whyWorkWithUs={whyWorkWithUs}
+  faq={faq}
+  relatedPaths={relatedPaths}
+/>

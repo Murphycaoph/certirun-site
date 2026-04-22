@@ -1,0 +1,879 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getImageDimensions } from "../lib/imageDimensions";
+
+/**
+ * About page â€?v2
+ * Strategy:
+ * - Do not over-emphasize Foton
+ * - Position CertiRun around selected leading China commercial vehicle brands
+ * - Add founder mindset with audit background
+ * - Keep strong workflow / execution identity
+ */
+
+const aboutHighlights = [
+  {
+    img: "/images/hebei-industrial-park-aerial.jpg",
+    tag: "Market focus",
+    title: "Commercial vehicle aftermarket focus",
+    desc: "The business is built around commercial vehicle aftermarket demand where RFQ clarity, repeat orders, and execution discipline matter.",
+  },
+  {
+    img: "/images/china-industrial-warehouse.jpg",
+    tag: "Supplier base",
+    title: "Northern China sourcing relevance",
+    desc: "Northern China matters because many heavy-duty and commercial vehicle parts clusters, factories, and supporting supply chains are concentrated there.",
+  },
+  {
+    img: "/images/container-loading-supervision.jpg",
+    tag: "Approach",
+    title: "Structured sourcing and risk control",
+    desc: "The sourcing model follows a clearer review logic across RFQ intake, supplier comparison, execution checkpoints, and documentation consistency.",
+  },
+].map((item) => ({
+  ...item,
+  ...getImageDimensions(item.img),
+}));
+
+const brandFocus = [
+  "Sinotruk HOWO",
+  "Sinotruk",
+  "SHACMAN",
+  "Foton",
+  "Dongfeng",
+  "FAW Jiefang",
+  "JAC",
+];
+
+const pillars = [
+  {
+    t: "Why commercial vehicle aftermarket",
+    p: "The commercial vehicle aftermarket is where sourcing discipline has the most practical value: part matching is more technical, repeat demand matters more, and poor execution creates costly downstream problems.",
+  },
+  {
+    t: "Truck segment coverage",
+    p: "CertiRun supports light-, medium-, and heavy-duty truck platforms, with stronger depth in heavy-duty systems where RFQs often require closer technical and supplier screening.",
+  },
+  {
+    t: "Why this approach exists",
+    p: "The company is built around structured sourcing, supplier comparison, and controllable execution rather than broad catalogue presentation or generic trading language.",
+  },
+];
+
+const workflowSteps = [
+  {
+    step: "01",
+    t: "Supplier capability organization",
+    p: "Suppliers are organized by category, product fit, response quality, location, and execution feasibility before matching starts.",
+  },
+  {
+    step: "02",
+    t: "Inquiry structuring and product mapping",
+    p: "OEM numbers, product names, photos, vehicle references, and buyer notes are aligned to improve quotation clarity and reduce mismatch risk.",
+  },
+  {
+    step: "03",
+    t: "Quotation comparison",
+    p: "Supplier options can be compared on price, lead time, MOQ, packing, and supply stability, not price alone.",
+  },
+  {
+    step: "04",
+    t: "Execution after order confirmation",
+    p: "Once the order moves forward, we coordinate purchasing, production follow-up, packing checks, and shipment preparation.",
+  },
+  {
+    step: "05",
+    t: "Logistics and document consistency",
+    p: "Packing list, invoice data, labels, carton marks, and shipment-related files are checked for consistency to reduce avoidable issues.",
+  },
+  {
+    step: "06",
+    t: "Repeat-order support",
+    p: "A proven supply path becomes easier to repeat, standardize, and expand across future orders and mixed categories.",
+  },
+];
+
+const differenceCards = [
+  {
+    t: "Why Northern China matters",
+    p: "Being closer to Northern China supplier clusters improves response speed, factory screening relevance, and sourcing depth in many heavy-duty and commercial vehicle categories.",
+  },
+  {
+    t: "Why heavy-duty runs deeper",
+    p: "Heavy-duty truck parts remain the stronger area because the supplier base, product familiarity, and workflow experience are deeper there, while light- and medium-duty support remains part of the sourcing scope.",
+  },
+  {
+    t: "Why process matters",
+    p: "A sourcing decision is only useful if it holds through quotation, production, packing, documents, and shipment. That is why the process is managed end to end.",
+  },
+  {
+    t: "Why buyers stay",
+    p: "The goal is to create a sourcing path that becomes easier to repeat, check, and expand over time instead of restarting from zero on each RFQ.",
+  },
+];
+
+const whatWeSupport = [
+  {
+    t: "Brake system",
+    p: "Brake pads, brake drums, calipers, chambers, valves, repair kits, and related aftermarket components depending on scope.",
+  },
+  {
+    t: "Chassis & suspension",
+    p: "Torque rods, stabilizer parts, bushings, hub-related parts, bearings, suspension hardware, and related categories.",
+  },
+  {
+    t: "Steering / drivetrain",
+    p: "Selected steering and drivetrain-related aftermarket parts based on market demand and supplier capability.",
+  },
+  {
+    t: "Electrical / body / mixed SKUs",
+    p: "Lights, mirrors, wiring consumables, and selected body or electrical items where consolidation matters.",
+  },
+];
+
+const buyerTypes = [
+  {
+    t: "Distributors",
+    p: "Buyers looking for stable commercial vehicle parts supply with clearer execution and repeat-order potential.",
+  },
+  {
+    t: "Aftermarket wholesalers",
+    p: "Importers managing mixed categories who need cleaner quotation handling and consolidation support.",
+  },
+  {
+    t: "Fleet-related buyers",
+    p: "Buyers who value fitment clarity, delivery predictability, and fewer after-sales disputes.",
+  },
+  {
+    t: "Growth-stage importers",
+    p: "Companies that need sourcing structure and execution discipline, not just scattered supplier quotes.",
+  },
+];
+
+const founderMindset = [
+  {
+    t: "Audit to sourcing mindset",
+    p: "The founder's audit background shaped a process-first way of working: review the facts, clarify the scope, compare options, and control the points where mistakes usually happen.",
+  },
+  {
+    t: "Control before assumption",
+    p: "That mindset carries into sourcing through requirement clarification, document checks, and quotation review before an order is pushed forward.",
+  },
+  {
+    t: "Built for credible execution",
+    p: "The aim is not to look bigger than reality. It is to run a sourcing model that stays clear, credible, and scalable as RFQ volume grows.",
+  },
+];
+
+const principles = [
+  {
+    tag: "Clarity",
+    t: "Clear inputs lead to clearer execution",
+    p: "We standardize RFQ inputs before quotation and order execution begin.",
+  },
+  {
+    tag: "Evidence",
+    t: "QC evidence before shipment",
+    p: "Photo/video records, packing checks, and label verification help reduce avoidable disputes.",
+  },
+  {
+    tag: "Trace",
+    t: "Traceability in documentation",
+    p: "PI / CI / PL consistency and carton mark alignment improve customs and payment flow.",
+  },
+  {
+    tag: "Repeat",
+    t: "Built for repeat orders",
+    p: "We optimize around stable suppliers, repeatable workflow, and scalable execution.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Do you need OEM / part numbers?",
+    a: "OEM or part numbers are ideal, but photos, dimensions, vehicle references, and usage scenarios can also help us structure the inquiry.",
+  },
+  {
+    q: "Can you support mixed-SKU orders?",
+    a: "Yes. Mixed-SKU consolidation is one of the areas where a structured sourcing workflow becomes especially useful.",
+  },
+  {
+    q: "Do you only work with one supplier?",
+    a: "Not necessarily. Depending on the order, we may compare multiple supplier options for stability, price, lead time, and packaging suitability.",
+  },
+  {
+    q: "What kind of buyers do you usually support?",
+    a: "Typically distributors, importers, wholesalers, and fleet-related buyers who value stable supply and cleaner execution.",
+  },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About CertiRun",
+    description:
+      "CertiRun is a commercial vehicle parts sourcing partner built around an audit-minded sourcing approach, Northern China supplier access, and structured risk control.",
+    url: "https://certirun.com/about/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certirun.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About",
+        item: "https://certirun.com/about/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="About CertiRun | Commercial Vehicle Parts Sourcing Partner"
+  description="About CertiRun, a commercial vehicle aftermarket sourcing partner covering light-, medium-, and heavy-duty trucks with stronger depth in heavy-duty systems."
+  keywords={["commercial vehicle parts sourcing partner", "heavy duty truck parts", "commercial vehicle aftermarket China", "RFQ sourcing China", "supplier comparison truck parts"]}
+  canonical="/about/"
+  ogImage="/images/hebei-industrial-park-aerial.jpg"
+  jsonLd={jsonLd}
+>
+  <style>
+    :root{
+      --bg:#eef3f7;
+      --text:#1d2a36;
+      --muted:#5f6d86;
+      --line:rgba(29,42,54,.10);
+      --brand:#3957E9;
+      --brand2:#3957E9;
+    }
+
+    :global(main){
+      background:transparent;
+    }
+
+    :global(.topbar){
+      background:#111F43 !important;
+      background-color:#111F43 !important;
+      opacity:1 !important;
+      backdrop-filter:none !important;
+      -webkit-backdrop-filter:none !important;
+      border-bottom:1px solid #111F43 !important;
+      box-shadow:none !important;
+    }
+
+    :global(.menu){
+      color:#fff;
+    }
+
+    :global(.menu a){
+      color:#fff;
+    }
+
+    :global(.menu a:hover){
+      color:#fff;
+    }
+
+    :global(.menu a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.drawerNav a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.cta){
+      background:#3957E9;
+      color:#fff;
+    }
+
+    .pageHero{
+      position:relative;
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+      isolation:isolate;
+      background:
+        linear-gradient(180deg, rgba(11,16,32,.34) 0%, rgba(11,16,32,.82) 72%, rgba(11,16,32,1) 100%),
+        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%),
+        #0b1020;
+    }
+
+    .heroInner{
+      position:relative;
+      padding-top:2px;
+      padding-bottom:22px;
+    }
+
+    .contentSection{
+      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+    }
+
+    .kicker{
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.8rem;
+      opacity:.82;
+      margin:0 0 .75rem;
+      color:rgba(255,255,255,.82);
+    }
+
+    .title{
+      margin:0 0 .8rem;
+      font-size:40px;
+      letter-spacing:-.4px;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .sub{
+      margin:0;
+      max-width:78ch;
+      color:rgba(225,233,255,.86);
+      line-height:1.75;
+    }
+
+    .contentWrap{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .sectionTitle{
+      font-size: 24px;
+      margin: 0 0 10px;
+      letter-spacing: -.2px;
+      color:#1d2a36;
+    }
+
+    .sectionDesc{
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 980px;
+    }
+
+    .grid3{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .grid2{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .imgGrid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .imgCard{
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      height: 250px;
+    }
+
+    .imgCard img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.02);
+      transform: scale(1.02);
+    }
+
+    .imgOverlay{
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 14px 12px;
+      background: linear-gradient(to top, rgba(6,16,42,.9), rgba(6,16,42,.14));
+    }
+
+    .imgTag{
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(17,26,51,.62);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+    }
+
+    .imgTitle{
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.15px;
+      color: rgba(234,240,255,.98);
+    }
+
+    .imgDesc{
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(234,240,255,.82);
+      max-width: 520px;
+    }
+
+    .brandStrip{
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brandChip{
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .1px;
+    }
+
+    .card{
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+    .card b{
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 900;
+      color: #1d2a36;
+    }
+
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .workflowGrid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .workflowCard{
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(29,42,54,.10);
+      align-items: flex-start;
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+    .stepNo{
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 950;
+      font-size: 14px;
+      background: rgba(74,84,98,.08);
+      border: 1px solid rgba(74,84,98,.18);
+      color: #4A5462;
+    }
+
+    .workflowTitle{
+      margin: 2px 0 6px;
+      font-size: 16px;
+      font-weight: 950;
+      color: #1d2a36;
+    }
+
+    .workflowText{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .row{
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+    .badge{
+      flex: 0 0 auto;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(74,84,98,.08);
+      border: 1px solid rgba(74,84,98,.16);
+      color: #4A5462;
+      font-weight: 900;
+      margin-top: 2px;
+    }
+
+    .rt{
+      font-weight: 950;
+      margin-bottom: 6px;
+      color: #1d2a36;
+    }
+
+    .rp{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    details{
+      background: #fff;
+      border: 1px solid rgba(29,42,54,.10);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+    summary{
+      cursor: pointer;
+      font-weight: 900;
+      color: #1d2a36;
+    }
+
+    details p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .ctaBlock{
+      margin-top: 14px;
+      background: linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
+      border: 1px solid rgba(57,87,233,.16);
+      border-radius: 20px;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      box-shadow:0 16px 40px rgba(24,39,56,.05);
+    }
+
+    .ctaBlock .left b{
+      display: block;
+      margin-bottom: 6px;
+      color: #1d2a36;
+    }
+
+    .ctaBlock .left p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 760px;
+    }
+
+    .ctaBlock .btn.primary{
+      color:#fff;
+      background:#3957E9;
+    }
+
+    .ctaBlock .btn:not(.primary){
+      color:#fff;
+      background:#3957E9;
+      border-color:#3957E9;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid var(--site-line);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:rgba(234,240,255,.94);
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--site-muted);
+    }
+
+    :global(.footerNav a){
+      background:rgba(255,255,255,.03);
+      border-color:var(--site-line);
+    }
+
+    @media (max-width: 980px){
+      .heroInner{ padding-top:18px; padding-bottom:18px; }
+      .imgGrid{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
+      .workflowGrid{ grid-template-columns: 1fr; }
+      .ctaBlock{ flex-direction: column; align-items: flex-start; }
+      .imgCard{ height: 260px; }
+    }
+  </style>
+
+  <header class="pageHero">
+    <div class="contentWrap heroInner">
+      <p class="kicker">CertiRun / About</p>
+
+      <h1 class="title">
+        Why CertiRun Exists
+      </h1>
+
+      <p class="sub">
+        CertiRun was built to handle commercial vehicle aftermarket RFQs with more structure: clearer matching, better supplier comparison,
+        and steadier execution across light-, medium-, and heavy-duty trucks, with stronger depth in heavy-duty systems.
+      </p>
+
+      <div class="brandStrip">
+        {brandFocus.map((b) => (
+          <span class="brandChip">{b}</span>
+        ))}
+      </div>
+    </div>
+  </header>
+
+  <section class="contentSection">
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">Why This Business Exists</h2>
+        <p class="sectionDesc">
+          These three themes explain the logic behind CertiRun: why the market focus matters, why the supplier base matters, and why the workflow is built this way.
+        </p>
+
+        <div class="imgGrid">
+          {aboutHighlights.map((x) => (
+            <div class="imgCard">
+              <img
+                src={x.img}
+                alt={x.title}
+                loading="lazy"
+                decoding="async"
+                width={x.width}
+                height={x.height}
+              />
+              <div class="imgOverlay">
+                <div class="imgTag">{x.tag}</div>
+                <h3 class="imgTitle">{x.title}</h3>
+                <p class="imgDesc">{x.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+      <h2 class="sectionTitle">Market Focus</h2>
+      <p class="sectionDesc">
+        The focus is commercial vehicle aftermarket sourcing because this is where buyers need more than supplier contact details.
+        They need technical clarity, reliable execution, and a process that can hold up across repeat orders and mixed sourcing scenarios.
+      </p>
+
+      <div class="grid3">
+        {pillars.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">How The Approach Works</h2>
+        <p class="sectionDesc">
+          The sourcing model is built to run logically from RFQ intake through supplier comparison and execution control, not as a loose series of quotations.
+        </p>
+
+        <div class="workflowGrid">
+          {workflowSteps.map((x) => (
+            <div class="workflowCard">
+              <div class="stepNo">{x.step}</div>
+              <div>
+                <h3 class="workflowTitle">{x.t}</h3>
+                <p class="workflowText">{x.p}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">Why The Supplier Base Matters</h2>
+        <p class="sectionDesc">
+          Northern China matters because supplier access is not just about quantity. It affects category depth, response quality, and how efficiently RFQs can be screened and executed.
+        </p>
+
+        <div class="grid2">
+          {differenceCards.map((x) => (
+            <div class="card">
+              <b>{x.t}</b>
+              <p>{x.p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">Founder mindset</h2>
+        <p class="sectionDesc">
+          The founder background is not presented as a story for its own sake. It matters because it explains why the sourcing model is process-driven, review-oriented, and careful about risk points.
+        </p>
+
+        <div class="grid3">
+          {founderMindset.map((x) => (
+            <div class="card">
+              <b>{x.t}</b>
+              <p>{x.p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">What We Support</h2>
+        <p class="sectionDesc">
+          Coverage includes light-, medium-, and heavy-duty truck platforms, with deeper experience in heavy-duty systems and practical support for mixed RFQ requirements.
+        </p>
+
+        <div class="grid2">
+          {whatWeSupport.map((x) => (
+            <div class="card">
+              <b>{x.t}</b>
+              <p>{x.p}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="ctaBlock">
+          <div class="left">
+            <b>Need a clearer starting point?</b>
+            <p>
+              Send your OE numbers, part list, or product photos. We can structure the RFQ and suggest a sourcing path that fits the order scope and truck platform.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="/contact">Send RFQ</a>
+            <a class="btn" href="/capabilities">See Capabilities</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">Who We Work With</h2>
+        <p class="sectionDesc">
+          The model is best suited to buyers who value process clarity, supply stability, and repeatable execution more than broad marketing claims.
+        </p>
+
+        <div class="grid2">
+          {buyerTypes.map((x) => (
+            <div class="card">
+              <b>{x.t}</b>
+              <p>{x.p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">How We Think</h2>
+        <p class="sectionDesc">
+          The underlying logic is simple: clarify the RFQ, compare with discipline, control key risk points, and make the sourcing path easier to repeat.
+        </p>
+
+        <div class="grid2">
+          {principles.map((x) => (
+            <div class="row">
+              <div class="badge">{x.tag}</div>
+              <div>
+                <div class="rt">{x.t}</div>
+                <p class="rp">{x.p}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contentWrap">
+        <h2 class="sectionTitle">FAQ</h2>
+        <p class="sectionDesc">
+          Quick answers for buyers evaluating a commercial vehicle aftermarket sourcing partner in China.
+        </p>
+
+        <div class="grid2">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </section>
+</BaseLayout>

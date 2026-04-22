@@ -1,0 +1,86 @@
+---
+import PartInquiryPage from "../../../components/PartInquiryPage.astro";
+
+const painPoints = [
+  {
+    title: "Same part name, different specs",
+    desc: "Small differences in engine model, emission version, casting reference, or dimensions can make the quoted part unusable.",
+  },
+  {
+    title: "Quotes look cheap but do not match",
+    desc: "Without clear references, suppliers may quote different specs, materials, or quality levels for the same request.",
+  },
+  {
+    title: "Mixed items are hard to manage",
+    desc: "Rebuild and service items often come together, but the RFQ gets split and harder to compare as one scope.",
+  },
+];
+
+const matchingInputs = [
+  "OE number or part number",
+  "Engine model or vehicle details",
+  "Key dimensions or specs",
+  "Part photos",
+  "Quantity list and destination",
+];
+
+const processSteps = [
+  { title: "You send the details", desc: "Share the references you already have, including OE numbers, model details, specs, photos, or a parts list." },
+  { title: "We check specs and fitment first", desc: "We review the technical scope before quotation starts so suppliers are compared on the same basis." },
+  { title: "We compare workable suppliers", desc: "We line up suppliers on scope, quality level, execution, and follow-up instead of quoting blind." },
+  { title: "We move into inspection and shipping", desc: "After confirmation, we continue with QC, packing checks, documents, and shipment coordination." },
+];
+
+const whyWorkWithUs = [
+  {
+    title: "We check specs before quoting",
+    desc: "Engine parts are sensitive to model, configuration, and dimensions, so we confirm first and quote second.",
+  },
+  {
+    title: "We align suppliers on the same scope",
+    desc: "A quote only helps when the same references, quality level, and fitment basis are being compared.",
+  },
+  {
+    title: "We handle mixed engine demand",
+    desc: "From overhaul support to mixed replenishment, we help keep the inquiry under one clearer structure.",
+  },
+];
+
+const faq = [
+  { q: "Can I start without OE numbers?", a: "Yes. Engine model, dimensions, photos, or old samples can also work." },
+  { q: "Can you handle mixed engine parts in one order?", a: "Yes. We can organize multiple engine lines into one structured inquiry and shipment plan." },
+  { q: "Do you support inspection before shipment?", a: "Yes. We follow up on QC, packing checks, and shipment coordination." },
+];
+
+const relatedPaths = [
+  { title: "HOWO parts sourcing", desc: "For inquiries tied to a specific truck platform.", href: "/product/brand/howo/" },
+  { title: "Sinotruk parts sourcing", desc: "For brand-based matching and platform-specific parts support.", href: "/product/brand/sinotruk/" },
+  { title: "Gearbox and transmission parts", desc: "If the RFQ also includes drivetrain-side support.", href: "/product/part/clutch-and-transmission-parts/" },
+];
+
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "WebPage", name: "Engine Parts Sourcing from China", description: "Send your engine parts inquiry with OE numbers, specs, photos, or part lists and get clearer matching, workable quotes, and shipment follow-up.", url: "https://certirun.com/product/part/engine-parts/" },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: "https://certirun.com/" }, { "@type": "ListItem", position: 2, name: "Product", item: "https://certirun.com/product/" }, { "@type": "ListItem", position: 3, name: "Engine Parts", item: "https://certirun.com/product/part/engine-parts/" } ] },
+];
+---
+
+<PartInquiryPage
+  pageTitle="Send Your Engine Parts Inquiry | Clear Matching and Workable Quotes"
+  pageDescription="Send your engine parts inquiry with OE numbers, specs, photos, or part lists. CertiRun checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
+  keywords={["engine parts sourcing from China", "engine parts RFQ", "engine parts supplier China", "engine parts quote support", "engine parts inquiry"]}
+  canonical="/product/part/engine-parts/"
+  ogImage="/images/platform-library/engine/fallback/Engine heavy truck 2.png"
+  jsonLd={jsonLd}
+  systemLabel="Engine parts"
+  heroTitle="Send your engine parts inquiry and get clearer matching"
+  heroLead="Send OE numbers, engine model, dimensions, photos, or your parts list. We review the scope first, then move into quotation, inspection, and shipment follow-up."
+  primaryCtaLabel="Send Engine Inquiry"
+  painPointsHeading="Running into these issues when sourcing engine parts?"
+  painPoints={painPoints}
+  matchingInputs={matchingInputs}
+  processSteps={processSteps}
+  whyWorkWithUsHeading="Why buyers use us for engine parts inquiries"
+  whyWorkWithUs={whyWorkWithUs}
+  faq={faq}
+  relatedPaths={relatedPaths}
+/>

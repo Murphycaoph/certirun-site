@@ -1,0 +1,366 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const steps = [
+  {
+    n: "1",
+    t: "Submit RFQ",
+    p: "Share OEM or part numbers, vehicle brand and model, photos, quantity, destination, and packaging requirements.",
+  },
+  {
+    n: "2",
+    t: "Technical matching",
+    p: "We check OE references, EPC logic, vehicle application, and visible specifications before sourcing starts.",
+  },
+  {
+    n: "3",
+    t: "Supplier sourcing & comparison",
+    p: "We screen suitable suppliers, compare capability, lead time, price level, and known risk points instead of forwarding a single quote.",
+  },
+  {
+    n: "4",
+    t: "Quotation consolidation",
+    p: "Comparable quotations are organized into a clearer RFQ response so you can review pricing, terms, and sourcing differences faster.",
+  },
+  {
+    n: "5",
+    t: "Order execution & delivery",
+    p: "After confirmation, we manage QC checkpoints, packing checks, document review, consolidation, shipment booking, and delivery follow-up.",
+  },
+];
+
+const needFromYou = [
+  { t: "Parts info", p: "OEM/part numbers or photos (photos are OK)." },
+  { t: "Vehicle coverage", p: "Brand/model/year if available (helps avoid mismatch)." },
+  { t: "Quantity", p: "Target order quantity or consolidation plan." },
+  { t: "Destination", p: "Country/port and preferred Incoterms if you have." },
+  { t: "Packaging", p: "Carton marks, label/barcode, private label needs." },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to source truck parts from China",
+    description:
+      "Structured RFQ sourcing, technical matching, supplier comparison, quotation consolidation, and delivery coordination for commercial vehicle aftermarket buyers.",
+    step: steps.map((step) => ({
+      "@type": "HowToStep",
+      name: step.t,
+      text: step.p,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certirun.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "How It Works",
+        item: "https://certirun.com/how-it-works/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="How to Source Truck Parts from China | CertiRun Workflow"
+  description="Learn the CertiRun workflow from RFQ submission and technical matching to supplier comparison, quotation review, and delivery coordination."
+  keywords={["how to source truck parts from China", "truck parts sourcing workflow", "import truck parts from China", "OEM part number RFQ", "truck parts export process"]}
+  canonical="/how-it-works/"
+  ogImage="/images/shipping-documents-export-paperwork.jpg"
+  jsonLd={jsonLd}
+>
+  <style>
+    :root{
+      --bg:#eef3f7;
+      --text:#1d2a36;
+      --muted:#5f6d86;
+      --line:rgba(29,42,54,.10);
+      --brand:#3957E9;
+      --brand2:#3957E9;
+    }
+
+    :global(main){
+      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+    }
+
+    :global(.topbar){
+      background:#111F43 !important;
+      background-color:#111F43 !important;
+      opacity:1 !important;
+      backdrop-filter:none !important;
+      -webkit-backdrop-filter:none !important;
+      border-bottom:1px solid #111F43 !important;
+      box-shadow:none !important;
+    }
+
+    :global(.menu){
+      color:#fff;
+    }
+
+    :global(.menu a){
+      color:#fff;
+    }
+
+    :global(.menu a:hover){
+      color:#fff;
+    }
+
+    :global(.menu a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.drawerNav a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.cta){
+      background:#3957E9;
+      color:#fff;
+    }
+
+    /* ===== HERO (Insights-style) ===== */
+    .hero{
+      position:relative;
+      padding:46px 0 20px;
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+      isolation:isolate;
+      background:#0b1020;
+    }
+
+    .heroBg{
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:
+        url("/images/shipping-documents-export-paperwork.jpg") center/cover no-repeat;
+      /* 关键：浅浅模�?+ 稍微压一下对�?饱和，让标题更稳 */
+      filter: blur(2.0px) saturate(.95) contrast(.95) brightness(.92);
+      transform: scale(1.03); /* 防止 blur 露边 */
+    }
+
+    /* 遮罩：保证白色标题可�?*/
+    .overlay{
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(180deg, rgba(11,16,32,.28) 0%, rgba(11,16,32,.86) 72%, rgba(11,16,32,1) 100%),
+        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%);
+    }
+
+    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;opacity:.82;margin:0 0 .75rem;color:rgba(255,255,255,.82)}
+    .title{margin:0 0 .8rem;font-size:40px;letter-spacing:-.4px;line-height:1.12;color:#fff}
+    .sub{margin:0;max-width:78ch;color:rgba(225,233,255,.86);line-height:1.75}
+
+    /* ===== BODY (keep your existing layout) ===== */
+    .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; color:#1d2a36; }
+    .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.7; max-width:980px; }
+
+    .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+
+    .step{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:16px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+    .num{
+      width:34px; height:34px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:950;
+      background:rgba(74,84,98,.08);
+      border:1px solid rgba(74,84,98,.18);
+      color:#4A5462;
+      flex:0 0 34px;
+      margin-top:2px;
+    }
+    .st{ font-weight:950; margin-bottom:6px; color:#1d2a36; }
+    .sp{ margin:0; color:var(--muted); line-height:1.7; }
+
+    .ctaBlock{
+      margin-top:12px;
+      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
+      border:1px solid rgba(57,87,233,.16);
+      border-radius:20px;
+      padding:18px;
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+      box-shadow:0 16px 40px rgba(24,39,56,.05);
+    }
+    .ctaBlock .left b{ display:block; margin-bottom:6px; color:#1d2a36; }
+    .ctaBlock .left p{ margin:0; color:var(--muted); line-height:1.7; max-width:760px; }
+
+    .ctaBlock .btn.primary{
+      color:#fff;
+      background:#3957E9;
+    }
+
+    .ctaBlock .btn:not(.primary){
+      color:#fff;
+      background:#3957E9;
+      border-color:#3957E9;
+    }
+
+    .mini{
+      margin-top:12px;
+      padding:14px;
+      border-radius:16px;
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+      color:var(--muted);
+      line-height:1.7;
+    }
+    .mini b{ color:#1d2a36; }
+
+    .card{
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+    .card b{
+      color:#1d2a36;
+    }
+
+    .card p{
+      color:var(--muted);
+    }
+
+    .grid3 .card a,
+    .grid2 .card a,
+    .mini a,
+    .section a:not(.btn):not(.postMore):not(.viewAll){
+      color:#1d2a36;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid rgba(29,42,54,.10);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--muted);
+    }
+
+    :global(.footerNav a){
+      background:#fff;
+      border-color:rgba(29,42,54,.10);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 980px){
+      .title{font-size:34px}
+      .grid2{ grid-template-columns:1fr; }
+      .grid3{ grid-template-columns:1fr; }
+      .ctaBlock{ flex-direction:column; align-items:flex-start; }
+    }
+
+    @media (max-width: 720px){
+      .heroBg{
+        filter: blur(2px) saturate(.95) contrast(.95) brightness(.92);
+        transform: scale(1.04);
+      }
+    }
+  </style>
+
+  <header class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <div class="container">
+      <p class="kicker">CertiRun / Process</p>
+      <h1 class="title">How to source truck parts from China</h1>
+      <p class="sub">
+        Learn the CertiRun workflow from RFQ submission and technical matching to supplier comparison, quotation review, and delivery coordination. Built for B2B buyers who need a clearer path from inquiry to shipment.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">Workflow</h2>
+      <p class="sectionDesc">
+        Each step follows a clear review logic so part matching, supplier selection, quotation review, and order execution stay controlled.
+      </p>
+      <p class="sectionDesc">
+        If you want the broader service logic behind this workflow, see our <a href="/sourcing">truck parts sourcing service</a>. If you want to review inspection, document, and coordination scope in more detail, see our <a href="/capabilities">quality control and sourcing support</a>.
+      </p>
+
+      <div class="grid2">
+        {steps.map((s) => (
+          <div class="step">
+            <div class="num">{s.n}</div>
+            <div>
+              <div class="st">{s.t}</div>
+              <p class="sp">{s.p}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="ctaBlock">
+        <div class="left">
+          <b>Ready to share your RFQ?</b>
+          <p>
+            Send OEM or part numbers, vehicle details, quantities, destination, and packaging requirements.
+            We will review the technical fit first, then return compared supplier options and a consolidated quotation.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="/contact">Send RFQ</a>
+          <a class="btn" href="/capabilities">See Capabilities</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What we need from you</h2>
+      <p class="sectionDesc">
+        The more complete the input, the faster the sourcing cycle and the lower the mismatch risk.
+      </p>
+      <p class="sectionDesc">
+        For buyers still evaluating suppliers or quotations before submitting an RFQ, start with <a href="/blog/how-to-identify-reliable-auto-parts-suppliers-in-china">how to identify reliable suppliers</a> and <a href="/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers">how to compare supplier quotations</a>.
+      </p>
+
+      <div class="grid3">
+        {needFromYou.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mini">
+        <b>Tip:</b> If you only have photos, an old supplier sheet, or OEM and part numbers, send them anyway.
+        For repeat orders, we can standardize your RFQ template and packaging marks.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

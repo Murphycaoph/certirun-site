@@ -1,0 +1,516 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Contacts
+const CONTACT_EMAIL = "murphy@certispares.com";
+const LOCATION = "Beijing / Hebei, China";
+
+// WhatsApp / Facebook
+const WHATSAPP_E164 = "8615633022618"; // digits only: country code + number
+const WHATSAPP_DISPLAY = "+86 156 3302 2618";
+const WHATSAPP_URL =
+  `https://wa.me/${WHATSAPP_E164}?text=Hello%20CertiRun,%20I%20want%20to%20request%20a%20parts%20quotation.`;
+
+// Facebook profile/page URL (public)
+const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61585722976089";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Send an RFQ or Business Inquiry",
+    description:
+      "Contact CertiRun with an RFQ or business inquiry using OE numbers, vehicle model, quantity, destination, and related files.",
+    url: "https://certirun.com/contact/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "CertiRun",
+    url: "https://certirun.com/",
+    email: CONTACT_EMAIL,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Beijing / Hebei",
+      addressCountry: "CN",
+    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: CONTACT_EMAIL,
+        telephone: "+86 156 3302 2618",
+        availableLanguage: ["en"],
+      },
+    ],
+    sameAs: [FACEBOOK_URL],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certirun.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact",
+        item: "https://certirun.com/contact/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Send RFQ or Business Inquiry | CertiRun"
+  description="Send your RFQ with OE numbers, vehicle model, quantities, and destination. Contact CertiRun for commercial vehicle parts sourcing from China."
+  keywords={["send RFQ truck parts", "commercial vehicle parts inquiry", "OEM truck parts RFQ", "heavy duty truck parts RFQ", "business inquiry China sourcing"]}
+  canonical="/contact/"
+  ogImage="/images/china-industrial-warehouse.jpg"
+  jsonLd={jsonLd}
+>
+  <style>
+    :root{
+      --bg:#eef3f7;
+      --text:#1d2a36;
+      --muted:#5f6d86;
+      --line:rgba(29,42,54,.10);
+      --brand:#3957E9;
+      --brand2:#3957E9;
+    }
+
+    :global(main){
+      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+    }
+
+    :global(.topbar){
+      background:#111F43 !important;
+      background-color:#111F43 !important;
+      opacity:1 !important;
+      backdrop-filter:none !important;
+      -webkit-backdrop-filter:none !important;
+      border-bottom:1px solid #111F43 !important;
+      box-shadow:none !important;
+    }
+
+    :global(.menu){
+      color:#fff;
+    }
+
+    :global(.menu a){
+      color:#fff;
+    }
+
+    :global(.menu a:hover){
+      color:#fff;
+    }
+
+    :global(.menu a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.drawerNav a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.cta){
+      background:#3957E9;
+      color:#fff;
+    }
+
+    .pageHero{
+      position:relative;
+      padding:46px 0 20px;
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+      isolation:isolate;
+      background:
+        linear-gradient(180deg, rgba(11,16,32,.34) 0%, rgba(11,16,32,.82) 72%, rgba(11,16,32,1) 100%),
+        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%),
+        #0b1020;
+    }
+
+    .kicker{
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.8rem;
+      opacity:.82;
+      margin:0 0 .75rem;
+      color:rgba(255,255,255,.82);
+    }
+
+    .title{
+      margin:0 0 .8rem;
+      font-size:40px;
+      letter-spacing:-.4px;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .sub{
+      margin:0;
+      max-width:78ch;
+      color:rgba(225,233,255,.86);
+      line-height:1.75;
+    }
+
+    /* --- narrow container: FIX width issue --- */
+    .contentWrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    .card{
+      padding:18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+    .card h2{ margin:0 0 10px; font-size:18px; letter-spacing:-.2px; color:#1d2a36; }
+    .muted{ color:var(--muted); }
+
+    .infoList{ display:grid; gap:12px; margin-top:14px; }
+    .infoItem{
+      padding:14px;
+      border-radius:16px;
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+    }
+    .infoItem b{ display:block; margin-bottom:6px; color:#1d2a36; }
+
+    form{ display:grid; gap:12px; }
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    label{ display:grid; gap:8px; font-weight:850; color:#1d2a36; }
+
+    input, textarea, select{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(29,42,54,.12);
+      background:#fff;
+      color:var(--text);
+      padding:12px 12px;
+      outline:none;
+      font: inherit;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    input:focus, textarea:focus, select:focus{
+      border-color:rgba(57,87,233,.45);
+      box-shadow:0 0 0 4px rgba(57,87,233,.10);
+    }
+
+    .row2 > label{ min-width: 0; }
+
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder{
+      color: rgba(95,109,134,.72);
+    }
+
+    .hint{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.5;
+      margin-top:-6px;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .note{
+      margin-top:12px;
+      padding:14px;
+      border-radius:16px;
+      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
+      border:1px solid rgba(57,87,233,.16);
+      color:var(--muted);
+      line-height:1.7;
+      box-shadow:0 16px 40px rgba(24,39,56,.05);
+    }
+    .note b{ color:#1d2a36; }
+
+    .linkPill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(29,42,54,.10);
+      background:#fff;
+      color:#1d2a36;
+      text-decoration:none;
+    }
+
+    .btnRow .btn.primary{
+      color:#fff;
+      background:#3957E9;
+    }
+
+    .btnRow .btn:not(.primary){
+      color:#fff;
+      background:#3957E9;
+      border-color:#3957E9;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid rgba(29,42,54,.10);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--muted);
+    }
+
+    :global(.footerNav a){
+      background:#fff;
+      border-color:rgba(29,42,54,.10);
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:1fr; }
+      .row2{ grid-template-columns:1fr; }
+    }
+  </style>
+
+  <header class="pageHero">
+    <div class="contentWrap">
+      <p class="kicker">CertiRun / Contact</p>
+
+      <h1 class="title">Send Your Truck Parts RFQ</h1>
+
+      <p class="sub">
+        Send your RFQ with OE or part numbers, vehicle model, quantity, and destination. If available, include photos,
+        part lists, or packaging notes. We usually reply within 24-48 hours with follow-up questions or the next sourcing step.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="contentWrap">
+      <div class="grid">
+        <!-- Left: contact info -->
+        <div class="card">
+          <h2>How to Contact Effectively</h2>
+          <p class="muted" style="line-height:1.7;">
+            For the fastest handling, send the key RFQ details first: OE number, vehicle model, quantity, and destination.
+            We usually respond within 24-48 hours. For urgent communication, WhatsApp is faster than email.
+          </p>
+          <p class="muted" style="line-height:1.7;">
+            If you want to understand the workflow before sending an inquiry, review <a href="/how-it-works">how the process works</a>. If you are still comparing service scope, see our <a href="/sourcing">truck parts sourcing service</a> and <a href="/capabilities">quality control and sourcing support</a>.
+          </p>
+
+          <div class="infoList">
+            <div class="infoItem">
+              <b>Email</b>
+              <div class="muted">
+                <a class="linkPill" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+                <div style="margin-top:8px;">Best for RFQ files, part lists, and detailed business inquiries.</div>
+              </div>
+            </div>
+
+            <div class="infoItem">
+              <b>WhatsApp</b>
+              <div class="muted">
+                <a class="linkPill" href={WHATSAPP_URL} target="_blank" rel="noopener">
+                  Chat on WhatsApp ({WHATSAPP_DISPLAY})
+                </a>
+                <div style="margin-top:8px;">Best for faster follow-up, photos, quick clarification, and urgent RFQs.</div>
+              </div>
+            </div>
+
+            <div class="infoItem">
+              <b>Facebook</b>
+              <div class="muted">
+                <a class="linkPill" href={FACEBOOK_URL} target="_blank" rel="noopener">
+                  Visit our Facebook
+                </a>
+              </div>
+            </div>
+
+            <div class="infoItem">
+              <b>Location</b>
+              <div class="muted">{LOCATION}</div>
+            </div>
+          </div>
+
+          <div class="note">
+            <b>What to send:</b> OE or part numbers, vehicle brand/model, quantity, destination, and any photo, drawing, or packaging requirement you already have.
+          </div>
+        </div>
+
+        <!-- Right: RFQ form (Netlify Forms) -->
+        <div class="card">
+          <h2>RFQ Submission Form</h2>
+          <p class="muted" style="margin-bottom:14px; line-height:1.7;">
+            Submit the form here if you want us to review the RFQ directly. No account or email client is needed.
+          </p>
+          <p class="muted" style="margin-bottom:14px; line-height:1.7;">
+            If you are still validating suppliers or quotations before submitting, start with <a href="/blog/how-to-identify-reliable-auto-parts-suppliers-in-china">our supplier screening guide</a> and <a href="/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers">quotation comparison guide</a>.
+          </p>
+
+          <form
+            name="rfq"
+            method="POST"
+            action="/thank-you"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            enctype="multipart/form-data"
+          >
+            <!-- Required by Netlify -->
+            <input type="hidden" name="form-name" value="rfq" />
+
+            <!-- âœ?Force redirect after successful submission (most reliable) -->
+            <input type="hidden" name="redirect" value="https://certirun.com/thank-you/" />
+
+            <!-- Honeypot field (hidden from humans, visible to bots) -->
+            <p style="display:none">
+              <label>Don't fill this out: <input name="bot-field" /></label>
+            </p>
+
+            <div class="row2">
+              <label>
+                Name
+                <input name="name" placeholder="Your name" required />
+              </label>
+              <label>
+                Company
+                <input name="company" placeholder="Company name" />
+              </label>
+            </div>
+
+            <div class="row2">
+              <label>
+                Email
+                <input name="email" type="email" placeholder="you@company.com" required />
+              </label>
+              <label>
+                Destination
+                <input name="destination" placeholder="Country / Port (e.g., Mombasa)" />
+              </label>
+            </div>
+
+            <div class="row2">
+              <label>
+                Parts info type
+                <select name="infoType">
+                  <option value="OEM/Part Numbers">OEM/Part Numbers</option>
+                  <option value="Photos Only">Photos Only</option>
+                  <option value="Mixed">Mixed</option>
+                </select>
+              </label>
+              <label>
+                Target quantity
+                <input name="qty" placeholder="e.g., 500 pcs / 1 pallet" />
+              </label>
+            </div>
+
+            <label>
+              Parts list (OEM/brand/model or description)
+              <textarea
+                name="parts"
+                placeholder="Example:
+- OEM: XXXXX, Qty: 200
+- Brake pads for XXX truck model, Qty: 300"
+              ></textarea>
+            </label>
+
+            <label>
+              Attach files (optional)
+              <input
+                type="file"
+                name="files"
+                multiple
+                accept=".xlsx,.xls,.pdf,.png,.jpg,.jpeg"
+              />
+            </label>
+            <div class="hint">
+              Supported formats: Excel, PDF, PNG, JPG. Multiple files allowed.
+            </div>
+
+            <label>
+              Packaging / labeling requirements (optional)
+              <textarea name="pack" placeholder="Carton marks, private label, barcode, pallet type, etc."></textarea>
+            </label>
+
+            <label>
+              Notes (optional)
+              <textarea name="notes" placeholder="Target price level, lead time expectations, competitor references, etc."></textarea>
+            </label>
+
+            <div class="btnRow">
+              <button class="btn primary" type="submit">Submit RFQ</button>
+              <a class="btn" href="/how-it-works">See Workflow</a>
+              <a class="btn" href="/capabilities">Capabilities</a>
+            </div>
+
+            <div class="note">
+              <b>Minimum needed:</b> OE or part numbers, vehicle model or photos, quantity, destination port or country.
+              <br />
+              <b>Helpful extras:</b> full part list, packaging requirements, target lead time, and any reference supplier data.
+            </div>
+          </form>
+
+          <!-- Optional: light click tracking for WhatsApp / Facebook -->
+          <script>
+            (function(){
+              // Outbound click tracking (WhatsApp / Facebook)
+              document.addEventListener("click", (e) => {
+                const a = e.target?.closest?.("a");
+                if (!a) return;
+
+                const href = a.getAttribute("href") || "";
+                const isWhatsApp = href.includes("wa.me") || href.includes("whatsapp");
+                const isFacebook = href.includes("facebook.com");
+
+                try {
+                  if (typeof gtag === "function" && (isWhatsApp || isFacebook)) {
+                    gtag("event", "outbound_click", {
+                      event_category: "engagement",
+                      link_url: href,
+                      link_type: isWhatsApp ? "whatsapp" : "facebook",
+                      page_location: window.location.href,
+                    });
+                  }
+                } catch (err) {}
+              });
+            })();
+          </script>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

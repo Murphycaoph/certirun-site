@@ -1,0 +1,42 @@
+<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="760" rx="28" fill="#F7FAFD"/>
+  <rect x="36" y="36" width="1208" height="688" rx="24" fill="white" stroke="#D9E3EE"/>
+  <text x="72" y="96" fill="#111F43" font-family="Arial, sans-serif" font-size="30" font-weight="700">Illustrative Inventory Efficiency Comparison</text>
+  <text x="72" y="132" fill="#5F6D86" font-family="Arial, sans-serif" font-size="17">Distributor A model comparing concentrated buying with a balanced multi-SKU replenishment approach.</text>
+
+  <rect x="84" y="186" width="544" height="468" rx="20" fill="#FBFDFF" stroke="#E1E9F2"/>
+  <text x="120" y="232" fill="#111F43" font-family="Arial, sans-serif" font-size="24" font-weight="700">Inventory Turnover</text>
+  <line x1="120" y1="566" x2="580" y2="566" stroke="#D9E3EE" stroke-width="2"/>
+  <rect x="196" y="416" width="104" height="150" rx="14" fill="#A9BFF8"/>
+  <rect x="404" y="266" width="104" height="300" rx="14" fill="#3957E9"/>
+  <text x="218" y="400" fill="#111F43" font-family="Arial, sans-serif" font-size="18" font-weight="700">1.5x</text>
+  <text x="426" y="250" fill="#3957E9" font-family="Arial, sans-serif" font-size="18" font-weight="700">3.0x</text>
+  <text x="160" y="606" fill="#111F43" font-family="Arial, sans-serif" font-size="18" font-weight="700">Concentrated</text>
+  <text x="390" y="606" fill="#111F43" font-family="Arial, sans-serif" font-size="18" font-weight="700">Balanced</text>
+  <text x="146" y="630" fill="#5F6D86" font-family="Arial, sans-serif" font-size="15">3-SKU buying pattern</text>
+  <text x="392" y="630" fill="#5F6D86" font-family="Arial, sans-serif" font-size="15">12-SKU replenishment model</text>
+
+  <rect x="652" y="186" width="500" height="468" rx="20" fill="#FBFDFF" stroke="#E1E9F2"/>
+  <text x="688" y="232" fill="#111F43" font-family="Arial, sans-serif" font-size="24" font-weight="700">DIO and GMROI</text>
+  <text x="688" y="286" fill="#5F6D86" font-family="Arial, sans-serif" font-size="17">Days inventory outstanding</text>
+  <text x="688" y="316" fill="#314156" font-family="Arial, sans-serif" font-size="15">Concentrated buying</text>
+  <rect x="688" y="330" width="356" height="20" rx="10" fill="#EEF3F7"/>
+  <rect x="688" y="330" width="318" height="20" rx="10" fill="#A9BFF8"/>
+  <text x="1058" y="346" fill="#111F43" font-family="Arial, sans-serif" font-size="16" font-weight="700">243 days</text>
+
+  <text x="688" y="388" fill="#314156" font-family="Arial, sans-serif" font-size="15">Balanced sourcing</text>
+  <rect x="688" y="402" width="356" height="20" rx="10" fill="#EEF3F7"/>
+  <rect x="688" y="402" width="178" height="20" rx="10" fill="#3957E9"/>
+  <text x="880" y="418" fill="#3957E9" font-family="Arial, sans-serif" font-size="16" font-weight="700">122 days</text>
+
+  <text x="688" y="488" fill="#5F6D86" font-family="Arial, sans-serif" font-size="17">GMROI</text>
+  <text x="688" y="518" fill="#314156" font-family="Arial, sans-serif" font-size="15">Concentrated buying</text>
+  <rect x="688" y="532" width="356" height="20" rx="10" fill="#EEF3F7"/>
+  <rect x="688" y="532" width="178" height="20" rx="10" fill="#A9BFF8"/>
+  <text x="880" y="548" fill="#111F43" font-family="Arial, sans-serif" font-size="16" font-weight="700">0.5x</text>
+
+  <text x="688" y="590" fill="#314156" font-family="Arial, sans-serif" font-size="15">Balanced sourcing</text>
+  <rect x="688" y="604" width="356" height="20" rx="10" fill="#EEF3F7"/>
+  <rect x="688" y="604" width="356" height="20" rx="10" fill="#3957E9"/>
+  <text x="1058" y="620" fill="#3957E9" font-family="Arial, sans-serif" font-size="16" font-weight="700">1.0x</text>
+</svg>

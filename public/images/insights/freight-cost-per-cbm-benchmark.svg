@@ -1,0 +1,50 @@
+<svg width="1280" height="800" viewBox="0 0 1280 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="800" rx="28" fill="#F7FAFD"/>
+  <rect x="36" y="36" width="1208" height="728" rx="24" fill="white" stroke="#D9E3EE"/>
+
+  <text x="72" y="96" fill="#111F43" font-family="Arial, sans-serif" font-size="28" font-weight="700">Indicative Freight Cost per CBM at 50% vs 100% Container Loading</text>
+  <text x="72" y="132" fill="#5F6D86" font-family="Arial, sans-serif" font-size="17">Benchmark view based on April 2026 public lane references and a normalized 20GP volume model.</text>
+
+  <rect x="72" y="160" width="18" height="18" rx="5" fill="#A9BFF8"/>
+  <text x="102" y="174" fill="#314156" font-family="Arial, sans-serif" font-size="16">50% load</text>
+  <rect x="208" y="160" width="18" height="18" rx="5" fill="#3957E9"/>
+  <text x="238" y="174" fill="#314156" font-family="Arial, sans-serif" font-size="16">100% load</text>
+
+  <line x1="120" y1="630" x2="1140" y2="630" stroke="#D9E3EE" stroke-width="2"/>
+  <line x1="120" y1="570" x2="1140" y2="570" stroke="#EEF3F7" stroke-width="2"/>
+  <line x1="120" y1="510" x2="1140" y2="510" stroke="#EEF3F7" stroke-width="2"/>
+  <line x1="120" y1="450" x2="1140" y2="450" stroke="#EEF3F7" stroke-width="2"/>
+  <line x1="120" y1="390" x2="1140" y2="390" stroke="#EEF3F7" stroke-width="2"/>
+  <line x1="120" y1="330" x2="1140" y2="330" stroke="#EEF3F7" stroke-width="2"/>
+
+  <text x="72" y="636" fill="#5F6D86" font-family="Arial, sans-serif" font-size="16">0</text>
+  <text x="58" y="576" fill="#5F6D86" font-family="Arial, sans-serif" font-size="16">50</text>
+  <text x="50" y="516" fill="#5F6D86" font-family="Arial, sans-serif" font-size="16">100</text>
+  <text x="50" y="456" fill="#5F6D86" font-family="Arial, sans-serif" font-size="16">150</text>
+  <text x="50" y="396" fill="#5F6D86" font-family="Arial, sans-serif" font-size="16">200</text>
+  <text x="50" y="336" fill="#5F6D86" font-family="Arial, sans-serif" font-size="16">250</text>
+
+  <rect x="184" y="586" width="76" height="44" rx="12" fill="#A9BFF8"/>
+  <rect x="274" y="608" width="76" height="22" rx="11" fill="#3957E9"/>
+  <text x="187" y="576" fill="#111F43" font-family="Arial, sans-serif" font-size="17" font-weight="700">21.84</text>
+  <text x="279" y="600" fill="#3957E9" font-family="Arial, sans-serif" font-size="17" font-weight="700">10.92</text>
+  <text x="192" y="690" fill="#111F43" font-family="Arial, sans-serif" font-size="19" font-weight="700">Thailand</text>
+
+  <rect x="434" y="227" width="76" height="403" rx="12" fill="#A9BFF8"/>
+  <rect x="524" y="429" width="76" height="201" rx="12" fill="#3957E9"/>
+  <text x="430" y="215" fill="#111F43" font-family="Arial, sans-serif" font-size="17" font-weight="700">201.81</text>
+  <text x="522" y="417" fill="#3957E9" font-family="Arial, sans-serif" font-size="17" font-weight="700">100.90</text>
+  <text x="456" y="690" fill="#111F43" font-family="Arial, sans-serif" font-size="19" font-weight="700">Egypt</text>
+
+  <rect x="684" y="393" width="76" height="237" rx="12" fill="#A9BFF8"/>
+  <rect x="774" y="511" width="76" height="119" rx="12" fill="#3957E9"/>
+  <text x="679" y="381" fill="#111F43" font-family="Arial, sans-serif" font-size="17" font-weight="700">118.40</text>
+  <text x="777" y="500" fill="#3957E9" font-family="Arial, sans-serif" font-size="17" font-weight="700">59.20</text>
+  <text x="654" y="690" fill="#111F43" font-family="Arial, sans-serif" font-size="19" font-weight="700">Netherlands</text>
+
+  <rect x="934" y="383" width="76" height="247" rx="12" fill="#A9BFF8"/>
+  <rect x="1024" y="506" width="76" height="124" rx="12" fill="#3957E9"/>
+  <text x="930" y="371" fill="#111F43" font-family="Arial, sans-serif" font-size="17" font-weight="700">124.10</text>
+  <text x="1028" y="494" fill="#3957E9" font-family="Arial, sans-serif" font-size="17" font-weight="700">62.05</text>
+  <text x="960" y="690" fill="#111F43" font-family="Arial, sans-serif" font-size="19" font-weight="700">USA</text>
+</svg>

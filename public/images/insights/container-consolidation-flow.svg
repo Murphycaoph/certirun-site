@@ -1,0 +1,69 @@
+<svg width="1200" height="860" viewBox="0 0 1200 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="860" rx="24" fill="#FAFCFF"/>
+  <rect x="4" y="4" width="1192" height="852" rx="20" stroke="#D8E3F0"/>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#314156"/>
+    </marker>
+  </defs>
+
+  <!-- Row 1 -->
+  <rect x="86" y="80" width="220" height="114" rx="14" fill="#EEF1FF" stroke="#6A7CFF" stroke-width="2"/>
+  <text x="196" y="120" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">Supplier A</text>
+  <text x="196" y="150" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">SKU group 1</text>
+
+  <rect x="490" y="80" width="220" height="114" rx="14" fill="#EEF1FF" stroke="#6A7CFF" stroke-width="2"/>
+  <text x="600" y="120" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">Supplier B</text>
+  <text x="600" y="150" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">SKU group 2</text>
+
+  <rect x="894" y="80" width="220" height="114" rx="14" fill="#EEF1FF" stroke="#6A7CFF" stroke-width="2"/>
+  <text x="1004" y="120" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">Supplier C</text>
+  <text x="1004" y="150" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">SKU group 3</text>
+
+  <!-- Row 2 -->
+  <rect x="86" y="352" width="220" height="132" rx="14" fill="#E4EBFF" stroke="#3957E9" stroke-width="2.5"/>
+  <text x="196" y="408" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="19" font-weight="700">CertiRun</text>
+  <text x="196" y="438" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">coordination</text>
+
+  <rect x="490" y="352" width="220" height="132" rx="14" fill="#F6F8FC" stroke="#9F8EFF" stroke-width="1.8"/>
+  <text x="600" y="400" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">QC checkpoints</text>
+  <text x="600" y="430" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">sampling / packing /</text>
+  <text x="600" y="456" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">labeling</text>
+
+  <rect x="894" y="352" width="220" height="132" rx="14" fill="#F6F8FC" stroke="#9F8EFF" stroke-width="1.8"/>
+  <text x="1004" y="400" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">Consolidation warehouse</text>
+  <text x="1004" y="430" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">palletization /</text>
+  <text x="1004" y="456" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">staging</text>
+
+  <!-- Row 3 -->
+  <rect x="86" y="624" width="220" height="150" rx="14" fill="#EEF1FF" stroke="#6A7CFF" stroke-width="2"/>
+  <text x="196" y="676" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">Distributor A</text>
+  <text x="196" y="708" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">balanced inventory and</text>
+  <text x="196" y="734" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">reorder plan</text>
+
+  <rect x="490" y="624" width="220" height="150" rx="14" fill="#F6F8FC" stroke="#9F8EFF" stroke-width="1.8"/>
+  <text x="600" y="676" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">FCL shipment</text>
+  <text x="600" y="708" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">one container /</text>
+  <text x="600" y="734" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">one set of docs</text>
+
+  <rect x="894" y="624" width="220" height="150" rx="14" fill="#EEF1FF" stroke="#6A7CFF" stroke-width="2"/>
+  <text x="1004" y="668" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">Container</text>
+  <text x="1004" y="696" text-anchor="middle" fill="#14274F" font-family="Arial, sans-serif" font-size="18" font-weight="700">stuffing plan</text>
+  <text x="1004" y="726" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">optimize CBM</text>
+  <text x="1004" y="752" text-anchor="middle" fill="#314156" font-family="Arial, sans-serif" font-size="16">and SKU mix</text>
+
+  <!-- Supplier merge lines -->
+  <path d="M196 194V270" stroke="#314156" stroke-width="2.5" fill="none"/>
+  <path d="M600 194V270" stroke="#314156" stroke-width="2.5" fill="none"/>
+  <path d="M1004 194V270" stroke="#314156" stroke-width="2.5" fill="none"/>
+  <path d="M196 270H1004" stroke="#314156" stroke-width="2.5" fill="none"/>
+  <path d="M196 270V352" stroke="#314156" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Main flow -->
+  <path d="M306 418H490" stroke="#314156" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M710 418H894" stroke="#314156" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M1004 484V624" stroke="#314156" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M894 699H710" stroke="#314156" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M490 699H306" stroke="#314156" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+</svg>
