@@ -1,0 +1,539 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { supportSteps } from "../data/industryPages";
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={`${page.title} | CertiRun`} description={page.description} canonical={page.canonical}>
+  <section class="subpageHero industryHero">
+    <div class="container wide industryHeroInner">
+      <div class="industryHeroCopy">
+        <p class="eyebrow">{page.breadcrumb}</p>
+        <h1>{page.h1}</h1>
+        <p class="lead">{page.subtitle}</p>
+        <div class="heroActions">
+          <a class="heroButton primary" href="/contact/">Send RFQ</a>
+          <a class="heroButton ghost" href="/how-it-works/">How Our Sourcing Works</a>
+        </div>
+      </div>
+
+      <figure class="heroMedia">
+        <img src={page.media.src} alt={page.media.alt} loading="eager" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <div class="industryPage">
+    <section class="industrySection productScope">
+      <div class="container wide">
+        <div class="sectionHeaderRow">
+          <div>
+            <p class="industryBadge">What We Help Source</p>
+            <h2>Product scope we can organize</h2>
+          </div>
+          <p>{page.positioning}</p>
+        </div>
+
+        <div class="scopeGrid">
+          {page.productScope.map((item, index) => (
+            <article class="scopeCard">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item}</h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="industrySection requestsSection">
+      <div class="container wide requestGrid">
+        <div class="requestCopy">
+          <p class="industryBadge">Typical Buyer Requests</p>
+          <h2>Built around real purchasing problems</h2>
+          <p>
+            These pages are not product catalogs. They are designed for buyers who need
+            China-side sourcing, verification, consolidation, and delivery coordination before
+            committing to an order.
+          </p>
+        </div>
+
+        <div class="requestList">
+          {page.buyerRequests.map((item) => (
+            <div class="checkRow">
+              <span aria-hidden="true">✓</span>
+              <p>{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="industrySection supportSection">
+      <div class="container wide">
+        <div class="sectionHeaderCompact">
+          <p class="industryBadge">How We Support</p>
+          <h2>{page.supportTitle}</h2>
+        </div>
+
+        <div class="supportGrid">
+          {supportSteps.map((item) => (
+            <article class="supportCard">
+              <span>{item.step}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="industrySection quoteRiskSection">
+      <div class="container wide quoteRiskGrid">
+        <article class="checkPanel">
+          <p class="industryBadge">Faster Quote</p>
+          <h2>What to send with your RFQ</h2>
+          <p>
+            A clear first message helps us screen suppliers faster and avoid repeated clarification
+            before quotation.
+          </p>
+          <ul>
+            {page.quoteFields.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article class="checkPanel risks">
+          <p class="industryBadge">Risk Control</p>
+          <h2>Common sourcing risks we help reduce</h2>
+          <p>
+            The aim is not only to find a supplier. The aim is to make the order more traceable
+            before money, goods, and documents start moving.
+          </p>
+          <ul>
+            {page.risks.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="industryFinalCta">
+      <div class="container wide">
+        <div class="finalCtaInner">
+          <p class="industryBadge">Next Step</p>
+          <h2>Need help sourcing products from China?</h2>
+          <p>
+            Send us product photos, specifications, or a simple purchasing list. We will help you
+            check possible suppliers, compare options, and coordinate the next steps.
+          </p>
+          <a class="finalButton" href="/contact/">Send Your RFQ</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .industryHero{
+    padding:92px 0 96px;
+  }
+
+  .industryHeroInner{
+    display:grid;
+    grid-template-columns:minmax(0, .95fr) minmax(420px, .72fr);
+    gap:58px;
+    align-items:center;
+  }
+
+  .industryHeroCopy{
+    min-width:0;
+  }
+
+  .industryHero .lead{
+    max-width:840px;
+  }
+
+  .heroActions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:34px;
+  }
+
+  .heroButton{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:56px;
+    min-width:208px;
+    padding:0 26px;
+    border-radius:8px;
+    font-weight:800;
+    transition:transform .16s ease, background-color .16s ease, border-color .16s ease;
+  }
+
+  .heroButton:hover{
+    transform:translateY(-2px);
+  }
+
+  .heroButton.primary{
+    background:#fff;
+    color:var(--accent);
+  }
+
+  .heroButton.ghost{
+    border:1px solid rgba(255,255,255,.34);
+    color:#fff;
+    background:rgba(255,255,255,.08);
+  }
+
+  .heroButton.ghost:hover{
+    background:rgba(255,255,255,.14);
+  }
+
+  .heroMedia{
+    margin:0;
+    overflow:hidden;
+    border-radius:8px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 18px 48px rgba(0,0,0,.22);
+  }
+
+  .heroMedia img{
+    display:block;
+    width:100%;
+    aspect-ratio:4 / 3;
+    object-fit:cover;
+  }
+
+  .industryPage{
+    background:#fff;
+  }
+
+  .industrySection{
+    padding:76px 0 18px;
+  }
+
+  .sectionHeaderRow{
+    display:grid;
+    grid-template-columns:minmax(0, .85fr) minmax(320px, .62fr);
+    gap:44px;
+    align-items:end;
+    margin-bottom:30px;
+  }
+
+  .sectionHeaderRow > p,
+  .requestCopy p:not(.industryBadge),
+  .checkPanel > p:not(.industryBadge),
+  .finalCtaInner > p:not(.industryBadge){
+    color:var(--text-secondary);
+    font-size:var(--type-body-lg);
+    line-height:1.65;
+  }
+
+  .industryBadge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:30px;
+    width:max-content;
+    padding:0 14px;
+    margin:0 0 22px;
+    border:1px solid rgba(10,37,64,.24);
+    border-radius:8px;
+    background:#F1F4F8;
+    color:#0A2540;
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:.72rem;
+    font-weight:800;
+    letter-spacing:.16em;
+    line-height:1;
+    text-transform:uppercase;
+  }
+
+  .scopeGrid{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:18px;
+  }
+
+  .scopeCard,
+  .supportCard,
+  .checkPanel{
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.04);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+
+  .scopeCard:hover,
+  .supportCard:hover,
+  .checkPanel:hover{
+    transform:translateY(-2px);
+    border-color:rgba(10,37,64,.18);
+    box-shadow:0 14px 32px rgba(10,37,64,.08);
+  }
+
+  .scopeCard{
+    min-height:148px;
+    display:grid;
+    align-content:space-between;
+    gap:22px;
+    padding:22px;
+  }
+
+  .scopeCard span,
+  .supportCard span{
+    color:#2F80ED;
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:.82rem;
+    font-weight:800;
+    letter-spacing:.1em;
+  }
+
+  .scopeCard h3{
+    font-size:1.05rem;
+    line-height:1.25;
+  }
+
+  .requestsSection{
+    padding-top:82px;
+  }
+
+  .requestGrid{
+    display:grid;
+    grid-template-columns:minmax(0, .78fr) minmax(0, 1.12fr);
+    gap:44px;
+    align-items:start;
+  }
+
+  .requestCopy{
+    position:sticky;
+    top:112px;
+  }
+
+  .requestList{
+    display:grid;
+    gap:14px;
+  }
+
+  .checkRow{
+    display:grid;
+    grid-template-columns:42px minmax(0, 1fr);
+    gap:18px;
+    align-items:center;
+    min-height:78px;
+    padding:18px 22px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.04);
+  }
+
+  .checkRow span{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    border-radius:999px;
+    background:var(--accent);
+    color:#fff;
+    font-weight:900;
+  }
+
+  .checkRow p{
+    color:#25313d;
+    font-weight:600;
+    line-height:1.55;
+  }
+
+  .sectionHeaderCompact{
+    max-width:780px;
+    margin-bottom:30px;
+  }
+
+  .supportGrid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:20px;
+  }
+
+  .supportCard{
+    min-height:258px;
+    display:grid;
+    align-content:start;
+    gap:18px;
+    padding:28px;
+  }
+
+  .supportCard p{
+    color:var(--text-secondary);
+    line-height:1.65;
+  }
+
+  .quoteRiskSection{
+    padding-top:82px;
+  }
+
+  .quoteRiskGrid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:22px;
+  }
+
+  .checkPanel{
+    padding:32px;
+  }
+
+  .checkPanel ul{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+    margin:26px 0 0;
+    padding:0;
+    list-style:none;
+  }
+
+  .checkPanel li{
+    position:relative;
+    min-height:46px;
+    padding:12px 14px 12px 34px;
+    border-radius:8px;
+    background:#F7F9FC;
+    color:#263645;
+    line-height:1.45;
+  }
+
+  .checkPanel li::before{
+    content:"";
+    position:absolute;
+    left:14px;
+    top:20px;
+    width:7px;
+    height:7px;
+    border-radius:999px;
+    background:#2F80ED;
+  }
+
+  .checkPanel.risks li::before{
+    background:#F59E0B;
+  }
+
+  .industryFinalCta{
+    padding:64px 0 88px;
+    background:#fff;
+  }
+
+  .finalCtaInner{
+    display:grid;
+    justify-items:center;
+    text-align:center;
+    gap:18px;
+    padding:46px 32px 50px;
+    border-radius:8px;
+    background:
+      radial-gradient(circle at 84% 38%, rgba(47,128,237,.13), transparent 30%),
+      linear-gradient(135deg, #F4F8FD 0%, #EEF5FC 100%);
+  }
+
+  .finalCtaInner .industryBadge{
+    margin:0;
+  }
+
+  .finalCtaInner h2{
+    color:var(--accent);
+  }
+
+  .finalCtaInner p{
+    max-width:760px;
+  }
+
+  .finalButton{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:210px;
+    min-height:58px;
+    padding:0 28px;
+    border-radius:8px;
+    background:var(--accent);
+    color:#fff;
+    font-weight:800;
+    box-shadow:0 12px 28px rgba(10,37,64,.18);
+    transition:transform .16s ease, background-color .16s ease;
+  }
+
+  .finalButton:hover{
+    transform:translateY(-2px);
+    background:var(--accent-hover);
+  }
+
+  @media (max-width: 1100px){
+    .industryHeroInner,
+    .requestGrid,
+    .quoteRiskGrid{
+      grid-template-columns:1fr;
+    }
+
+    .heroMedia{
+      max-width:720px;
+    }
+
+    .sectionHeaderRow{
+      grid-template-columns:1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .scopeGrid{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+
+    .requestCopy{
+      position:static;
+    }
+  }
+
+  @media (max-width: 900px){
+    .industryHero{
+      padding:72px 0;
+    }
+
+    .industryHeroInner,
+    .supportGrid{
+      grid-template-columns:1fr;
+    }
+
+    .industrySection{
+      padding:58px 0 14px;
+    }
+  }
+
+  @media (max-width: 640px){
+    .heroActions,
+    .heroButton{
+      width:100%;
+    }
+
+    .scopeGrid,
+    .checkPanel ul{
+      grid-template-columns:1fr;
+    }
+
+    .checkRow{
+      grid-template-columns:36px minmax(0, 1fr);
+      padding:16px;
+    }
+
+    .checkRow span{
+      width:36px;
+      height:36px;
+    }
+  }
+</style>

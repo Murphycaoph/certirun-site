@@ -1,0 +1,13 @@
+---
+import Container from "../Container.astro";
+
+const { surface = "default", spacing = "md", container = "wide", id } = Astro.props;
+---
+
+<section class={`ui-section ${spacing}`} id={id}>
+  <Container variant={container}>
+    <div class={`section-surface ${surface}`}>
+      <slot />
+    </div>
+  </Container>
+</section>

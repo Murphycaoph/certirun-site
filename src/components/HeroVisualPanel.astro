@@ -1,0 +1,230 @@
+---
+const regions = [
+  {
+    key: "a",
+    src: "/images/china-industrial-warehouse.jpg",
+    alt: "Industrial logistics warehouse",
+    position: "42% 48%",
+  },
+  {
+    key: "b",
+    src: "/images/sourcing/compare-warehouse-team.jpg",
+    alt: "Sourcing coordination meeting",
+    position: "50% 42%",
+  },
+  {
+    key: "c",
+    src: "/images/china-port-containers-sunset.jpg",
+    alt: "Container port logistics",
+    position: "68% 46%",
+  },
+  {
+    key: "d",
+    src: "/images/factory-quality-inspection-metal-parts.jpeg",
+    alt: "Factory quality inspection",
+    position: "50% 50%",
+  },
+  {
+    key: "e",
+    src: "/images/freight-truck-highway-sunset.jpg",
+    alt: "Freight truck transport",
+    position: "58% 54%",
+  },
+  {
+    key: "f",
+    src: "/images/sourcing/advantage-inventory-worker.jpg",
+    alt: "Factory execution follow-up",
+    position: "48% 52%",
+  },
+  {
+    key: "g",
+    src: "/images/sourcing/friction-container-yard.jpg",
+    alt: "Container yard execution",
+    position: "50% 58%",
+  },
+];
+---
+
+<div class="heroMediaPanel" aria-label="CertiRun blank hero canvas">
+  <div class="blankCanvas">
+    {regions.map((region) => (
+      <figure
+        class={`regionTile regionTile-${region.key}`}
+        aria-label={region.alt}
+      >
+        <img src={region.src} alt={region.alt} loading={region.key === "a" ? "eager" : "lazy"} decoding="async" style={`object-position:${region.position};`} />
+        <span>{region.alt}</span>
+      </figure>
+    ))}
+    <svg class="regionArtwork" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 L100 0 L100 100 L5 100 L14 50 Z" class="regionLine outlineLine" />
+      <path d="M34 0 L30 38 L14 50" class="regionLine" />
+      <path d="M67 0 L62 32 L30 38" class="regionLine" />
+      <path d="M62 32 L100 40" class="regionLine" />
+      <path d="M30 38 L62 32 L61 66 L29 68 L14 50" class="regionLine" />
+      <path d="M61 66 L100 72" class="regionLine" />
+      <path d="M29 68 L34 100" class="regionLine" />
+      <path d="M61 66 L34 100" class="regionLine" />
+    </svg>
+  </div>
+</div>
+
+<style>
+  .heroMediaPanel{
+    position:relative;
+    min-height:100%;
+    overflow:hidden;
+    isolation:isolate;
+    background:transparent;
+  }
+
+  .blankCanvas{
+    position:absolute;
+    inset:0;
+    background:#101010;
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 5% 100%, 14% 50%);
+  }
+
+  .blankCanvas::before,
+  .blankCanvas::after{
+    content:"";
+    position:absolute;
+    left:6%;
+    z-index:1;
+    display:block;
+    width:2px;
+    height:56%;
+    background:rgba(10,37,64,.78);
+    box-shadow:0 0 18px rgba(0,0,0,.28);
+    transform-origin:center center;
+    pointer-events:none;
+  }
+
+  .blankCanvas::before{
+    top:-2%;
+    transform:rotate(10deg);
+  }
+
+  .blankCanvas::after{
+    bottom:-2%;
+    left:9.5%;
+    transform:rotate(-8deg);
+  }
+
+  .regionArtwork{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    width:100%;
+    height:100%;
+    overflow:visible;
+    pointer-events:none;
+  }
+
+  .regionTile{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    margin:0;
+    filter:grayscale(1) saturate(.42) brightness(.72) contrast(1.16);
+    transform:translateZ(0);
+  }
+
+  .regionTile::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.42));
+    pointer-events:none;
+  }
+
+  .regionTile img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+  }
+
+  .regionTile span{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+    white-space:nowrap;
+  }
+
+  .regionTile-a{
+    clip-path:polygon(0 0, 34% 0, 30% 38%, 14% 50%);
+    -webkit-clip-path:polygon(0 0, 34% 0, 30% 38%, 14% 50%);
+  }
+
+  .regionTile-b{
+    clip-path:polygon(34% 0, 67% 0, 62% 32%, 30% 38%);
+    -webkit-clip-path:polygon(34% 0, 67% 0, 62% 32%, 30% 38%);
+  }
+
+  .regionTile-c{
+    clip-path:polygon(67% 0, 100% 0, 100% 40%, 62% 32%);
+    -webkit-clip-path:polygon(67% 0, 100% 0, 100% 40%, 62% 32%);
+  }
+
+  .regionTile-d{
+    clip-path:polygon(30% 38%, 62% 32%, 61% 66%, 29% 68%, 14% 50%);
+    -webkit-clip-path:polygon(30% 38%, 62% 32%, 61% 66%, 29% 68%, 14% 50%);
+  }
+
+  .regionTile-e{
+    clip-path:polygon(62% 32%, 100% 40%, 100% 72%, 61% 66%);
+    -webkit-clip-path:polygon(62% 32%, 100% 40%, 100% 72%, 61% 66%);
+  }
+
+  .regionTile-f{
+    clip-path:polygon(14% 50%, 29% 68%, 34% 100%, 5% 100%);
+    -webkit-clip-path:polygon(14% 50%, 29% 68%, 34% 100%, 5% 100%);
+  }
+
+  .regionTile-g{
+    clip-path:polygon(29% 68%, 61% 66%, 100% 72%, 100% 100%, 34% 100%);
+    -webkit-clip-path:polygon(29% 68%, 61% 66%, 100% 72%, 100% 100%, 34% 100%);
+  }
+
+  .regionLine{
+    fill:none;
+    stroke:rgba(10,37,64,.88);
+    stroke-width:.22;
+    vector-effect:non-scaling-stroke;
+    filter:drop-shadow(0 0 5px rgba(0,0,0,.34));
+  }
+
+  .outlineLine{
+    stroke:rgba(10,37,64,.62);
+  }
+
+  @media (max-width: 900px){
+    .heroMediaPanel{
+      min-height:520px;
+    }
+  }
+
+  @media (max-width: 640px){
+    .heroMediaPanel{
+      min-height:360px;
+    }
+
+    .blankCanvas{
+      position:relative;
+      min-height:360px;
+      clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .blankCanvas::before,
+    .blankCanvas::after{
+      display:none;
+    }
+
+    .regionLine{
+      stroke-width:.18;
+    }
+  }
+</style>

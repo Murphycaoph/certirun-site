@@ -1,0 +1,29 @@
+---
+const {
+  label,
+  name = "",
+  type = "text",
+  placeholder = "",
+  textarea = false,
+  rows = 5,
+  select = false,
+  hint,
+  options = [],
+} = Astro.props;
+---
+
+<label class="field">
+  {label && <span class="field-label">{label}</span>}
+  {textarea ? (
+    <textarea name={name} rows={rows} placeholder={placeholder}></textarea>
+  ) : select ? (
+    <select name={name}>
+      {options.map((option) => (
+        <option value={option.value ?? option}>{option.label ?? option}</option>
+      ))}
+    </select>
+  ) : (
+    <input type={type} name={name} placeholder={placeholder} />
+  )}
+  {hint && <span class="field-hint">{hint}</span>}
+</label>

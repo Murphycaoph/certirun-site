@@ -1,31 +1,44 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import HeadingBlock from "../components/ui/HeadingBlock.astro";
+import Card from "../components/ui/Card.astro";
 ---
 
 <BaseLayout
-  title="Thank You | RFQ Received | CertiRun"
-  description="RFQ received. We will reply within 24-48 hours."
+  title="CertiRun | Placeholder"
+  description="Neutral placeholder response page."
+  canonical="/thank-you/"
   robots="noindex, nofollow"
 >
-  <section class="section">
-    <div class="container">
-      <h1>Thank you</h1>
+  <div class="container wide pageShell">
+    <section class="heroBlock">
+      <p class="eyebrow">CertiRun / Placeholder</p>
+      <h1>Placeholder response page.</h1>
       <p class="lead">
-        Your RFQ has been received. We usually reply within <b>24-48 hours</b>.
+        This route remains available as a neutral endpoint while future form flows are
+        redesigned.
       </p>
+    </section>
 
-      <div class="card">
-        <b>Next</b>
-        <p>
-          If you have additional photos/spec sheets, you can email them to
-          <a href="mailto:murphy@certispares.com">murphy@certispares.com</a>.
-        </p>
+    <Section surface="panel">
+      <div class="sectionStack">
+        <HeadingBlock
+          eyebrow="Response"
+          title="Route retained for future form flows"
+          description="This endpoint stays in place so future contact journeys can plug into the system without rebuilding basic route infrastructure."
+        />
+        <div class="cardGrid two">
+          <Card compact={true}>
+            <h3>Current role</h3>
+            <p>A neutral acknowledgement page for placeholder and future form submissions.</p>
+          </Card>
+          <Card compact={true}>
+            <h3>Next role</h3>
+            <p>Can later be refined into a real confirmation state once the final form experience is defined.</p>
+          </Card>
+        </div>
       </div>
-
-      <div style="margin-top:16px;">
-        <a class="btn primary" href="/capabilities">Back to Capabilities</a>
-        <a class="btn" href="/">Home</a>
-      </div>
-    </div>
-  </section>
+    </Section>
+  </div>
 </BaseLayout>

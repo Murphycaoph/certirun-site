@@ -1,0 +1,174 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const cases = [
+  {
+    title: "Multi-Supplier Industrial Parts Order",
+    industry: "Machinery & Industrial Equipment",
+    problem:
+      "The buyer needed parts from several suppliers, but quotations, lead times, packing details, and readiness status were difficult to compare.",
+    solution:
+      "CertiRun structured the supplier comparison, tracked quotation changes, and aligned shipment readiness before order movement.",
+    result:
+      "The buyer received a clearer supplier path, fewer unclear handoffs, and a practical record for internal purchasing decisions.",
+  },
+  {
+    title: "Component Verification Before Shipment",
+    industry: "Electronics & Electronic Components",
+    problem:
+      "Product details and packing requirements needed confirmation before goods left the supplier side.",
+    solution:
+      "CertiRun reviewed key specifications, checked supplier responses, and organized readiness notes for buyer review.",
+    result:
+      "The buyer had better visibility before shipment and reduced the chance of disputes caused by unclear product or packing details.",
+  },
+  {
+    title: "Vehicle Parts Follow-Up Across Suppliers",
+    industry: "Vehicle Parts",
+    problem:
+      "The sourcing list included multiple components, different suppliers, and several delivery constraints.",
+    solution:
+      "CertiRun kept supplier communication, order status, document points, and shipment follow-up in one structured workflow.",
+    result:
+      "The buyer could track what was confirmed, what was pending, and which issues needed attention before dispatch.",
+  },
+];
+
+const cta = {
+  title: "Have a sourcing case that needs structure?",
+  subtitle:
+    "Send the product scope and current supplier situation. CertiRun can help turn it into a clearer execution path.",
+  button: "Start Sourcing",
+  href: "/contact",
+};
+---
+
+<BaseLayout
+  title="Cases | CertiRun"
+  description="CertiRun case examples for sourcing coordination, verification checkpoints, and delivery follow-up."
+  canonical="/cases/"
+>
+  <section class="subpageHero">
+    <div class="container wide">
+      <p class="eyebrow">CertiRun / Cases</p>
+      <h1>Case patterns for sourcing execution and buyer-side control.</h1>
+      <p class="lead">
+        These examples show how CertiRun structures supplier comparison, verification,
+        and delivery follow-up across practical B2B sourcing scenarios.
+      </p>
+    </div>
+  </section>
+
+  <div class="pageShell">
+    <section class="casesOverview">
+      <div class="container wide">
+        <div class="casesIntro">
+          <p class="pageBadge">Cases</p>
+          <h2>Common sourcing situations we help organize</h2>
+          <p>
+            Case work usually starts with fragmented information. The first job is to
+            make the problem clear enough for decisions and follow-up.
+          </p>
+        </div>
+
+        <div class="casesGrid">
+          {cases.map((item) => (
+            <article class="caseCard">
+              <div class="caseMeta">{item.industry}</div>
+              <h3>{item.title}</h3>
+              <div class="caseSections">
+                <div>
+                  <span>Problem</span>
+                  <p>{item.problem}</p>
+                </div>
+                <div>
+                  <span>Solution</span>
+                  <p>{item.solution}</p>
+                </div>
+                <div>
+                  <span>Result</span>
+                  <p>{item.result}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="casesCtaSection">
+      <div class="container wide">
+        <div class="casesCta">
+          <p class="pageBadge">Next Step</p>
+          <h2>{cta.title}</h2>
+          <p>{cta.subtitle}</p>
+          <a class="ctaAction" href={cta.href}>{cta.button}</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .casesOverview{ padding:76px 0 28px; background:#fff; }
+  .casesIntro{ max-width:700px; margin-bottom:30px; }
+  .pageBadge{
+    display:inline-flex; align-items:center; justify-content:center; min-height:30px;
+    padding:0 14px; margin:0 0 22px; border:1px solid rgba(10,37,64,.28);
+    border-radius:8px; background:#F1F4F8; color:#0A2540;
+    font-family:"Work Sans", Arial, sans-serif; font-size:.72rem; font-weight:800;
+    line-height:1; letter-spacing:.16em; text-transform:uppercase;
+  }
+  .casesIntro h2,.casesCta h2{
+    max-width:760px; font-size:clamp(2rem,3.2vw,3.45rem); line-height:1.1;
+    letter-spacing:-.035em; font-weight:800;
+  }
+  .casesIntro p:not(.pageBadge),.casesCta p:not(.pageBadge){
+    margin-top:18px; max-width:680px; color:var(--text-secondary);
+    font-size:var(--type-body-lg); line-height:1.65;
+  }
+  .casesGrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
+  .caseCard{
+    display:grid; align-content:start; min-height:520px; padding:28px;
+    border:1px solid var(--border); border-radius:8px; background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.04);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .caseCard:hover{
+    transform:translateY(-2px); border-color:rgba(10,37,64,.18);
+    box-shadow:0 14px 32px rgba(10,37,64,.08);
+  }
+  .caseMeta{
+    width:max-content; margin-bottom:22px; padding:8px 10px; border-radius:6px;
+    background:#F1F4F8; color:var(--accent); font-size:.72rem; font-weight:800;
+    letter-spacing:.08em; text-transform:uppercase;
+  }
+  .caseCard h3{ font-size:1.25rem; font-weight:800; line-height:1.2; }
+  .caseSections{ display:grid; gap:20px; margin-top:26px; }
+  .caseSections span{
+    display:block; margin-bottom:8px; color:var(--accent); font-weight:800;
+    font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+  }
+  .caseSections p{ color:var(--text-secondary); line-height:1.62; }
+  .casesCtaSection{ padding:42px 0 78px; background:#fff; }
+  .casesCta{
+    display:grid; justify-items:center; text-align:center; gap:18px;
+    padding:42px 32px 46px; border-radius:8px;
+    background:linear-gradient(135deg,#F4F8FD 0%,#EEF5FC 100%);
+  }
+  .casesCta .pageBadge{ margin:0; }
+  .casesCta h2{ color:var(--accent); }
+  .ctaAction{
+    display:inline-flex; align-items:center; justify-content:center; min-width:210px;
+    min-height:58px; padding:0 28px; border-radius:8px; background:var(--accent);
+    color:#fff; font-weight:800; box-shadow:0 12px 28px rgba(10,37,64,.18);
+    transition:transform .16s ease, background-color .16s ease;
+  }
+  .ctaAction:hover{ transform:translateY(-2px); background:var(--accent-hover); }
+  @media (max-width:900px){
+    .casesOverview{ padding:56px 0 20px; }
+    .casesGrid{ grid-template-columns:1fr; }
+    .caseCard{ min-height:auto; }
+    .casesCtaSection{ padding:32px 0 56px; }
+  }
+</style>

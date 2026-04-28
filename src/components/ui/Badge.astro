@@ -1,0 +1,8 @@
+---
+const { tone = "default", as = "span" } = Astro.props;
+const Tag = as;
+---
+
+<Tag class={`ui-badge ${tone}`}>
+  <slot />
+</Tag>

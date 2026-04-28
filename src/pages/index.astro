@@ -1,871 +1,216 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
-import { getImageDimensions } from "../lib/imageDimensions";
+import HeroVisualPanel from "../components/HeroVisualPanel.astro";
+import CategoryIcon from "../components/CategoryIcon.astro";
 
-const rawPosts = await getCollection("blog");
-
-rawPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
-
-const insights = rawPosts.slice(0, 3).map((p) => ({
-  title: p.data.title,
-  tag: p.data.tag ?? "Insights",
-  excerpt: p.data.excerpt ?? "",
-  href: `/blog/${p.slug}`,
-}));
-
-const heroImages = [
-  "/images/hero.webp",
-  "/images/hero-02-commercial-fleet.webp",
-  "/images/hero-03-container-port.webp",
-  "/images/hero-04-logistics-truck.webp",
-].map((src, idx) => ({
-  src,
-  ...getImageDimensions(src),
-  loading: idx === 0 ? "eager" : "lazy",
-  fetchpriority: idx === 0 ? "high" : "low",
-}));
-
-const searchThemes = [
+const categoryLinks = [
   {
-    title: "Heavy duty truck parts",
-    desc: "Heavy-duty truck parts remain the core RFQ category, supported by structured supplier comparison for B2B aftermarket buyers.",
+    href: "/industries/electronics-electronic-components/",
+    zh: "电子与电子元器件",
+    en: "Electronics & Electronic Components",
+    icon: "electronics",
   },
   {
-    title: "Light-, medium-, and heavy-duty coverage",
-    desc: "We handle RFQ sourcing across light-, medium-, and heavy-duty truck platforms for the commercial vehicle aftermarket.",
+    href: "/industries/machinery-industrial-equipment/",
+    zh: "机械与机电设备",
+    en: "Machinery & Industrial Equipment",
+    icon: "machinery",
   },
   {
-    title: "Brand-based RFQs",
-    desc: "Common RFQs include Sinotruk HOWO, SHACMAN, Foton, Dongfeng, FAW, JAC, and OEM or part-number-based inquiries.",
-  },
-];
-
-const popularQueries = [
-  "heavy duty truck parts",
-  "truck spare parts",
-  "aftermarket truck parts",
-  "Sinotruk HOWO parts",
-  "Shacman parts",
-  "Foton truck parts",
-];
-
-const productBrands = [
-  { name: "Foton", image: "/images/brands/foton.png", alt: "Foton logo" },
-  { name: "DFSK", image: "/images/brands/dfsk.png", alt: "DFSK logo" },
-  { name: "Wuling", image: "/images/brands/wuling.png", alt: "Wuling logo" },
-  { name: "JAC", image: "/images/brands/jac.png", alt: "JAC logo" },
-  { name: "Dongfeng", image: "/images/brands/dongfeng.png", alt: "Dongfeng logo" },
-  { name: "JMC", image: "/images/brands/jmc.png", alt: "JMC logo" },
-  { name: "Sinotruk", image: "/images/brands/sinotruk.png", alt: "Sinotruk logo" },
-  { name: "SHACMAN", image: "/images/brands/shacman.png", alt: "Shacman logo" },
-  { name: "FAW", image: "/images/brands/faw.png", alt: "FAW logo" },
-];
-
-const strategyCards = [
-  {
-    title: "Lower landed cost through consolidation",
-    desc: "One container can combine multiple required products from multiple suppliers, helping buyers avoid shipping partially optimized orders and reducing the logistics cost carried by each SKU.",
-    bullets: [
-      "Multi-supplier loading into one container",
-      "Better freight allocation across the order mix",
-      "More commercial control than shipping each factory order separately",
-    ],
-    href: "/sourcing",
+    href: "/industries/hardware-products/",
+    zh: "五金产品",
+    en: "Hardware products",
+    icon: "hardware",
   },
   {
-    title: "Faster turnover through balanced SKU sourcing",
-    desc: "Instead of buying too deep into one product line just to fill a container, buyers can build a healthier stock mix across fast-moving and supporting items that fit real market demand.",
-    bullets: [
-      "Less pressure to overstock slow-moving SKUs",
-      "Stronger inventory structure with the same budget",
-      "Better cash-flow efficiency and repeat-order potential",
-    ],
-    href: "/sourcing",
-  },
-];
-
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "CertiRun",
-    url: "https://certirun.com/",
-    logo: "https://certirun.com/images/logo.webp",
-    email: "murphy@certispares.com",
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "sales",
-        email: "murphy@certispares.com",
-        areaServed: "Worldwide",
-        availableLanguage: ["en"],
-      },
-    ],
-    sameAs: ["https://www.facebook.com/profile.php?id=61585722976089"],
+    href: "/industries/vehicle-parts/",
+    zh: "商用车及乘用车零部件",
+    en: "Commercial vehicle and passenger vehicle parts",
+    icon: "vehicle",
   },
   {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "CertiRun",
-    url: "https://certirun.com/",
+    href: "/industries/new-energy-pv-ev-parts/",
+    zh: "新能源与光伏 / 电动车零部件",
+    en: "New Energy / PV / EV Parts",
+    icon: "energy",
   },
 ];
 ---
 
 <BaseLayout
-  title="Commercial Vehicle Parts Sourcing from China | Multi-Supplier Consolidation"
-  description="CertiRun helps commercial vehicle aftermarket buyers source from China through multi-supplier consolidation, lower landed cost, and more balanced inventory planning."
-  keywords={["commercial vehicle parts sourcing China", "heavy duty truck parts", "commercial vehicle aftermarket", "RFQ sourcing", "truck parts from China"]}
+  title="CertiRun | Operational Verification"
+  description="Industrial verification and operational control for sourcing, logistics, and execution workflows."
   canonical="/"
-  ogImage="/images/hero-01-highway-transport.jpg"
-  jsonLd={jsonLd}
 >
-  <link
-    slot="head"
-    rel="preload"
-    as="image"
-    href="/images/hero.webp"
-    type="image/webp"
-    fetchpriority="high"
-  />
-
-  <style>
-  :root{
-    --bg:#eef3f7;
-    --text:#1d2a36;
-    --muted:#5f6d86;
-    --line:rgba(29,42,54,.10);
-    --brand:#3957E9;
-    --brand2:#3957E9;
-  }
-
-  :global(main){
-    background:
-      linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
-  }
-
-  :global(.topbar){
-    background:#111F43 !important;
-    background-color:#111F43 !important;
-    opacity:1 !important;
-    backdrop-filter:none !important;
-    -webkit-backdrop-filter:none !important;
-    border-bottom:1px solid #111F43 !important;
-    box-shadow:none !important;
-  }
-
-  :global(.menu){
-    color:#fff;
-  }
-
-  :global(.menu a){
-    color:#fff;
-  }
-
-  :global(.menu a:hover){
-    color:#fff;
-  }
-
-  :global(.menu a.active){
-    background:rgba(57,87,233,.18);
-    border-color:rgba(57,87,233,.32);
-    color:#fff;
-  }
-
-  :global(.drawerNav a.active){
-    background:rgba(57,87,233,.18);
-    border-color:rgba(57,87,233,.32);
-    color:#fff;
-  }
-
-  :global(.cta){
-    background:#3957E9;
-    color:#fff;
-  }
-
-  .hero{
-    position:relative;
-    border-bottom:1px solid var(--line);
-    overflow:hidden;
-  }
-
-  .heroBg{
-    position:absolute; inset:0;
-    background:
-      linear-gradient(180deg, rgba(11,16,32,.45) 0%, rgba(11,16,32,.86) 70%, rgba(11,16,32,1) 100%),
-      radial-gradient(900px 420px at 25% 15%, rgba(57,87,233,.35), transparent 60%);
-    overflow:hidden;
-  }
-
-  .heroSlider{
-    position:absolute; inset:0;
-  }
-
-  .heroSlide{
-    position:absolute; inset:0;
-    overflow:hidden;
-    filter:saturate(1.05);
-    opacity:0;
-    transform:scale(1.02);
-    transition: opacity .55s ease, transform .9s ease;
-    will-change: opacity, transform;
-  }
-
-  .heroSlide.is-active{
-    opacity:1;
-    transform:scale(1);
-  }
-
-  .heroSlide img{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-  }
-
-  .heroSlide::after{
-    content:"";
-    position:absolute; inset:0;
-    background:
-      radial-gradient(1100px 520px at 28% 18%, rgba(255,255,255,.06), transparent 60%),
-      radial-gradient(1400px 760px at 50% 50%, transparent 55%, rgba(11,16,32,.55) 100%),
-      linear-gradient(
-        180deg,
-        rgba(11,16,32,.18) 0%,
-        rgba(11,16,32,.72) 70%,
-        rgba(11,16,32,.92) 100%
-      );
-  }
-
-  .heroNav{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:42px; height:42px;
-    border-radius:14px;
-    border:1px solid var(--line);
-    background:rgba(17,26,51,.45);
-    color:rgba(234,240,255,.92);
-    font-size:26px;
-    display:grid; place-items:center;
-    cursor:pointer;
-    z-index:2;
-    backdrop-filter: blur(10px);
-    user-select:none;
-  }
-
-  .heroNav:hover{ background:rgba(17,26,51,.65); }
-  .heroNav.prev{ left:16px; }
-  .heroNav.next{ right:16px; }
-
-  .heroInner{
-    position:relative;
-    padding:78px 0 56px;
-    display:grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap:18px;
-    align-items:center;
-  }
-
-  h1{
-    margin:0 0 14px;
-    font-size:52px;
-    line-height:1.03;
-    letter-spacing:-.6px;
-    color:#fff;
-  }
-
-  .sub{
-    margin:0 0 18px;
-    color:rgba(234,240,255,.86);
-    line-height:1.75;
-    max-width:640px;
-  }
-
-  .heroBtns{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
-
-  .heroBtns .btn:not(.primary){
-    color:#fff;
-  }
-
-  .heroCard{
-    background:rgba(17,26,51,.62);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:18px;
-    box-shadow: 0 18px 60px rgba(0,0,0,.35);
-  }
-
-  .heroCard h3{ margin:0 0 10px; font-size:16px; letter-spacing:.2px; color:#fff; }
-  .list{ margin:0; padding:0; list-style:none; display:grid; gap:10px; }
-  .li{ display:flex; gap:10px; align-items:flex-start; color:rgba(255,255,255,.92); line-height:1.5; }
-
-  .dot{
-    width:10px;
-    height:10px;
-    border-radius:999px;
-    margin-top:6px;
-    background:linear-gradient(135deg, var(--brand), var(--brand2));
-    flex:0 0 10px;
-  }
-
-  .more{ display:inline-block; margin-top:10px; font-weight:900; color:rgba(234,240,255,.92); }
-  .more:hover{ color:var(--brand2); }
-
-  .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
-  .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-
-  .sectionTitle{ font-size:28px; margin:0 0 12px; letter-spacing:-.2px; color:#1d2a36; }
-  .sectionDesc{ margin:0 0 18px; color:var(--muted); line-height:1.7; max-width:980px; }
-  .sectionHead{
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-bottom:12px;
-  }
-  .sectionHead .sectionTitle{
-    margin:0;
-  }
-  .sectionJump{
-    color:#3957E9;
-    font-size:14px;
-    font-weight:700;
-    text-decoration:none;
-    white-space:nowrap;
-  }
-  .sectionJump:hover{
-    text-decoration:underline;
-    text-underline-offset:3px;
-  }
-  .chipRow{ display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 0; }
-
-  .chip{
-    padding:8px 12px;
-    border-radius:999px;
-    border:1px solid rgba(29,42,54,.10);
-    background:#fff;
-    font-size:12px;
-    font-weight:800;
-    color:#415066;
-  }
-
-  .strip{
-    margin-top:18px;
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:12px;
-  }
-
-  .kpi{
-    background:rgba(255,255,255,.03);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:14px;
-  }
-
-  .kpi .n{ font-weight:950; font-size:18px; color:#fff; }
-  .kpi .t{ color:rgba(255,255,255,.88); font-size:12px; margin-top:6px; line-height:1.4; }
-
-  .insightsHead{
-    display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-    margin-bottom:12px;
-  }
-
-  .viewAll{
-    font-weight:900;
-    color:#1d2a36;
-    padding:8px 10px;
-    border-radius:10px;
-    border:1px solid rgba(29,42,54,.10);
-    background:#fff;
-    white-space:nowrap;
-  }
-
-  .viewAll:hover{ background:#f3f6fa; color:#1d2a36; }
-
-  .postCard b{ margin-bottom:8px; font-size:16px; line-height:1.35; }
-
-  .postMeta{
-    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-    font-size:12px; color:#6d7b91;
-    margin-bottom:10px;
-  }
-
-  .postTag{
-    padding:.18rem .55rem;
-    border-radius:999px;
-    border:1px solid rgba(74,84,98,.16);
-    background:rgba(74,84,98,.08);
-    font-weight:800;
-    color:#4A5462;
-  }
-
-  .postMore{
-    display:inline-flex; gap:6px; align-items:center;
-    margin-top:10px; font-weight:900;
-    color:#4A5462;
-  }
-
-  .btn.primary{
-    color:#fff;
-  }
-
-  .card{
-    background:#fff;
-    border:1px solid rgba(29,42,54,.10);
-    box-shadow:0 14px 32px rgba(24,39,56,.05);
-  }
-
-  .card b{
-    color:#1d2a36;
-  }
-
-  .card p{
-    color:#5f6d86;
-  }
-
-  .strategyGrid{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:14px;
-  }
-
-  .strategyCard{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-
-  .strategyCard p{
-    margin:0;
-  }
-
-  .strategyList{
-    margin:0;
-    padding:0;
-    list-style:none;
-    display:grid;
-    gap:10px;
-  }
-
-  .strategyItem{
-    display:flex;
-    gap:10px;
-    align-items:flex-start;
-    color:#5f6d86;
-    line-height:1.6;
-  }
-
-  .strategyDot{
-    width:10px;
-    height:10px;
-    border-radius:999px;
-    margin-top:7px;
-    background:#4A5462;
-    flex:0 0 10px;
-  }
-
-  .productBand{
-    position:relative;
-    overflow:hidden;
-    border-radius:20px;
-    border:1px solid rgba(29,42,54,.10);
-    background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(246,249,253,.98) 100%);
-    box-shadow:0 14px 32px rgba(24,39,56,.05);
-    padding:18px 0;
-  }
-
-  .productBand::before,
-  .productBand::after{
-    content:"";
-    position:absolute;
-    top:0;
-    bottom:0;
-    width:92px;
-    z-index:2;
-    pointer-events:none;
-  }
-
-  .productBand::before{
-    left:0;
-    background:linear-gradient(90deg, rgba(246,249,253,1) 0%, rgba(246,249,253,0) 100%);
-  }
-
-  .productBand::after{
-    right:0;
-    background:linear-gradient(270deg, rgba(246,249,253,1) 0%, rgba(246,249,253,0) 100%);
-  }
-
-  .logoMarquee{
-    overflow:hidden;
-    white-space:nowrap;
-  }
-
-  .logoTrack{
-    display:flex;
-    width:max-content;
-    align-items:center;
-    gap:14px;
-    animation:marqueeRight 36s linear infinite;
-    will-change:transform;
-  }
-
-  .logoCard{
-    flex:0 0 auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-width:144px;
-    width:144px;
-    height:88px;
-    padding:12px;
-    border-radius:20px;
-    background:linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
-    border:1px solid rgba(29,42,54,.08);
-    box-shadow:0 10px 24px rgba(24,39,56,.06);
-    position:relative;
-    overflow:hidden;
-  }
-
-  .logoCard::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      linear-gradient(120deg, transparent 0%, rgba(57,87,233,.08) 35%, transparent 65%),
-      radial-gradient(180px 60px at 50% -10%, rgba(57,87,233,.10), transparent 70%);
-    transform:translateX(-140%);
-    animation:logoShimmer 3.6s ease-in-out infinite;
-    pointer-events:none;
-  }
-
-  .logoInner{
-    position:relative;
-    z-index:1;
-    width:100%;
-    height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:16px;
-    background:rgba(255,255,255,.72);
-    backdrop-filter:blur(4px);
-  }
-
-  .logoCard img{
-    max-width:92px;
-    max-height:30px;
-    width:auto;
-    height:auto;
-    object-fit:contain;
-    display:block;
-    filter:saturate(.92) contrast(1.04);
-  }
-
-  @keyframes marqueeRight{
-    from{ transform:translateX(-50%); }
-    to{ transform:translateX(0); }
-  }
-
-  @keyframes logoShimmer{
-    0%, 18%{ transform:translateX(-140%); }
-    42%, 100%{ transform:translateX(140%); }
-  }
-
-  :global(.footerWrap){
-    background:transparent;
-    border-top:1px solid rgba(29,42,54,.10);
-  }
-
-  :global(.footerTitle),
-  :global(.footerNav strong){
-    color:#1d2a36;
-  }
-
-  :global(.footer),
-  :global(.footerNav span){
-    color:#5f6d86;
-  }
-
-  :global(.footerNav a){
-    background:#fff;
-    border-color:rgba(29,42,54,.10);
-  }
-
-  .postMore:hover{ color:#4A5462; }
-
-  @media (max-width: 980px){
-    .heroInner{ grid-template-columns:1fr; padding:60px 0 46px; }
-    h1{ font-size:40px; }
-    .grid3{ grid-template-columns:1fr; }
-    .grid2{ grid-template-columns:1fr; }
-    .strategyGrid{ grid-template-columns:1fr; }
-    .strip{ grid-template-columns:1fr 1fr; }
-    .insightsHead{ align-items:flex-start; }
-    .heroNav{ width:38px; height:38px; border-radius:12px; }
-    .heroNav.prev{ left:10px; }
-    .heroNav.next{ right:10px; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .heroSlide{ transition:none; }
-    .logoTrack{ animation:none; }
-  }
-  </style>
-
-  <header class="hero">
-      <div class="heroBg">
-        <div class="heroSlider" id="heroSlider" aria-label="Hero images">
-        {heroImages.map((image, idx) => (
-          <div
-            class={`heroSlide ${idx === 0 ? "is-active" : ""}`}
-            aria-hidden={idx === 0 ? "false" : "true"}
-          >
-            <img
-              src={image.src}
-              alt=""
-              width={image.width}
-              height={image.height}
-              loading={image.loading}
-              fetchpriority={image.fetchpriority}
-              decoding="async"
-            />
-          </div>
-        ))}
-
-        <button class="heroNav prev" type="button" aria-label="Previous image">&larr;</button>
-        <button class="heroNav next" type="button" aria-label="Next image">&rarr;</button>
+  <section class="heroFrame">
+    <div class="container wide heroTextRail">
+      <div class="heroContent">
+        <div class="heroEyebrowRow">
+          <span class="heroLine"></span>
+          <p class="eyebrow">Operational Excellence Redefined</p>
+        </div>
+        <h1>
+          <span class="heroTitleLine">Reliable China Sourcing,</span>
+          <span class="heroTitleLine heroTitleAccent">Beyond Just Finding Suppliers.</span>
+        </h1>
+        <p class="lead">
+          We support overseas buyers with sourcing, verification, coordination, and
+          delivery follow-up across multiple product categories in China.
+        </p>
+        <div class="buttonRow">
+          <a class="button secondary" href="/contact">Start Sourcing</a>
+          <a class="button outline" href="/industries">See Industries</a>
+        </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="heroInner">
-        <div>
-          <h1>Commercial Vehicle Parts Sourcing from China</h1>
-          <p class="sub">
-            CertiRun helps commercial vehicle aftermarket buyers source from China through multi-supplier consolidation, lower landed cost, and more balanced inventory planning. Combine multiple products from different suppliers into one optimized container and build a healthier order mix for repeat business.
+    <div class="heroBleedVisual">
+      <HeroVisualPanel />
+    </div>
+  </section>
+
+  <section class="logoStrip">
+    <div class="container wide logoStripInner">
+      {categoryLinks.map((item) => (
+        <a href={item.href} class="categoryTile">
+          <CategoryIcon name={item.icon} />
+          <span class="categoryText">
+            <strong>{item.zh}</strong>
+            <span>{item.en}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="sectionBlock">
+    <div class="container wide">
+      <div class="sectionIntro">
+        <h2>Precision Services</h2>
+        <p>
+          Operational verification layers designed for high-velocity sourcing and
+          logistics workflows.
+        </p>
+      </div>
+
+      <div class="featureGrid">
+        <article class="featurePanel">
+          <div class="featureIcon"></div>
+          <h3>Network Validation</h3>
+          <p>
+            Structured oversight for supplier coordination, handoff checkpoints, and
+            cross-border execution visibility.
           </p>
+        </article>
 
-          <div class="heroBtns">
-            <a class="btn primary" href="/contact">Send RFQ</a>
-            <a class="btn" href="/capabilities">View Capabilities</a>
-          </div>
+        <article class="featurePanel">
+          <div class="featureIcon"></div>
+          <h3>Certified Operations</h3>
+          <p>
+            Consistent review layers for documents, routing, and delivery readiness
+            across every operational touchpoint.
+          </p>
+        </article>
 
-          <div class="strip">
-            <div class="kpi"><div class="n">Cost</div><div class="t">Multi-supplier consolidation to lower landed cost per order</div></div>
-            <div class="kpi"><div class="n">Mix</div><div class="t">Balanced multi-SKU sourcing aligned with real replenishment demand</div></div>
-            <div class="kpi"><div class="n">QC</div><div class="t">Sampling &middot; Packing check &middot; Loading supervision</div></div>
-            <div class="kpi"><div class="n">Control</div><div class="t">Supplier comparison, document accuracy, and shipment traceability</div></div>
-          </div>
-        </div>
-
-        <aside class="heroCard">
-          <h3>Why Buyers Use This Model</h3>
-          <ul class="list">
-            <li class="li"><span class="dot"></span><span>One order can combine multiple needed SKUs from multiple suppliers in one container.</span></li>
-            <li class="li"><span class="dot"></span><span>Buyers avoid filling containers by overbuying a narrow product line.</span></li>
-            <li class="li"><span class="dot"></span><span>The result is lower logistics cost, better stock structure, and cleaner reorder planning.</span></li>
-            <li class="li"><span class="dot"></span><span>QC checkpoints and shipment coordination keep the model practical, not theoretical.</span></li>
-          </ul>
-          <a class="more" href="/sourcing">See the sourcing strategy &rarr;</a>
-        </aside>
-      </div>
-    </div>
-  </header>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">Brands We Support</h2>
-      <p class="sectionDesc">
-        We support sourcing across mainstream commercial vehicle brands and the aftermarket parts demand linked to those platforms.
-      </p>
-      <div class="productBand" aria-label="Commercial vehicle brands we support">
-        <div class="logoMarquee">
-          <div class="logoTrack">
-            {[...productBrands, ...productBrands].map((brand, index) => (
-              <div class="logoCard" aria-hidden={index >= productBrands.length ? "true" : "false"}>
-                <div class="logoInner">
-                  <img src={brand.image} alt={brand.alt} loading="lazy" decoding="async" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <article class="featurePanel">
+          <div class="featureIcon"></div>
+          <h3>Compliance Control</h3>
+          <p>
+            Clear operating standards for regulated workflows, partner alignment, and
+            execution confidence.
+          </p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="sectionHead">
-        <h2 class="sectionTitle">How You Save Cost and Improve Turnover</h2>
-        <a class="sectionJump" href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">Detailed explanation &rarr;</a>
-      </div>
-      <p class="sectionDesc">
-        Our model goes beyond getting parts shipped. It helps buyers combine the right products into the same container so logistics cost, stock depth, and replenishment logic work together more efficiently.
-      </p>
-      <p class="sectionDesc">
-        For the full service logic, see our <a href="/sourcing">truck parts sourcing service</a>. If you want the workflow behind RFQ handling, supplier comparison, and delivery control, review <a href="/how-it-works">how the process works</a>.
-      </p>
-      <div class="strategyGrid">
-        {strategyCards.map((item) => (
-          <div class="card strategyCard">
+  <section class="commandSection">
+    <div class="container wide commandGrid">
+      <div class="commandCopy">
+        <div class="statusPill">System Status: Active</div>
+        <h2>Operational Command</h2>
+        <p>
+          A single control surface for verification logic, sourcing readiness, and
+          movement integrity. Monitor checkpoints, audit handoffs, and maintain
+          execution discipline from one operational layer.
+        </p>
+
+        <div class="commandList">
+          <div class="commandItem">
+            <span class="commandCheck"></span>
             <div>
-              <b>{item.title}</b>
-              <p>{item.desc}</p>
+              <h3>Identity-Locked Verification</h3>
+              <p>Structured validation standards at each transfer, review, and release point.</p>
             </div>
-            <ul class="strategyList">
-              {item.bullets.map((bullet) => (
-                <li class="strategyItem"><span class="strategyDot"></span><span>{bullet}</span></li>
-              ))}
-            </ul>
-            <a class="more" href={item.href}>View the strategy page &rarr;</a>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">What We Do</h2>
-      <p class="sectionDesc">
-        We support B2B buyers in the commercial vehicle aftermarket with RFQ sourcing anchored in heavy-duty truck parts,
-        while covering light-, medium-, and heavy-duty truck platforms where broader sourcing is needed.
-      </p>
-      <div class="grid3">
-        {searchThemes.map((item) => (
-          <div class="card"><b>{item.title}</b><p>{item.desc}</p></div>
-        ))}
-      </div>
-      <div class="chipRow" aria-label="Popular search phrases">
-        {popularQueries.map((query) => (
-          <span class="chip">{query}</span>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">Why Choose Us</h2>
-      <p class="sectionDesc">
-        From supplier comparison to QC checkpoints and export coordination, we make commercial vehicle aftermarket sourcing
-        more structured for importers, distributors, wholesalers, and fleet maintenance buyers.
-      </p>
-      <p class="sectionDesc">
-        For a deeper look at inspection scope, document checks, and execution control, see our <a href="/capabilities">sourcing support capabilities</a>.
-      </p>
-      <div class="grid3">
-        <div class="card"><b>RFQ sourcing</b><p>Multiple supplier options with price, lead time, and sourcing risk comparison.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-        <div class="card"><b>Quality control</b><p>Sampling, packaging verification, loading supervision, and photo or video checkpoints.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-        <div class="card"><b>Consolidation and shipping</b><p>Consolidation planning, document control, and shipping coordination designed to lower landed cost and support a healthier inventory structure.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">How It Works</h2>
-      <p class="sectionDesc">
-        Our workflow is built for B2B truck parts sourcing, from RFQ intake to supplier comparison, QC checkpoints,
-        and shipment coordination for repeat aftermarket orders.
-      </p>
-      <div class="grid2">
-        <div class="card"><b>Step 1-2</b><p>Share the RFQ, then receive supplier comparison across the right truck platform and part scope.</p><a class="more" href="/how-it-works">Learn more &rarr;</a></div>
-        <div class="card"><b>Step 3-4</b><p>Confirm the order with QC checkpoints, then move into consolidation, documents, and shipping with a focus on lower landed cost and better inventory balance.</p><a class="more" href="/how-it-works">Learn more &rarr;</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="insightsHead">
-        <div>
-          <h2 class="sectionTitle">Latest Insights</h2>
-      <p class="sectionDesc">
-        Short reads on QC, risk control, trade terms, and sourcing execution.
-      </p>
-      <p class="sectionDesc">
-        Start with <a href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">how container consolidation improves cost and inventory turnover</a> or <a href="/blog/how-to-identify-reliable-auto-parts-suppliers-in-china">how buyers identify reliable suppliers in China</a>.
-      </p>
-        </div>
-        <a class="viewAll" href="/blog">View all &rarr;</a>
-      </div>
-
-      <div class="grid3">
-        {insights.map((p) => (
-          <a class="card postCard" href={p.href}>
-            <div class="postMeta">
-              <span class="postTag">{p.tag}</span>
+          <div class="commandItem">
+            <span class="commandCheck"></span>
+            <div>
+              <h3>Traceable Audit Chains</h3>
+              <p>Operational records designed to reduce ambiguity across teams and geographies.</p>
             </div>
-            <b>{p.title}</b>
-            <p>{p.excerpt}</p>
-            <span class="postMore">Read &rarr;</span>
-          </a>
-        ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="commandPanel">
+        <div class="commandTopbar">
+          <div class="commandDots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="commandLabel">LIVE_FEED_TRANSIT_V1</div>
+        </div>
+
+        <div class="statsGrid">
+          <div class="statCard">
+            <small>Total Verified Units</small>
+            <strong>14,292,042</strong>
+            <div class="statBar"><span class="brand-accent"></span></div>
+          </div>
+          <div class="statCard">
+            <small>Network Uptime</small>
+            <strong>99.998%</strong>
+            <div class="statBar">
+              <span class="green"></span>
+              <span class="green"></span>
+              <span class="green"></span>
+              <span class="green"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feedList">
+          <div class="feedRow">
+            <div><span class="pulse brand-accent"></span> HUB_CENTRAL_SHANGHAI: VERIFIED</div>
+            <small>12:04:12</small>
+          </div>
+          <div class="feedRow">
+            <div><span class="pulse brand-accent"></span> PORT_ROTTERDAM_GATE4: IN_TRANSIT</div>
+            <small>12:04:09</small>
+          </div>
+          <div class="feedRow">
+            <div><span class="pulse green"></span> AIR_FREIGHT_744: SECURE_LOCK</div>
+            <small>12:03:55</small>
+          </div>
+        </div>
+
+        <div class="floatingMetric">
+          <strong>2.4s</strong>
+          <span>AVG VERIFICATION TIME</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">Send Your RFQ</h2>
-      <p class="sectionDesc">
-        Send us your RFQ with OEM numbers, part numbers, vehicle brand and model, or photos.
-        We will reply with supplier comparison, lead time, and sourcing suggestions for your truck parts order.
+  <section class="ctaBand">
+    <div class="container wide ctaBandInner">
+      <h2>Ready for Operational Certainty?</h2>
+      <p>
+        Start with a structured CertiRun layer for execution, verification, and partner
+        coordination.
       </p>
-      <div class="grid3">
-        <div class="card"><b>Email</b><p>murphy@certispares.com</p><a class="more" href="/contact">Learn more &rarr;</a></div>
-        <div class="card"><b>WhatsApp</b><p>+86 156 3302 2618</p><a class="more" href="/contact">Learn more &rarr;</a></div>
-        <div class="card"><b>Location</b><p>Beijing / Hebei, China</p><a class="more" href="/contact">Learn more &rarr;</a></div>
-      </div>
+      <a class="button secondary ctaButton" href="/contact">Start Your Verification</a>
     </div>
   </section>
-
-  <script is:inline>
-    (() => {
-      const root = document.getElementById("heroSlider");
-      if (!root) return;
-
-      const slides = Array.from(root.querySelectorAll(".heroSlide"));
-      const prev = root.querySelector(".heroNav.prev");
-      const next = root.querySelector(".heroNav.next");
-      if (slides.length <= 1) return;
-
-      let i = 0;
-
-      const set = (n) => {
-        slides[i].classList.remove("is-active");
-        slides[i].setAttribute("aria-hidden", "true");
-
-        i = (n + slides.length) % slides.length;
-
-        slides[i].classList.add("is-active");
-        slides[i].setAttribute("aria-hidden", "false");
-      };
-
-      const goPrev = () => set(i - 1);
-      const goNext = () => set(i + 1);
-
-      prev && prev.addEventListener("click", goPrev);
-      next && next.addEventListener("click", goNext);
-
-      let timer = setInterval(goNext, 6000);
-
-      root.addEventListener("mouseenter", () => { clearInterval(timer); });
-      root.addEventListener("mouseleave", () => { timer = setInterval(goNext, 6000); });
-
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          clearInterval(timer);
-        } else {
-          clearInterval(timer);
-          timer = setInterval(goNext, 6000);
-        }
-      });
-    })();
-  </script>
 </BaseLayout>

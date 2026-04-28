@@ -1,0 +1,12 @@
+---
+import Badge from "./Badge.astro";
+
+const { eyebrow, title, description, align = "left" } = Astro.props;
+---
+
+<div class={`heading-block ${align}`}>
+  {eyebrow && <Badge tone="accent">{eyebrow}</Badge>}
+  {title && <h2>{title}</h2>}
+  {description && <p class="sectionText">{description}</p>}
+  <slot />
+</div>

@@ -1,0 +1,395 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CategoryIcon from "../components/CategoryIcon.astro";
+
+const page = {
+  hero: {
+    eyebrow: "CertiRun / Industries",
+    title: "Industry coverage for structured sourcing and delivery control.",
+    subtitle:
+      "CertiRun supports overseas buyers across practical B2B product categories where supplier coordination, verification, and follow-up matter.",
+  },
+  industries: [
+    {
+      name: "Electronics & Electronic Components",
+      href: "/industries/electronics-electronic-components/",
+      icon: "electronics",
+      typicalProducts: ["Connectors", "Control modules", "Wiring components"],
+    },
+    {
+      name: "Machinery & Industrial Equipment",
+      href: "/industries/machinery-industrial-equipment/",
+      icon: "machinery",
+      typicalProducts: ["Mechanical assemblies", "Industrial parts", "Equipment spares"],
+    },
+    {
+      name: "Hardware Products",
+      href: "/industries/hardware-products/",
+      icon: "hardware",
+      typicalProducts: ["Fasteners", "Metal fittings", "Tooling accessories"],
+    },
+    {
+      name: "Vehicle Parts",
+      href: "/industries/vehicle-parts/",
+      icon: "vehicle",
+      typicalProducts: ["Commercial vehicle parts", "Aftermarket components", "Service parts"],
+    },
+    {
+      name: "New Energy / PV / EV Parts",
+      href: "/industries/new-energy-pv-ev-parts/",
+      icon: "energy",
+      typicalProducts: ["PV accessories", "EV support parts", "Energy system components"],
+    },
+  ],
+  capabilities: [
+    {
+      title: "Supplier Fit Screening",
+      description:
+        "Shortlist suppliers by category match, production scope, response quality, and execution readiness before quotes are compared.",
+    },
+    {
+      title: "Multi-Category Coordination",
+      description:
+        "Keep product lists, supplier replies, samples, packing requirements, and delivery details organized across different categories.",
+    },
+    {
+      title: "Verification Before Movement",
+      description:
+        "Review key checkpoints before goods leave the supplier side, including product details, packaging, documents, and shipment readiness.",
+    },
+  ],
+  cta: {
+    title: "Not sure where your product category fits?",
+    subtitle:
+      "Send the product list, photos, target quantity, and delivery market. CertiRun can help map the right sourcing path.",
+    button: "Start Sourcing",
+    href: "/contact",
+  },
+};
+---
+
+<BaseLayout
+  title="Industries | CertiRun"
+  description="CertiRun industry coverage for electronics, machinery, hardware, vehicle parts, and new energy sourcing workflows."
+  canonical="/industries/"
+>
+  <section class="subpageHero">
+    <div class="container wide">
+      <p class="eyebrow">{page.hero.eyebrow}</p>
+      <h1>{page.hero.title}</h1>
+      <p class="lead">{page.hero.subtitle}</p>
+    </div>
+  </section>
+
+  <div class="pageShell">
+    <section class="industriesOverview">
+      <div class="container wide">
+        <div class="industriesIntro">
+          <p class="industriesBadge">Industries</p>
+          <h2>Product categories we can structure and control</h2>
+          <p>
+            Each category has different supplier risks, technical requirements, and
+            delivery constraints. The operating model stays consistent: clarify,
+            compare, verify, and follow through.
+          </p>
+        </div>
+
+        <div class="industriesGrid">
+          {page.industries.map((industry) => (
+            <a class="industryCard" href={industry.href}>
+              <div class="industryCardTop">
+                <span class="industryIcon">
+                  <CategoryIcon name={industry.icon} />
+                </span>
+                <span class="industryArrow" aria-hidden="true">→</span>
+              </div>
+              <h3>{industry.name}</h3>
+              <ul>
+                {industry.typicalProducts.map((product) => (
+                  <li>{product}</li>
+                ))}
+              </ul>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="capabilitySection">
+      <div class="container wide">
+        <div class="sectionHeading">
+          <p class="industriesBadge">Capabilities</p>
+          <h2>Support that stays consistent across categories</h2>
+          <p>
+            The category may change, but the operating requirement is the same:
+            reduce ambiguity before commitments are made.
+          </p>
+        </div>
+
+        <div class="capabilityGrid">
+          {page.capabilities.map((item) => (
+            <article class="capabilityCard">
+              <span class="capabilityRule"></span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="industriesCtaSection">
+      <div class="container wide">
+        <div class="industriesCta">
+          <p class="industriesBadge">Next Step</p>
+          <h2>{page.cta.title}</h2>
+          <p>{page.cta.subtitle}</p>
+          <a class="ctaAction" href={page.cta.href}>{page.cta.button}</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .industriesOverview,
+  .capabilitySection{
+    padding:76px 0 28px;
+    background:#fff;
+  }
+
+  .capabilitySection{
+    padding-top:40px;
+  }
+
+  .industriesIntro,
+  .sectionHeading{
+    max-width:680px;
+    margin-bottom:30px;
+  }
+
+  .industriesBadge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:30px;
+    padding:0 14px;
+    margin:0 0 22px;
+    border:1px solid rgba(10,37,64,.28);
+    border-radius:8px;
+    background:#F1F4F8;
+    color:#0A2540;
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:.72rem;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+
+  .industriesIntro h2,
+  .sectionHeading h2,
+  .industriesCta h2{
+    max-width:720px;
+    font-size:clamp(2rem, 3.2vw, 3.45rem);
+    line-height:1.1;
+    letter-spacing:-.035em;
+    font-weight:800;
+  }
+
+  .industriesIntro p:not(.industriesBadge),
+  .sectionHeading p:not(.industriesBadge),
+  .industriesCta p:not(.industriesBadge){
+    margin-top:18px;
+    max-width:650px;
+    color:var(--text-secondary);
+    font-size:var(--type-body-lg);
+    line-height:1.65;
+  }
+
+  .industriesGrid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:22px;
+  }
+
+  .industryCard,
+  .capabilityCard{
+    display:grid;
+    align-content:start;
+    min-height:252px;
+    padding:28px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.04);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+
+  .industryCard:hover,
+  .capabilityCard:hover{
+    transform:translateY(-2px);
+    border-color:rgba(10,37,64,.18);
+    box-shadow:0 14px 32px rgba(10,37,64,.08);
+  }
+
+  .industryCardTop{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:var(--space-4);
+    margin-bottom:24px;
+  }
+
+  .industryIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:58px;
+    height:58px;
+    border-radius:14px;
+    background:#F1F4F8;
+    color:var(--accent);
+  }
+
+  .industryIcon :global(.categoryIcon){
+    width:32px;
+    height:32px;
+  }
+
+  .industryArrow{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;
+    height:34px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    color:var(--accent);
+    font-weight:800;
+  }
+
+  .industryCard h3,
+  .capabilityCard h3{
+    max-width:360px;
+    font-size:1.18rem;
+    font-weight:800;
+    line-height:1.2;
+  }
+
+  .industryCard ul{
+    display:grid;
+    gap:10px;
+    margin:22px 0 0;
+    padding:0;
+    list-style:none;
+  }
+
+  .industryCard li{
+    position:relative;
+    padding-left:18px;
+    color:var(--text-secondary);
+    line-height:1.5;
+  }
+
+  .industryCard li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:.65em;
+    width:6px;
+    height:6px;
+    border-radius:999px;
+    background:var(--accent);
+  }
+
+  .capabilityGrid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:22px;
+  }
+
+  .capabilityCard{
+    min-height:220px;
+  }
+
+  .capabilityRule{
+    width:42px;
+    height:2px;
+    margin-bottom:20px;
+    background:var(--accent);
+  }
+
+  .capabilityCard p{
+    margin-top:18px;
+    color:var(--text-secondary);
+    line-height:1.62;
+  }
+
+  .industriesCtaSection{
+    padding:42px 0 78px;
+    background:#fff;
+  }
+
+  .industriesCta{
+    display:grid;
+    justify-items:center;
+    text-align:center;
+    gap:18px;
+    padding:42px 32px 46px;
+    border-radius:8px;
+    background:
+      radial-gradient(circle at 82% 35%, rgba(47,128,237,.13), transparent 28%),
+      linear-gradient(135deg, #F4F8FD 0%, #EEF5FC 100%);
+    overflow:hidden;
+  }
+
+  .industriesCta .industriesBadge{
+    margin:0;
+  }
+
+  .industriesCta h2{
+    color:var(--accent);
+  }
+
+  .ctaAction{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:210px;
+    min-height:58px;
+    padding:0 28px;
+    border-radius:8px;
+    background:var(--accent);
+    color:#fff;
+    font-weight:800;
+    box-shadow:0 12px 28px rgba(10,37,64,.18);
+    transition:transform .16s ease, background-color .16s ease;
+  }
+
+  .ctaAction:hover{
+    transform:translateY(-2px);
+    background:var(--accent-hover);
+  }
+
+  @media (max-width: 900px){
+    .industriesOverview,
+    .capabilitySection{
+      padding:56px 0 20px;
+    }
+
+    .industriesGrid,
+    .capabilityGrid{
+      grid-template-columns:1fr;
+    }
+
+    .industryCard,
+    .capabilityCard{
+      min-height:auto;
+    }
+
+    .industriesCtaSection{
+      padding:32px 0 56px;
+    }
+  }
+</style>

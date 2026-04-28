@@ -1,0 +1,7 @@
+---
+const { reverse = false } = Astro.props;
+---
+
+<div class={`split-section ${reverse ? "reverse" : ""}`}>
+  <slot />
+</div>

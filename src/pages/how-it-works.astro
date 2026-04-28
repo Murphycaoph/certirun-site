@@ -1,366 +1,800 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const steps = [
-  {
-    n: "1",
-    t: "Submit RFQ",
-    p: "Share OEM or part numbers, vehicle brand and model, photos, quantity, destination, and packaging requirements.",
-  },
-  {
-    n: "2",
-    t: "Technical matching",
-    p: "We check OE references, EPC logic, vehicle application, and visible specifications before sourcing starts.",
-  },
-  {
-    n: "3",
-    t: "Supplier sourcing & comparison",
-    p: "We screen suitable suppliers, compare capability, lead time, price level, and known risk points instead of forwarding a single quote.",
-  },
-  {
-    n: "4",
-    t: "Quotation consolidation",
-    p: "Comparable quotations are organized into a clearer RFQ response so you can review pricing, terms, and sourcing differences faster.",
-  },
-  {
-    n: "5",
-    t: "Order execution & delivery",
-    p: "After confirmation, we manage QC checkpoints, packing checks, document review, consolidation, shipment booking, and delivery follow-up.",
-  },
-];
+const workflowIcons = {
+  review: `
+    <path d="M8 3h7l4 4v14H8z"></path>
+    <path d="M15 3v5h5"></path>
+    <path d="M11 11h4"></path>
+    <path d="M11 15h3"></path>
+    <circle cx="17" cy="17" r="3"></circle>
+    <path d="m19.2 19.2 1.8 1.8"></path>
+  `,
+  people: `
+    <circle cx="9" cy="8" r="3"></circle>
+    <circle cx="17" cy="9" r="2.5"></circle>
+    <path d="M3 20c.8-4 3-6 6-6s5.2 2 6 6"></path>
+    <path d="M14 15c2.8.2 4.8 1.8 5.5 5"></path>
+  `,
+  calculator: `
+    <rect x="6" y="3" width="12" height="18" rx="2"></rect>
+    <path d="M9 7h6"></path>
+    <path d="M9 11h2"></path>
+    <path d="M13 11h2"></path>
+    <path d="M9 15h2"></path>
+    <path d="M13 15h2"></path>
+    <path d="M9 18h6"></path>
+  `,
+  package: `
+    <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"></path>
+    <path d="M4 7.5 12 12l8-4.5"></path>
+    <path d="M12 12v9"></path>
+    <path d="m8 5.3 8 4.5"></path>
+  `,
+  checklist: `
+    <rect x="6" y="5" width="12" height="16" rx="2"></rect>
+    <path d="M9 5V3h6v2"></path>
+    <path d="m9.5 13 2 2 4-5"></path>
+  `,
+  truck: `
+    <path d="M3 6h11v10H3z"></path>
+    <path d="M14 10h4l3 3v3h-7z"></path>
+    <circle cx="7" cy="18" r="2"></circle>
+    <circle cx="17" cy="18" r="2"></circle>
+  `,
+  target: `
+    <circle cx="12" cy="12" r="8"></circle>
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v4"></path>
+    <path d="M12 18v4"></path>
+    <path d="M2 12h4"></path>
+    <path d="M18 12h4"></path>
+  `,
+  shield: `
+    <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"></path>
+    <path d="m9 12 2 2 4-5"></path>
+  `,
+  clock: `
+    <circle cx="12" cy="12" r="9"></circle>
+    <path d="M12 7v5l4 2"></path>
+  `,
+  handshake: `
+    <path d="M8 12 5.5 9.5a3 3 0 0 1 4.2-4.2L12 7.5l2.3-2.2a3 3 0 0 1 4.2 4.2L16 12"></path>
+    <path d="m9 13 2 2"></path>
+    <path d="m12 12 2.5 2.5"></path>
+    <path d="M6 13.5 10.5 18a2 2 0 0 0 3 0L18 13.5"></path>
+  `,
+  user: `
+    <circle cx="12" cy="8" r="3"></circle>
+    <path d="M6 20c.7-4 2.7-6 6-6s5.3 2 6 6"></path>
+  `,
+  search: `
+    <circle cx="11" cy="11" r="6"></circle>
+    <path d="m16 16 4 4"></path>
+  `,
+  document: `
+    <path d="M7 3h10v18H7z"></path>
+    <path d="M10 8h4"></path>
+    <path d="M10 12h4"></path>
+    <path d="M10 16h3"></path>
+  `,
+  arrow: `
+    <path d="M5 12h14"></path>
+    <path d="m13 6 6 6-6 6"></path>
+  `,
+};
 
-const needFromYou = [
-  { t: "Parts info", p: "OEM/part numbers or photos (photos are OK)." },
-  { t: "Vehicle coverage", p: "Brand/model/year if available (helps avoid mismatch)." },
-  { t: "Quantity", p: "Target order quantity or consolidation plan." },
-  { t: "Destination", p: "Country/port and preferred Incoterms if you have." },
-  { t: "Packaging", p: "Carton marks, label/barcode, private label needs." },
-];
-
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: "How to source truck parts from China",
-    description:
-      "Structured RFQ sourcing, technical matching, supplier comparison, quotation consolidation, and delivery coordination for commercial vehicle aftermarket buyers.",
-    step: steps.map((step) => ({
-      "@type": "HowToStep",
-      name: step.t,
-      text: step.p,
-    })),
+const page = {
+  hero: {
+    title: "A controlled workflow for sourcing, verification, and delivery.",
+    subtitle:
+      "CertiRun gives overseas buyers a clear operating path from request review to supplier coordination, quality checks, and shipment follow-up.",
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
+  steps: [
+    {
+      step: "01",
+      icon: "review",
+      title: "Request Review",
+      description:
+        "We clarify the product scope, technical requirements, target quantity, market standards, and delivery expectations before supplier contact begins.",
+    },
+    {
+      step: "02",
+      icon: "people",
+      title: "Supplier Shortlist",
+      description:
+        "Relevant factories or trading partners are compared by product fit, response quality, production capability, and sourcing risk.",
+    },
+    {
+      step: "03",
+      icon: "calculator",
+      title: "Quotation Control",
+      description:
+        "Pricing, lead time, MOQ, packing, payment terms, and document requirements are organized into a clear comparison for decision-making.",
+    },
+    {
+      step: "04",
+      icon: "package",
+      title: "Sample Or Order Follow-Up",
+      description:
+        "Once a direction is confirmed, CertiRun follows key handoff points so supplier promises become trackable execution items.",
+    },
+    {
+      step: "05",
+      icon: "checklist",
+      title: "Verification Checkpoints",
+      description:
+        "Product details, packing status, document accuracy, and shipment readiness are reviewed before goods move into delivery.",
+    },
+    {
+      step: "06",
+      icon: "truck",
+      title: "Delivery Coordination",
+      description:
+        "Shipment progress, export documents, and post-dispatch communication are kept visible until the buyer has a clear delivery record.",
+    },
+  ],
+  proof: [
+    {
+      icon: "target",
+      title: "Clarity First",
+      description: "Clear inputs lead to accurate sourcing outcomes.",
+    },
+    {
+      icon: "shield",
+      title: "Quality Assured",
+      description: "Verification at key points reduces risk.",
+    },
+    {
+      icon: "clock",
+      title: "Transparent Process",
+      description: "Every step is visible and trackable.",
+    },
+    {
+      icon: "handshake",
+      title: "Reliable Delivery",
+      description: "Coordinated execution supports on-time arrival.",
+    },
+  ],
+  flowExample: {
+    scenario: "Example workflow for a multi-supplier industrial order",
+    timeline: [
       {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://certirun.com/",
+        number: "01",
+        icon: "user",
+        title: "Day 1",
+        description: "Buyer sends product list, photos, target quantity, and delivery market.",
       },
       {
-        "@type": "ListItem",
-        position: 2,
-        name: "How It Works",
-        item: "https://certirun.com/how-it-works/",
+        number: "02",
+        icon: "search",
+        title: "Day 2-4",
+        description: "CertiRun screens suppliers, checks fit, and organizes quotation comparison.",
+      },
+      {
+        number: "03",
+        icon: "document",
+        title: "Day 5-10",
+        description: "Buyer confirms selected supplier path, samples, or first order scope.",
+      },
+      {
+        number: "",
+        icon: "package",
+        title: "Before shipment",
+        description: "Packing, document, and delivery readiness checkpoints are reviewed.",
+        complete: true,
       },
     ],
   },
-];
+  cta: {
+    title: "Start with a clear sourcing workflow.",
+    subtitle:
+      "Send the product scope and delivery market. CertiRun will help structure the next step before supplier execution begins.",
+    button: "Start Sourcing",
+    href: "/contact",
+  },
+};
 ---
 
 <BaseLayout
-  title="How to Source Truck Parts from China | CertiRun Workflow"
-  description="Learn the CertiRun workflow from RFQ submission and technical matching to supplier comparison, quotation review, and delivery coordination."
-  keywords={["how to source truck parts from China", "truck parts sourcing workflow", "import truck parts from China", "OEM part number RFQ", "truck parts export process"]}
+  title="How It Works | CertiRun"
+  description="A clear CertiRun workflow for sourcing, supplier coordination, verification checkpoints, and delivery follow-up."
   canonical="/how-it-works/"
-  ogImage="/images/shipping-documents-export-paperwork.jpg"
-  jsonLd={jsonLd}
 >
-  <style>
-    :root{
-      --bg:#eef3f7;
-      --text:#1d2a36;
-      --muted:#5f6d86;
-      --line:rgba(29,42,54,.10);
-      --brand:#3957E9;
-      --brand2:#3957E9;
-    }
-
-    :global(main){
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
-    }
-
-    :global(.topbar){
-      background:#111F43 !important;
-      background-color:#111F43 !important;
-      opacity:1 !important;
-      backdrop-filter:none !important;
-      -webkit-backdrop-filter:none !important;
-      border-bottom:1px solid #111F43 !important;
-      box-shadow:none !important;
-    }
-
-    :global(.menu){
-      color:#fff;
-    }
-
-    :global(.menu a){
-      color:#fff;
-    }
-
-    :global(.menu a:hover){
-      color:#fff;
-    }
-
-    :global(.menu a.active){
-      color:#fff;
-      background:rgba(57,87,233,.18);
-      border-color:rgba(57,87,233,.32);
-    }
-
-    :global(.drawerNav a.active){
-      color:#fff;
-      background:rgba(57,87,233,.18);
-      border-color:rgba(57,87,233,.32);
-    }
-
-    :global(.cta){
-      background:#3957E9;
-      color:#fff;
-    }
-
-    /* ===== HERO (Insights-style) ===== */
-    .hero{
-      position:relative;
-      padding:46px 0 20px;
-      border-bottom:1px solid var(--line);
-      overflow:hidden;
-      isolation:isolate;
-      background:#0b1020;
-    }
-
-    .heroBg{
-      position:absolute;
-      inset:0;
-      z-index:-2;
-      background:
-        url("/images/shipping-documents-export-paperwork.jpg") center/cover no-repeat;
-      /* 关键：浅浅模�?+ 稍微压一下对�?饱和，让标题更稳 */
-      filter: blur(2.0px) saturate(.95) contrast(.95) brightness(.92);
-      transform: scale(1.03); /* 防止 blur 露边 */
-    }
-
-    /* 遮罩：保证白色标题可�?*/
-    .overlay{
-      position:absolute;
-      inset:0;
-      z-index:-1;
-      background:
-        linear-gradient(180deg, rgba(11,16,32,.28) 0%, rgba(11,16,32,.86) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%);
-    }
-
-    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;opacity:.82;margin:0 0 .75rem;color:rgba(255,255,255,.82)}
-    .title{margin:0 0 .8rem;font-size:40px;letter-spacing:-.4px;line-height:1.12;color:#fff}
-    .sub{margin:0;max-width:78ch;color:rgba(225,233,255,.86);line-height:1.75}
-
-    /* ===== BODY (keep your existing layout) ===== */
-    .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; color:#1d2a36; }
-    .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.7; max-width:980px; }
-
-    .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
-
-    .step{
-      display:flex; gap:12px; align-items:flex-start;
-      padding:16px;
-      border-radius:18px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
-    .num{
-      width:34px; height:34px; border-radius:12px;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:950;
-      background:rgba(74,84,98,.08);
-      border:1px solid rgba(74,84,98,.18);
-      color:#4A5462;
-      flex:0 0 34px;
-      margin-top:2px;
-    }
-    .st{ font-weight:950; margin-bottom:6px; color:#1d2a36; }
-    .sp{ margin:0; color:var(--muted); line-height:1.7; }
-
-    .ctaBlock{
-      margin-top:12px;
-      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
-      border:1px solid rgba(57,87,233,.16);
-      border-radius:20px;
-      padding:18px;
-      display:flex; justify-content:space-between; align-items:center; gap:14px;
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
-    }
-    .ctaBlock .left b{ display:block; margin-bottom:6px; color:#1d2a36; }
-    .ctaBlock .left p{ margin:0; color:var(--muted); line-height:1.7; max-width:760px; }
-
-    .ctaBlock .btn.primary{
-      color:#fff;
-      background:#3957E9;
-    }
-
-    .ctaBlock .btn:not(.primary){
-      color:#fff;
-      background:#3957E9;
-      border-color:#3957E9;
-    }
-
-    .mini{
-      margin-top:12px;
-      padding:14px;
-      border-radius:16px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-      color:var(--muted);
-      line-height:1.7;
-    }
-    .mini b{ color:#1d2a36; }
-
-    .card{
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
-
-    .card b{
-      color:#1d2a36;
-    }
-
-    .card p{
-      color:var(--muted);
-    }
-
-    .grid3 .card a,
-    .grid2 .card a,
-    .mini a,
-    .section a:not(.btn):not(.postMore):not(.viewAll){
-      color:#1d2a36;
-    }
-
-    :global(.footerWrap){
-      background:transparent;
-      border-top:1px solid rgba(29,42,54,.10);
-    }
-
-    :global(.footerTitle),
-    :global(.footerNav strong){
-      color:#1d2a36;
-    }
-
-    :global(.footer),
-    :global(.footerNav span){
-      color:var(--muted);
-    }
-
-    :global(.footerNav a){
-      background:#fff;
-      border-color:rgba(29,42,54,.10);
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 980px){
-      .title{font-size:34px}
-      .grid2{ grid-template-columns:1fr; }
-      .grid3{ grid-template-columns:1fr; }
-      .ctaBlock{ flex-direction:column; align-items:flex-start; }
-    }
-
-    @media (max-width: 720px){
-      .heroBg{
-        filter: blur(2px) saturate(.95) contrast(.95) brightness(.92);
-        transform: scale(1.04);
-      }
-    }
-  </style>
-
-  <header class="hero">
-    <div class="heroBg" aria-hidden="true"></div>
-    <div class="overlay" aria-hidden="true"></div>
-
-    <div class="container">
-      <p class="kicker">CertiRun / Process</p>
-      <h1 class="title">How to source truck parts from China</h1>
-      <p class="sub">
-        Learn the CertiRun workflow from RFQ submission and technical matching to supplier comparison, quotation review, and delivery coordination. Built for B2B buyers who need a clearer path from inquiry to shipment.
-      </p>
+  <section class="subpageHero">
+    <div class="container wide">
+      <p class="eyebrow">CertiRun / How It Works</p>
+      <h1>{page.hero.title}</h1>
+      <p class="lead">{page.hero.subtitle}</p>
     </div>
-  </header>
+  </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">Workflow</h2>
-      <p class="sectionDesc">
-        Each step follows a clear review logic so part matching, supplier selection, quotation review, and order execution stay controlled.
-      </p>
-      <p class="sectionDesc">
-        If you want the broader service logic behind this workflow, see our <a href="/sourcing">truck parts sourcing service</a>. If you want to review inspection, document, and coordination scope in more detail, see our <a href="/capabilities">quality control and sourcing support</a>.
-      </p>
-
-      <div class="grid2">
-        {steps.map((s) => (
-          <div class="step">
-            <div class="num">{s.n}</div>
-            <div>
-              <div class="st">{s.t}</div>
-              <p class="sp">{s.p}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div class="ctaBlock">
-        <div class="left">
-          <b>Ready to share your RFQ?</b>
+  <div class="pageShell">
+    <section class="workflowOverview">
+      <div class="container wide">
+        <div class="workflowIntro">
+          <p class="workflowBadge">Workflow</p>
+          <h2>Six checkpoints from request to delivery</h2>
           <p>
-            Send OEM or part numbers, vehicle details, quantities, destination, and packaging requirements.
-            We will review the technical fit first, then return compared supplier options and a consolidated quotation.
+            The process is built to reduce ambiguity. Each step has a defined
+            purpose, clear output, and a practical handoff point.
           </p>
         </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn primary" href="/contact">Send RFQ</a>
-          <a class="btn" href="/capabilities">See Capabilities</a>
+
+        <div class="workflowSteps">
+          {page.steps.map((item) => (
+            <article class="workflowCard">
+              <div class="workflowCardTop">
+                <span class="stepNumber">{item.step}</span>
+                <span class="workflowIcon">
+                  <svg class="workflowIconSvg" viewBox="0 0 24 24" aria-hidden="true" set:html={workflowIcons[item.icon]} />
+                </span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <span class="cardRule"></span>
+            </article>
+          ))}
+        </div>
+
+        <div class="proofStrip">
+          {page.proof.map((item) => (
+            <article class="proofItem">
+              <span class="proofIcon">
+                <svg class="workflowIconSvg" viewBox="0 0 24 24" aria-hidden="true" set:html={workflowIcons[item.icon]} />
+              </span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">What we need from you</h2>
-      <p class="sectionDesc">
-        The more complete the input, the faster the sourcing cycle and the lower the mismatch risk.
-      </p>
-      <p class="sectionDesc">
-        For buyers still evaluating suppliers or quotations before submitting an RFQ, start with <a href="/blog/how-to-identify-reliable-auto-parts-suppliers-in-china">how to identify reliable suppliers</a> and <a href="/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers">how to compare supplier quotations</a>.
-      </p>
+    <section class="flowExampleSection">
+      <div class="container wide">
+        <div class="flowIntro">
+          <p class="workflowBadge">Flow Example</p>
+          <h2>{page.flowExample.scenario}</h2>
+          <p>
+            A simple timeline keeps the buyer, supplier, and execution side
+            aligned without adding unnecessary process weight.
+          </p>
+        </div>
 
-      <div class="grid3">
-        {needFromYou.map((x) => (
-          <div class="card">
-            <b>{x.t}</b>
-            <p>{x.p}</p>
-          </div>
-        ))}
+        <div class="flowTimeline">
+          {page.flowExample.timeline.map((item) => (
+            <article class={`flowRow ${item.complete ? "complete" : ""}`}>
+              <div class="flowMarker">
+                {item.complete ? (
+                  <svg class="workflowIconSvg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m6 12 4 4 8-9"></path>
+                  </svg>
+                ) : (
+                  item.number
+                )}
+              </div>
+              <div class="flowContent">
+                <span class="flowIcon">
+                  <svg class="workflowIconSvg" viewBox="0 0 24 24" aria-hidden="true" set:html={workflowIcons[item.icon]} />
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="workflowCtaPanel">
+          <p class="workflowBadge">Next Step</p>
+          <h2>{page.cta.title}</h2>
+          <p>{page.cta.subtitle}</p>
+          <a class="ctaAction" href={page.cta.href}>
+            <span>{page.cta.button}</span>
+            <svg class="workflowIconSvg" viewBox="0 0 24 24" aria-hidden="true" set:html={workflowIcons.arrow} />
+          </a>
+        </div>
       </div>
-
-      <div class="mini">
-        <b>Tip:</b> If you only have photos, an old supplier sheet, or OEM and part numbers, send them anyway.
-        For repeat orders, we can standardize your RFQ template and packaging marks.
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .workflowOverview{
+    padding:76px 0 28px;
+    background:#fff;
+  }
+
+  .workflowIntro{
+    max-width:640px;
+    margin-bottom:28px;
+  }
+
+  .workflowBadge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:30px;
+    padding:0 14px;
+    margin:0 0 22px;
+    border:1px solid rgba(10,37,64,.28);
+    border-radius:8px;
+    background:#F1F4F8;
+    color:#0A2540;
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:.72rem;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+
+  .workflowIntro h2{
+    max-width:620px;
+    font-size:clamp(2.25rem, 3.6vw, 3.9rem);
+    line-height:1.08;
+    letter-spacing:-.035em;
+    font-weight:800;
+  }
+
+  .workflowIntro p:not(.workflowBadge){
+    margin-top:20px;
+    max-width:580px;
+    color:var(--text-secondary);
+    font-size:var(--type-body-lg);
+    line-height:1.65;
+  }
+
+  .workflowSteps{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:22px;
+  }
+
+  .workflowCard{
+    position:relative;
+    display:grid;
+    align-content:start;
+    min-height:228px;
+    padding:28px 28px 24px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.04);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+
+  .workflowCard:hover{
+    transform:translateY(-2px);
+    border-color:rgba(10,37,64,.18);
+    box-shadow:0 14px 32px rgba(10,37,64,.08);
+  }
+
+  .workflowCardTop{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:var(--space-4);
+    margin-bottom:18px;
+  }
+
+  .stepNumber{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;
+    height:34px;
+    border:1px solid rgba(10,37,64,.18);
+    border-radius:4px;
+    background:#fff;
+    color:var(--accent);
+    font-family:"Work Sans", Arial, sans-serif;
+    font-weight:800;
+    font-size:.7rem;
+    letter-spacing:.04em;
+  }
+
+  .workflowIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:58px;
+    height:58px;
+    border-radius:14px;
+    background:#F1F4F8;
+    color:var(--accent);
+  }
+
+  .workflowIconSvg{
+    width:32px;
+    height:32px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .workflowCard h3{
+    margin-bottom:16px;
+    font-size:1.12rem;
+    font-weight:800;
+    letter-spacing:-.02em;
+  }
+
+  .workflowCard p{
+    max-width:360px;
+    color:var(--text-secondary);
+    line-height:1.62;
+  }
+
+  .cardRule{
+    display:block;
+    width:42px;
+    height:2px;
+    margin-top:20px;
+    background:var(--accent);
+  }
+
+  .proofStrip{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    margin-top:34px;
+    padding:30px 30px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#F7F9FC;
+    box-shadow:0 14px 34px rgba(10,37,64,.05);
+  }
+
+  .proofItem{
+    display:grid;
+    grid-template-columns:auto minmax(0, 1fr);
+    gap:18px;
+    align-items:center;
+    min-height:76px;
+    padding:0 26px;
+    border-right:1px solid rgba(10,37,64,.12);
+  }
+
+  .proofItem:first-child{
+    padding-left:0;
+  }
+
+  .proofItem:last-child{
+    padding-right:0;
+    border-right:none;
+  }
+
+  .proofIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:58px;
+    height:58px;
+    border-radius:999px;
+    background:var(--accent);
+    color:#fff;
+    flex:0 0 auto;
+  }
+
+  .proofIcon .workflowIconSvg{
+    width:31px;
+    height:31px;
+    stroke-width:1.8;
+  }
+
+  .proofItem h3{
+    margin-bottom:8px;
+    font-size:1rem;
+    font-weight:800;
+  }
+
+  .proofItem p{
+    color:var(--text-secondary);
+    line-height:1.5;
+    font-size:.94rem;
+  }
+
+  .flowExampleSection{
+    padding:34px 0 68px;
+    background:#fff;
+  }
+
+  .flowIntro{
+    max-width:650px;
+    margin-bottom:30px;
+  }
+
+  .flowIntro h2{
+    max-width:660px;
+    font-size:clamp(2rem, 3vw, 3.25rem);
+    line-height:1.14;
+    letter-spacing:-.03em;
+    font-weight:800;
+  }
+
+  .flowIntro p:not(.workflowBadge){
+    margin-top:18px;
+    max-width:610px;
+    color:var(--text-secondary);
+    font-size:var(--type-body-lg);
+    line-height:1.65;
+  }
+
+  .flowTimeline{
+    position:relative;
+    display:grid;
+    gap:16px;
+    margin-top:26px;
+    padding-left:0;
+  }
+
+  .flowTimeline::before{
+    content:"";
+    position:absolute;
+    left:34px;
+    top:58px;
+    bottom:58px;
+    width:1px;
+    border-left:1px dashed rgba(10,37,64,.18);
+  }
+
+  .flowRow{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:76px minmax(0, 1fr);
+    gap:0;
+    align-items:stretch;
+  }
+
+  .flowMarker{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:76px;
+    min-height:72px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    color:#0A5DD8;
+    font-family:"Work Sans", Arial, sans-serif;
+    font-weight:800;
+    font-size:1rem;
+    box-shadow:0 8px 22px rgba(10,37,64,.05);
+  }
+
+  .flowRow.complete .flowMarker{
+    width:44px;
+    min-height:44px;
+    align-self:center;
+    justify-self:center;
+    border-radius:999px;
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .flowRow.complete .flowMarker .workflowIconSvg{
+    width:22px;
+    height:22px;
+    stroke-width:2.1;
+  }
+
+  .flowContent{
+    display:grid;
+    grid-template-columns:56px minmax(140px, 240px) minmax(0, 1fr);
+    align-items:center;
+    gap:24px;
+    min-height:72px;
+    padding:16px 28px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.05);
+  }
+
+  .flowIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border-radius:999px;
+    background:#EAF1FB;
+    color:var(--accent);
+  }
+
+  .flowIcon .workflowIconSvg{
+    width:24px;
+    height:24px;
+  }
+
+  .flowContent h3{
+    font-size:1.05rem;
+    font-weight:800;
+  }
+
+  .flowContent p{
+    color:var(--text-secondary);
+    line-height:1.6;
+  }
+
+  .workflowCtaPanel{
+    position:relative;
+    display:grid;
+    justify-items:center;
+    text-align:center;
+    gap:18px;
+    margin-top:44px;
+    padding:34px 32px 42px;
+    min-height:260px;
+    border-radius:8px;
+    background:
+      radial-gradient(circle at 84% 38%, rgba(47,128,237,.13), transparent 28%),
+      linear-gradient(135deg, #F4F8FD 0%, #EEF5FC 100%);
+    overflow:hidden;
+  }
+
+  .workflowCtaPanel::after{
+    content:"";
+    position:absolute;
+    right:7%;
+    top:18%;
+    width:300px;
+    height:220px;
+    opacity:.22;
+    background-image:radial-gradient(rgba(47,128,237,.55) 1px, transparent 1.5px);
+    background-size:9px 9px;
+    mask-image:radial-gradient(circle, #000 0 52%, transparent 72%);
+  }
+
+  .workflowCtaPanel > *{
+    position:relative;
+    z-index:1;
+  }
+
+  .workflowCtaPanel .workflowBadge{
+    margin:0;
+  }
+
+  .workflowCtaPanel h2{
+    max-width:780px;
+    color:var(--accent);
+    font-size:clamp(2rem, 3vw, 3.25rem);
+    line-height:1.1;
+    font-weight:800;
+  }
+
+  .workflowCtaPanel p:not(.workflowBadge){
+    max-width:660px;
+    color:var(--text-secondary);
+    line-height:1.65;
+    font-size:var(--type-body-lg);
+  }
+
+  .ctaAction{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    min-width:210px;
+    min-height:58px;
+    padding:0 28px;
+    border-radius:8px;
+    background:var(--accent);
+    color:#fff;
+    font-weight:800;
+    box-shadow:0 12px 28px rgba(10,37,64,.18);
+    transition:transform .16s ease, background-color .16s ease;
+  }
+
+  .ctaAction:hover{
+    transform:translateY(-2px);
+    background:var(--accent-hover);
+  }
+
+  .ctaAction .workflowIconSvg{
+    width:22px;
+    height:22px;
+    stroke-width:2;
+  }
+
+  @media (max-width: 900px){
+    .workflowOverview{
+      padding:56px 0 20px;
+    }
+
+    .workflowSteps{
+      grid-template-columns:1fr;
+    }
+
+    .workflowCard{
+      min-height:auto;
+    }
+
+    .proofStrip{
+      grid-template-columns:1fr;
+      padding:22px;
+    }
+
+    .proofItem,
+    .proofItem:first-child,
+    .proofItem:last-child{
+      padding:18px 0;
+      border-right:none;
+      border-bottom:1px solid rgba(10,37,64,.12);
+    }
+
+    .proofItem:first-child{
+      padding-top:0;
+    }
+
+    .proofItem:last-child{
+      padding-bottom:0;
+      border-bottom:none;
+    }
+
+    .flowExampleSection{
+      padding:28px 0 52px;
+    }
+
+    .flowTimeline::before{
+      left:24px;
+    }
+
+    .flowRow{
+      grid-template-columns:54px minmax(0, 1fr);
+    }
+
+    .flowMarker{
+      width:54px;
+      min-height:64px;
+      font-size:.86rem;
+    }
+
+    .flowContent{
+      grid-template-columns:44px minmax(0, 1fr);
+      gap:14px 18px;
+      padding:18px;
+    }
+
+    .flowContent p{
+      grid-column:2;
+    }
+
+    .workflowCtaPanel{
+      min-height:auto;
+      padding:30px 22px 34px;
+    }
+
+    .workflowCtaPanel::after{
+      display:none;
+    }
+  }
+
+  @media (max-width: 640px){
+    .workflowIntro h2{
+      font-size:2.15rem;
+    }
+
+    .workflowCard{
+      padding:24px;
+    }
+
+    .flowIntro h2,
+    .workflowCtaPanel h2{
+      font-size:2rem;
+    }
+
+    .flowContent{
+      grid-template-columns:1fr;
+    }
+
+    .flowContent p{
+      grid-column:auto;
+    }
+  }
+</style>

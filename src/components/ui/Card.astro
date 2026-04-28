@@ -1,0 +1,8 @@
+---
+const { variant = "default", compact = false, as = "article" } = Astro.props;
+const Tag = as;
+---
+
+<Tag class={`ui-card ${variant} ${compact ? "compact" : ""}`}>
+  <slot />
+</Tag>
