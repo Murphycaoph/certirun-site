@@ -12,7 +12,7 @@ export const industryPages = {
     positioning:
       "Electronics products, components, accessories, and small-batch sourcing support from China.",
     media: {
-      src: "/images/industries/hero-electronics-electronic-components.png",
+      src: "/images/industries/hero-electronics-electronic-components.webp",
       alt: "Electronics and electronic components sourcing category",
     },
     scopeImageBase: "/images/industries/scope/electronics",
@@ -64,7 +64,7 @@ export const industryPages = {
     positioning:
       "Machinery, industrial equipment, and electromechanical product sourcing support from China.",
     media: {
-      src: "/images/industries/hero-machinery-industrial-equipment.png",
+      src: "/images/industries/hero-machinery-industrial-equipment.webp",
       alt: "Machinery and industrial equipment sourcing category",
     },
     scopeImageBase: "/images/industries/scope/machinery",
@@ -117,7 +117,7 @@ export const industryPages = {
     positioning:
       "Hardware products and industrial supply sourcing support for overseas buyers.",
     media: {
-      src: "/images/industries/hero-hardware-products.png",
+      src: "/images/industries/hero-hardware-products.webp",
       alt: "Hardware products sourcing category",
     },
     scopeImageBase: "/images/industries/scope/hardware",
@@ -168,7 +168,7 @@ export const industryPages = {
     positioning:
       "Vehicle parts sourcing support for commercial trucks, buses, trailers, and selected passenger vehicle parts.",
     media: {
-      src: "/images/industries/hero-vehicle-parts.png",
+      src: "/images/industries/hero-vehicle-parts.webp",
       alt: "Commercial vehicle and passenger vehicle parts sourcing category",
     },
     scopeImageBase: "/images/industries/scope/vehicle",
@@ -221,7 +221,7 @@ export const industryPages = {
     positioning:
       "Sourcing support for new energy accessories, PV related products, and selected EV parts from China.",
     media: {
-      src: "/images/industries/hero-new-energy-pv-ev-parts.png",
+      src: "/images/industries/hero-new-energy-pv-ev-parts.webp",
       alt: "New energy PV and EV parts sourcing category",
     },
     scopeImageBase: "/images/industries/scope/energy",

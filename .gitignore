@@ -12,6 +12,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.astro-dev*.log
 .preview-*.log
 .preview-*.err.log
 
@@ -33,3 +34,4 @@ pnpm-debug.log*
 output/
 tmp/
 vendor_pkgs/
+.playwright-cli/

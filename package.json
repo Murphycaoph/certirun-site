@@ -7,11 +7,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "optimize:images": "node scripts/optimize-images.mjs --update-refs",
+    "optimize:images:clean": "node scripts/optimize-images.mjs --update-refs --prune-source-images",
     "deploy:preview": "npx --yes netlify deploy --dir dist",
     "deploy:prod": "npx --yes netlify deploy --prod --dir dist"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
     "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

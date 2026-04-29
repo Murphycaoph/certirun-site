@@ -11,7 +11,7 @@ const slugifyScope = (value) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-const getScopeImage = (item) => `${page.scopeImageBase}/${slugifyScope(item)}.png`;
+const getScopeImage = (item) => `${page.scopeImageBase}/${slugifyScope(item)}.webp`;
 ---
 
 <BaseLayout title={`${page.title} | CertiRun`} description={page.description} canonical={page.canonical}>
