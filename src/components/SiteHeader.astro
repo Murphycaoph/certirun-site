@@ -3,7 +3,29 @@ import Container from "./Container.astro";
 
 const nav = [
   { href: "/capabilities", label: "Services" },
-  { href: "/industries", label: "Industries" },
+  {
+    href: "/industries",
+    label: "Industries",
+    children: [
+      {
+        href: "/industries/electronics-electronic-components/",
+        label: "Electronics & Electronic Components",
+      },
+      {
+        href: "/industries/machinery-industrial-equipment/",
+        label: "Machinery & Industrial Equipment",
+      },
+      { href: "/industries/hardware-products/", label: "Hardware Products" },
+      {
+        href: "/industries/vehicle-parts/",
+        label: "Commercial & Passenger Vehicle Parts",
+      },
+      {
+        href: "/industries/new-energy-pv-ev-parts/",
+        label: "New Energy / PV / EV Parts",
+      },
+    ],
+  },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/cases", label: "Cases" },
   { href: "/about", label: "About" },
@@ -23,9 +45,22 @@ const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWit
 
       <nav class="menu" aria-label="Primary navigation">
         {nav.map((item) => (
-          <a href={item.href} class={isActive(item.href) ? "active" : ""}>
-            {item.label}
-          </a>
+          item.children ? (
+            <div class="navDropdown">
+              <a href={item.href} class={isActive(item.href) ? "active" : ""} aria-haspopup="true">
+                {item.label}
+              </a>
+              <div class="navDropdownPanel" aria-label="Industry pages">
+                {item.children.map((child) => (
+                  <a href={child.href}>{child.label}</a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a href={item.href} class={isActive(item.href) ? "active" : ""}>
+              {item.label}
+            </a>
+          )
         ))}
       </nav>
     </div>

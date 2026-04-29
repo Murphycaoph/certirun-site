@@ -1,28 +1,72 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const principles = [
+const capabilities = [
   {
-    title: "Clear Inputs",
+    icon: "chat",
+    title: "Clear Communication",
     description:
-      "Good sourcing starts with clear product scope, target quantity, standards, packing needs, and delivery expectations.",
+      "We turn fragmented requests into clear supplier-facing questions and buyer-side records.",
   },
   {
-    title: "Visible Checkpoints",
+    icon: "search",
+    title: "Verification Mindset",
     description:
-      "Each handoff should have a record. CertiRun focuses on what is confirmed, what is pending, and what needs review.",
+      "We check product details, supplier responses, and documents before they become bigger risks.",
   },
   {
-    title: "Practical Supplier Control",
+    icon: "document",
+    title: "Structured Records",
     description:
-      "Supplier comparison only helps when the details are organized in a way buyers can actually use.",
+      "Key confirmations, changes, and open issues are recorded so nothing gets lost across suppliers.",
   },
   {
-    title: "Execution Discipline",
+    icon: "box",
+    title: "Execution Follow-up",
     description:
-      "Sourcing does not end at quotation. Follow-up, verification, documents, and dispatch status all need structure.",
+      "We stay with the order through coordination, packing checks, readiness, and shipment follow-up.",
   },
 ];
+
+const focusPoints = [
+  "Clarifying information and product scope",
+  "Comparing options with more than price",
+  "Checking details and documenting confirmations",
+  "Keeping track of changes and open issues",
+  "Helping buyers see the next decision clearly",
+];
+
+const principles = [
+  {
+    title: "Make unclear requirements visible",
+    description:
+      "Before comparing suppliers, the product scope needs to be clear enough to ask the right questions.",
+  },
+  {
+    title: "Keep communication traceable",
+    description:
+      "Important confirmations should not be buried inside scattered messages or informal follow-ups.",
+  },
+  {
+    title: "Compare more than price",
+    description:
+      "Lead time, packing, readiness, and response quality all affect the outcome.",
+  },
+  {
+    title: "Support buyer-side decisions",
+    description:
+      "The goal is to make decisions easier, not to collect more information.",
+  },
+];
+
+const iconPaths = {
+  arrow: `<path d="M7 17 17 7"></path><path d="M8 7h9v9"></path>`,
+  check: `<path d="m6 12 4 4 8-8"></path>`,
+  chat: `<path d="M4 6.5A3.5 3.5 0 0 1 7.5 3h9A3.5 3.5 0 0 1 20 6.5v5A3.5 3.5 0 0 1 16.5 15H11l-4.5 4v-4A3.5 3.5 0 0 1 4 11.5z"></path><path d="M8 8h8"></path><path d="M8 11h5"></path>`,
+  search: `<circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path>`,
+  document: `<path d="M7 3h8l4 4v14H7z"></path><path d="M15 3v5h5"></path><path d="M10 12h5"></path><path d="M10 16h6"></path><path d="m9.5 8.5 1.5 1.5 3-3"></path>`,
+  box: `<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"></path><path d="M4 7.5 12 12l8-4.5"></path><path d="M12 12v9"></path>`,
+};
 ---
 
 <BaseLayout
@@ -30,48 +74,50 @@ const principles = [
   description="About CertiRun and its approach to structured sourcing, verification, and delivery follow-up."
   canonical="/about/"
 >
-  <section class="subpageHero">
-    <div class="container wide">
-      <p class="eyebrow">CertiRun / About</p>
-      <h1>Built for buyers who need sourcing to stay controlled.</h1>
-      <p class="lead">
-        CertiRun supports overseas buyers with structured supplier coordination,
-        verification checkpoints, and delivery follow-up across China sourcing workflows.
-      </p>
+  <section class="subpageHero mediaHero">
+    <div class="container wide mediaHeroInner">
+      <div class="mediaHeroCopy">
+        <p class="eyebrow">CertiRun / About</p>
+        <h1>Built for buyers who need sourcing execution to stay clear.</h1>
+        <p class="lead">
+          We help structure the work between request clarification, supplier
+          comparison, verification, and delivery follow-up across China sourcing workflows.
+        </p>
+      </div>
+      <figure class="mediaHeroImage">
+        <img src="/images/page-heroes/about.png" alt="CertiRun sourcing operating layer visual" />
+      </figure>
     </div>
   </section>
 
   <div class="pageShell">
-    <section class="aboutIntroSection">
+    <section class="claritySection">
       <div class="container wide">
-        <div class="aboutSplit">
-          <div>
+        <div class="claritySplit">
+          <div class="clarityTitle">
             <p class="pageBadge">Who We Are</p>
-            <h2>A practical operating layer between buyer requirements and supplier execution.</h2>
+            <h2>Turning scattered information into a clearer execution path.</h2>
           </div>
-          <p>
-            CertiRun is designed for B2B buyers who need more than a supplier name.
-            We help structure the work between request clarification, supplier comparison,
-            verification, document control, and delivery communication.
-          </p>
+          <div class="clarityCopy">
+            <p class="strongLine">Most sourcing problems start with unclear execution.</p>
+            <p>
+              Requirements come in fragmented. Supplier responses are inconsistent.
+              Important details are confirmed across different messages.
+            </p>
+            <p>
+              CertiRun helps organize these steps from request clarification to
+              supplier comparison and delivery follow-up, so buyers can actually
+              follow what is happening.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <section class="principlesSection">
-      <div class="container wide">
-        <div class="sectionHeading">
-          <p class="pageBadge">Principles</p>
-          <h2>How we approach sourcing support</h2>
-          <p>
-            The operating principle is simple: reduce ambiguity before it becomes
-            cost, delay, or dispute.
-          </p>
-        </div>
-        <div class="principlesGrid">
-          {principles.map((item) => (
-            <article class="principleCard">
-              <span class="cardRule"></span>
+        <div class="capabilityRail">
+          {capabilities.map((item) => (
+            <article class="capabilityItem">
+              <span class="capabilityIcon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths[item.icon]} />
+              </span>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
             </article>
@@ -80,13 +126,74 @@ const principles = [
       </div>
     </section>
 
-    <section class="aboutCtaSection">
+    <section class="founderSection">
       <div class="container wide">
+        <div class="founderPanel">
+          <div class="founderCopy">
+            <p class="pageBadge">Founder / Background</p>
+            <h2>From verification and coordination work to sourcing execution.</h2>
+            <p>
+              CertiRun was built from a simple observation: most sourcing problems
+              are not caused by a lack of suppliers. They are caused by unclear execution.
+            </p>
+            <p>
+              Before working on sourcing execution, the founder spent years dealing
+              with structured verification, document review, and multi-party
+              coordination in audit-related work.
+            </p>
+            <p>
+              That background shaped how CertiRun approaches sourcing: not as a
+              supplier search service, but as a way to make buyer-side execution
+              clearer, traceable, and comparable.
+            </p>
+          </div>
+
+          <div class="executionVisual" aria-label="Execution layer focus">
+            <img src="/images/shipping-documents-export-paperwork.jpg" alt="Sourcing documents and execution records" />
+            <div class="executionCard">
+              <span>What We Focus On</span>
+              <h3>We work on the execution layer that matters.</h3>
+              <ul>
+                {focusPoints.map((item) => (
+                  <li>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths.check} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="principlesSection">
+      <div class="container wide">
+        <div class="principlesHeader">
+          <p class="pageBadge">Founder-side Operating Principles</p>
+          <h2>The way we approach sourcing work.</h2>
+        </div>
+
+        <div class="principlesGrid">
+          {principles.map((item, index) => (
+            <article class="principleCard">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+
         <div class="aboutCta">
-          <p class="pageBadge">Next Step</p>
-          <h2>Work with a sourcing process that stays visible.</h2>
-          <p>Send the product scope and current sourcing challenge. CertiRun can help define a clearer path.</p>
-          <a class="ctaAction" href="/contact">Contact CertiRun</a>
+          <span class="ctaIcon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths.arrow} />
+          </span>
+          <h2>If your sourcing process feels scattered, CertiRun can help make it clearer.</h2>
+          <p>
+            Send your product scope and current supplier situation. We will help
+            turn it into a clearer execution path.
+          </p>
+          <a class="ctaAction" href="/contact/">Get in Touch</a>
         </div>
       </div>
     </section>
@@ -94,53 +201,158 @@ const principles = [
 </BaseLayout>
 
 <style>
-  .aboutIntroSection,.principlesSection{ padding:76px 0 28px; background:#fff; }
-  .principlesSection{ padding-top:40px; }
-  .aboutSplit{ display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:64px; align-items:start; }
   .pageBadge{
     display:inline-flex; align-items:center; justify-content:center; min-height:30px;
-    padding:0 14px; margin:0 0 22px; border:1px solid rgba(10,37,64,.28);
-    border-radius:8px; background:#F1F4F8; color:#0A2540;
-    font-family:"Work Sans",Arial,sans-serif; font-size:.72rem; font-weight:800;
-    line-height:1; letter-spacing:.16em; text-transform:uppercase;
+    width:max-content; padding:0 14px; margin:0 0 22px;
+    border:1px solid rgba(10,37,64,.28); border-radius:8px; background:#F1F4F8;
+    color:#0A2540; font-family:"Work Sans",Arial,sans-serif; font-size:.72rem;
+    font-weight:800; line-height:1; letter-spacing:.16em; text-transform:uppercase;
   }
-  .aboutSplit h2,.sectionHeading h2,.aboutCta h2{
-    max-width:760px; font-size:clamp(2rem,3.2vw,3.45rem); line-height:1.1;
+
+  .claritySection{ padding:74px 0 68px; background:#fff; }
+  .claritySplit{
+    display:grid; grid-template-columns:minmax(0,.78fr) minmax(0,1fr);
+    gap:56px; align-items:start; margin-bottom:58px;
+  }
+  .clarityTitle{ padding-right:34px; border-right:1px solid rgba(10,37,64,.12); }
+  .clarityTitle h2,
+  .founderCopy h2,
+  .principlesHeader h2,
+  .aboutCta h2{
+    max-width:760px; font-size:clamp(2rem,3.1vw,3.35rem); line-height:1.1;
     letter-spacing:-.035em; font-weight:800;
   }
-  .aboutSplit > p,.sectionHeading p:not(.pageBadge),.aboutCta p:not(.pageBadge){
-    color:var(--text-secondary); font-size:var(--type-body-lg); line-height:1.75;
+  .clarityCopy{
+    display:grid; gap:18px; max-width:760px; color:var(--text-secondary);
+    font-size:var(--type-body-lg); line-height:1.7;
   }
-  .sectionHeading{ max-width:700px; margin-bottom:30px; }
-  .sectionHeading p:not(.pageBadge),.aboutCta p:not(.pageBadge){ margin-top:18px; max-width:680px; }
-  .principlesGrid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px; }
+  .clarityCopy .strongLine{ color:#0A2540; font-weight:800; }
+
+  .capabilityRail{
+    display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+    border-top:1px solid rgba(10,37,64,.1);
+  }
+  .capabilityItem{
+    display:grid; align-content:start; gap:14px; min-height:220px;
+    padding:34px 34px 8px; border-right:1px solid rgba(10,37,64,.1);
+  }
+  .capabilityItem:first-child{ padding-left:0; }
+  .capabilityItem:last-child{ border-right:none; padding-right:0; }
+  .capabilityIcon,
+  .ctaIcon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:62px; height:62px; border-radius:999px; background:#EEF5FC; color:var(--accent);
+  }
+  .capabilityIcon svg,
+  .ctaIcon svg{
+    width:31px; height:31px; fill:none; stroke:currentColor; stroke-width:1.75;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+  .capabilityItem h3,.principleCard h3,.executionCard h3{ font-size:1rem; font-weight:800; }
+  .capabilityItem p{
+    max-width:285px; color:var(--text-secondary); line-height:1.65;
+  }
+
+  .founderSection{ padding:34px 0 58px; background:#fff; }
+  .founderPanel{
+    position:relative; display:grid; grid-template-columns:minmax(0,.93fr) minmax(420px,.8fr);
+    gap:58px; align-items:center; padding:46px 42px; overflow:hidden;
+    border:1px solid rgba(10,37,64,.08); border-radius:8px;
+    background:linear-gradient(135deg,#F4F8FD 0%,#FFFFFF 48%,#EEF5FC 100%);
+    box-shadow:0 18px 46px rgba(10,37,64,.06);
+  }
+  .founderPanel::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(90deg,rgba(255,255,255,.75),transparent 56%);
+  }
+  .founderCopy,.executionVisual{ position:relative; z-index:1; }
+  .founderCopy{ display:grid; gap:20px; max-width:720px; }
+  .founderCopy .pageBadge{ margin-bottom:2px; }
+  .founderCopy p:not(.pageBadge){
+    color:var(--text-secondary); font-size:var(--type-body-lg); line-height:1.72;
+  }
+  .executionVisual{
+    min-height:360px; display:grid; align-items:center; justify-items:center;
+  }
+  .executionVisual > img{
+    position:absolute; inset:0 0 0 auto; width:72%; height:100%; object-fit:cover;
+    border-radius:8px; opacity:.86;
+  }
+  .executionCard{
+    position:relative; width:min(420px,100%); margin-right:20px; padding:30px;
+    border:1px solid rgba(10,37,64,.09); border-radius:8px; background:#fff;
+    box-shadow:0 18px 42px rgba(10,37,64,.12);
+  }
+  .executionCard > span{
+    display:block; margin-bottom:14px; color:var(--accent); font-size:.7rem;
+    font-weight:900; letter-spacing:.14em; text-transform:uppercase;
+  }
+  .executionCard h3{ font-size:1.55rem; line-height:1.18; margin-bottom:20px; }
+  .executionCard ul{ display:grid; gap:12px; margin:0; padding:0; list-style:none; }
+  .executionCard li{ display:grid; grid-template-columns:18px 1fr; gap:10px; align-items:start; color:#263747; }
+  .executionCard li svg{
+    width:17px; height:17px; margin-top:2px; border-radius:999px; background:var(--accent);
+    color:#fff; padding:3px; fill:none; stroke:currentColor; stroke-width:2.4;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+
+  .principlesSection{ padding:34px 0 82px; background:#fff; }
+  .principlesHeader{ display:grid; justify-items:center; text-align:center; margin-bottom:34px; }
+  .principlesHeader .pageBadge{ margin-bottom:18px; }
+  .principlesGrid{
+    display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px;
+  }
   .principleCard{
-    display:grid; align-content:start; min-height:240px; padding:28px;
+    display:grid; align-content:start; gap:16px; min-height:230px; padding:26px;
     border:1px solid var(--border); border-radius:8px; background:#fff;
     box-shadow:0 8px 22px rgba(10,37,64,.04);
-    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
   }
-  .principleCard:hover{ transform:translateY(-2px); border-color:rgba(10,37,64,.18); box-shadow:0 14px 32px rgba(10,37,64,.08); }
-  .cardRule{ width:42px; height:2px; margin-bottom:20px; background:var(--accent); }
-  .principleCard h3{ font-size:1.12rem; font-weight:800; }
-  .principleCard p{ margin-top:18px; color:var(--text-secondary); line-height:1.62; }
-  .aboutCtaSection{ padding:42px 0 78px; background:#fff; }
+  .principleCard span{
+    color:rgba(15,111,226,.55); font-size:2rem; font-weight:900; line-height:1;
+  }
+  .principleCard p{ color:var(--text-secondary); line-height:1.65; }
+
   .aboutCta{
-    display:grid; justify-items:center; text-align:center; gap:18px; padding:42px 32px 46px;
-    border-radius:8px; background:linear-gradient(135deg,#F4F8FD 0%,#EEF5FC 100%);
+    display:grid; grid-template-columns:auto minmax(0,1fr) minmax(260px,.48fr) auto;
+    gap:24px; align-items:center; margin-top:34px; padding:28px 34px;
+    border-radius:8px; background:linear-gradient(135deg,#EDF5FE 0%,#F7FAFE 100%);
+    border:1px solid rgba(10,37,64,.08);
   }
-  .aboutCta .pageBadge{ margin:0; }
-  .aboutCta h2{ color:var(--accent); }
+  .aboutCta h2{ max-width:640px; color:#0A2540; font-size:clamp(1.45rem,2vw,2.05rem); }
+  .aboutCta p{ color:var(--text-secondary); line-height:1.6; }
   .ctaAction{
-    display:inline-flex; align-items:center; justify-content:center; min-width:210px; min-height:58px;
-    padding:0 28px; border-radius:8px; background:var(--accent); color:#fff; font-weight:800;
-    box-shadow:0 12px 28px rgba(10,37,64,.18); transition:transform .16s ease, background-color .16s ease;
+    display:inline-flex; align-items:center; justify-content:center; min-width:150px;
+    min-height:56px; padding:0 24px; border-radius:8px; background:var(--accent);
+    color:#fff; font-weight:800; box-shadow:0 12px 28px rgba(10,37,64,.18);
+    transition:transform .16s ease, background-color .16s ease;
   }
   .ctaAction:hover{ transform:translateY(-2px); background:var(--accent-hover); }
+
+  @media (max-width:1100px){
+    .capabilityRail,.principlesGrid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .capabilityItem:nth-child(2){ border-right:none; padding-right:0; }
+    .capabilityItem:nth-child(3){ padding-left:0; }
+    .aboutCta{ grid-template-columns:auto minmax(0,1fr); }
+    .aboutCta p,.aboutCta .ctaAction{ grid-column:2; }
+  }
+
   @media (max-width:900px){
-    .aboutIntroSection,.principlesSection{ padding:56px 0 20px; }
-    .aboutSplit,.principlesGrid{ grid-template-columns:1fr; }
+    .claritySection,.founderSection,.principlesSection{ padding:56px 0; }
+    .claritySplit,.founderPanel,.capabilityRail,.principlesGrid,.aboutCta{
+      grid-template-columns:1fr;
+    }
+    .clarityTitle{ padding-right:0; border-right:none; }
+    .capabilityRail{ border-top:none; gap:0; }
+    .capabilityItem,.capabilityItem:first-child,.capabilityItem:last-child,.capabilityItem:nth-child(3){
+      padding:28px 0; border-right:none; border-bottom:1px solid rgba(10,37,64,.1);
+    }
+    .capabilityItem:last-child{ border-bottom:none; }
+    .founderPanel{ padding:30px 24px; gap:34px; }
+    .executionVisual{ min-height:430px; }
+    .executionVisual > img{ width:100%; opacity:.42; }
+    .executionCard{ margin-right:0; }
     .principleCard{ min-height:auto; }
-    .aboutCtaSection{ padding:32px 0 56px; }
+    .aboutCta p,.aboutCta .ctaAction{ grid-column:auto; }
+    .aboutCta{ justify-items:start; padding:28px; }
   }
 </style>

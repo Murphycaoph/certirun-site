@@ -6,38 +6,93 @@ const cases = [
     title: "Multi-Supplier Industrial Parts Order",
     industry: "Machinery & Industrial Equipment",
     problem:
-      "The buyer needed parts from several suppliers, but quotations, lead times, packing details, and readiness status were difficult to compare.",
-    solution:
-      "CertiRun structured the supplier comparison, tracked quotation changes, and aligned shipment readiness before order movement.",
+      "The buyer had several supplier options, but quotations, lead times, packing notes, and readiness status were scattered across messages.",
+    execution:
+      "CertiRun structured the supplier comparison, tracked quotation changes, and kept shipment readiness visible before order movement.",
     result:
-      "The buyer received a clearer supplier path, fewer unclear handoffs, and a practical record for internal purchasing decisions.",
+      "The buyer received a clearer decision record, fewer unclear handoffs, and a practical path for purchasing follow-up.",
   },
   {
     title: "Component Verification Before Shipment",
     industry: "Electronics & Electronic Components",
     problem:
-      "Product details and packing requirements needed confirmation before goods left the supplier side.",
-    solution:
-      "CertiRun reviewed key specifications, checked supplier responses, and organized readiness notes for buyer review.",
+      "Key specifications, packaging requirements, and supplier confirmations needed to be checked before goods left the supplier side.",
+    execution:
+      "CertiRun reviewed product details, organized supplier responses, and turned readiness notes into a buyer-side summary.",
     result:
-      "The buyer had better visibility before shipment and reduced the chance of disputes caused by unclear product or packing details.",
+      "The buyer had better visibility before shipment and reduced disputes caused by unclear product or packing details.",
   },
   {
     title: "Vehicle Parts Follow-Up Across Suppliers",
     industry: "Vehicle Parts",
     problem:
-      "The sourcing list included multiple components, different suppliers, and several delivery constraints.",
-    solution:
+      "The sourcing list included multiple components, different suppliers, and several delivery constraints that needed ongoing follow-up.",
+    execution:
       "CertiRun kept supplier communication, order status, document points, and shipment follow-up in one structured workflow.",
     result:
-      "The buyer could track what was confirmed, what was pending, and which issues needed attention before dispatch.",
+      "The buyer could see what was confirmed, what was pending, and which issues needed attention before dispatch.",
   },
+];
+
+const feedback = [
+  {
+    quote:
+      "CertiRun helped us find the right supplier faster and handled all the follow-ups professionally. It saved us time and reduced communication risks.",
+    name: "David L.",
+    role: "Home & Garden Buyer, UK",
+    avatar: "DL",
+  },
+  {
+    quote:
+      "For mixed spare parts orders, CertiRun made supplier comparison much easier. The inspection notes were clear before we released the balance payment.",
+    name: "Kingsley O.",
+    role: "Vehicle Parts Buyer, Nigeria",
+    avatar: "KO",
+    avatarImage: "/images/testimonials/kingsley.png",
+  },
+  {
+    quote:
+      "The process is transparent and well organized. Every step is tracked and we are always kept in the loop.",
+    name: "Sarah M.",
+    role: "Electronics Buyer, Germany",
+    avatar: "SM",
+  },
+  {
+    quote:
+      "We needed several hardware suppliers coordinated under one shipment. CertiRun kept the documents, packing details, and timelines under control.",
+    name: "Jack T.",
+    role: "Hardware Buyer, Malaysia",
+    avatar: "JT",
+    avatarImage: "/images/testimonials/jack.png",
+  },
+  {
+    quote:
+      "They helped us clarify specifications with factories and avoid wrong samples. Communication was fast, practical, and easy to follow.",
+    name: "Amina R.",
+    role: "Machinery Accessories Buyer, Kenya",
+    avatar: "AR",
+  },
+  {
+    quote:
+      "Reliable, responsive, and detail-oriented. CertiRun is now our go-to partner for China sourcing.",
+    name: "James T.",
+    role: "Industrial Parts Buyer, Australia",
+    avatar: "JT",
+  },
+];
+
+const timeline = [
+  "Receive fragmented RFQ",
+  "Clarify product scope and supplier options",
+  "Compare quotation, lead time, packing and readiness",
+  "Track open issues before shipment",
+  "Prepare buyer-side summary for decision",
 ];
 
 const cta = {
   title: "Have a sourcing case that needs structure?",
   subtitle:
-    "Send the product scope and current supplier situation. CertiRun can help turn it into a clearer execution path.",
+    "Send your product scope and current supplier situation. CertiRun can help turn it into a clearer execution path.",
   button: "Start Sourcing",
   href: "/contact",
 };
@@ -48,14 +103,20 @@ const cta = {
   description="CertiRun case examples for sourcing coordination, verification checkpoints, and delivery follow-up."
   canonical="/cases/"
 >
-  <section class="subpageHero">
-    <div class="container wide">
-      <p class="eyebrow">CertiRun / Cases</p>
-      <h1>Case patterns for sourcing execution and buyer-side control.</h1>
-      <p class="lead">
-        These examples show how CertiRun structures supplier comparison, verification,
-        and delivery follow-up across practical B2B sourcing scenarios.
-      </p>
+  <section class="subpageHero mediaHero">
+    <div class="container wide mediaHeroInner reverse">
+      <div class="mediaHeroCopy">
+        <p class="eyebrow">CertiRun / Cases</p>
+        <h1>Real sourcing cases with execution you can trace.</h1>
+        <p class="lead">
+          These examples show how CertiRun turns fragmented buyer requests,
+          supplier messages, verification points, and delivery follow-up into
+          clearer records for sourcing decisions.
+        </p>
+      </div>
+      <figure class="mediaHeroImage">
+        <img src="/images/page-heroes/cases.png" alt="Sourcing case records and product samples" />
+      </figure>
     </div>
   </section>
 
@@ -66,8 +127,9 @@ const cta = {
           <p class="pageBadge">Cases</p>
           <h2>Common sourcing situations we help organize</h2>
           <p>
-            Case work usually starts with fragmented information. The first job is to
-            make the problem clear enough for decisions and follow-up.
+            Case work usually starts with incomplete supplier messages, changing
+            details, and unclear ownership. CertiRun makes those moving parts
+            visible enough for comparison, follow-up, and buyer-side decisions.
           </p>
         </div>
 
@@ -78,20 +140,118 @@ const cta = {
               <h3>{item.title}</h3>
               <div class="caseSections">
                 <div>
-                  <span>Problem</span>
+                  <span>Starting Point</span>
                   <p>{item.problem}</p>
                 </div>
                 <div>
-                  <span>Solution</span>
-                  <p>{item.solution}</p>
+                  <span>Execution Trace</span>
+                  <p>{item.execution}</p>
                 </div>
                 <div>
-                  <span>Result</span>
+                  <span>Buyer Value</span>
                   <p>{item.result}</p>
                 </div>
               </div>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="communicationSection">
+      <div class="container wide communicationGrid">
+        <figure class="whatsappCollage" data-communication-collage>
+          <img
+            class="whatsappShot whatsappShotLeft"
+            src="/images/cases/whatsapp-5.png"
+            alt="WhatsApp sourcing communication record"
+          />
+          <img
+            class="whatsappShot whatsappShotCenter"
+            src="/images/cases/whatsapp-4.png"
+            alt="WhatsApp sourcing communication record"
+          />
+          <img
+            class="whatsappShot whatsappShotRight"
+            src="/images/cases/whatsapp-3.png"
+            alt="WhatsApp sourcing communication record"
+          />
+        </figure>
+
+        <div class="communicationCopy">
+          <p class="pageBadge">Execution Records</p>
+          <h2>Real communication traces behind sourcing work</h2>
+          <p>
+            Buyer requirements often start fragmented: a product photo, a supplier
+            message, a rough quantity, or an urgent delivery question. CertiRun
+            helps turn those fragments into clearer product scope, supplier status,
+            packing details, and delivery follow-up records.
+          </p>
+          <div class="traceList">
+            <span>Clarify specs and open questions</span>
+            <span>Track supplier status and quotation changes</span>
+            <span>Keep packing, documents, and shipment follow-up visible</span>
+          </div>
+          <p>
+            The value is not only finding suppliers. It is making sourcing
+            execution trackable enough for buyers to know what has been confirmed,
+            what is still pending, and where decisions are needed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="feedbackSection">
+      <div class="container wide">
+        <div class="sectionHeader">
+          <p class="pageBadge">Buyer Feedback</p>
+          <h2>Short notes from buyers who needed clearer execution</h2>
+        </div>
+
+        <div class="feedbackGrid">
+          {feedback.map((item) => (
+            <article class="feedbackCard">
+              <p>"{item.quote}"</p>
+              <div class="buyer">
+                <span class="buyerAvatar">
+                  {item.avatarImage ? (
+                    <img
+                      class="buyerAvatarImage"
+                      src={item.avatarImage}
+                      alt={`${item.name} buyer avatar`}
+                      width="42"
+                      height="42"
+                    />
+                  ) : (
+                    item.avatar
+                  )}
+                </span>
+                <div>
+                  <strong>{item.name}</strong>
+                  <small>{item.role}</small>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="timelineSection">
+      <div class="container wide">
+        <div class="timelineShell">
+          <div class="timelineIntro">
+            <p class="pageBadge">Execution Timeline</p>
+            <h2>From RFQ fragments to buyer-side decisions</h2>
+          </div>
+          <ol class="timelineList">
+            {timeline.map((item, index) => (
+              <li>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{item}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
@@ -109,9 +269,31 @@ const cta = {
   </div>
 </BaseLayout>
 
+<script>
+  const communicationCollages = document.querySelectorAll("[data-communication-collage]");
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    communicationCollages.forEach((collage) => observer.observe(collage));
+  } else {
+    communicationCollages.forEach((collage) => collage.classList.add("is-visible"));
+  }
+</script>
+
 <style>
   .casesOverview{ padding:76px 0 28px; background:#fff; }
-  .casesIntro{ max-width:700px; margin-bottom:30px; }
+  .casesIntro,.sectionHeader{ max-width:720px; margin-bottom:30px; }
   .pageBadge{
     display:inline-flex; align-items:center; justify-content:center; min-height:30px;
     padding:0 14px; margin:0 0 22px; border:1px solid rgba(10,37,64,.28);
@@ -119,14 +301,15 @@ const cta = {
     font-family:"Work Sans", Arial, sans-serif; font-size:.72rem; font-weight:800;
     line-height:1; letter-spacing:.16em; text-transform:uppercase;
   }
-  .casesIntro h2,.casesCta h2{
+  .casesIntro h2,.sectionHeader h2,.communicationCopy h2,.timelineIntro h2,.casesCta h2{
     max-width:760px; font-size:clamp(2rem,3.2vw,3.45rem); line-height:1.1;
     letter-spacing:-.035em; font-weight:800;
   }
-  .casesIntro p:not(.pageBadge),.casesCta p:not(.pageBadge){
+  .casesIntro p:not(.pageBadge),.sectionHeader p:not(.pageBadge),.communicationCopy p,.casesCta p:not(.pageBadge){
     margin-top:18px; max-width:680px; color:var(--text-secondary);
     font-size:var(--type-body-lg); line-height:1.65;
   }
+  .sectionHeader .pageBadge{ width:max-content; }
   .casesGrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
   .caseCard{
     display:grid; align-content:start; min-height:520px; padding:28px;
@@ -150,6 +333,101 @@ const cta = {
     font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
   }
   .caseSections p{ color:var(--text-secondary); line-height:1.62; }
+  .communicationSection{ padding:70px 0; background:#F7F9FC; overflow:hidden; }
+  .communicationGrid{
+    display:grid; grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);
+    gap:48px; align-items:center;
+  }
+  .whatsappCollage{
+    position:relative; min-height:610px; margin:0; overflow:hidden;
+    perspective:1200px;
+  }
+  .whatsappShot{
+    position:absolute; top:50%; left:50%; display:block; width:236px;
+    height:512px; object-fit:cover; object-position:top center; border-radius:18px;
+    border:1px solid rgba(255,255,255,.26);
+    box-shadow:0 22px 44px rgba(10,37,64,.22);
+    opacity:0; will-change:transform, opacity;
+  }
+  .whatsappShotLeft{
+    z-index:1;
+    transform:translate(-112%, -54%) rotate(-7deg) scale(1);
+  }
+  .whatsappShotCenter{
+    z-index:3;
+    transform:translate(-50%, -51%) rotate(0deg) scale(1);
+  }
+  .whatsappShotRight{
+    z-index:2;
+    transform:translate(12%, -49%) rotate(6deg) scale(1);
+  }
+  .whatsappCollage.is-visible .whatsappShotLeft{
+    animation:whatsappLeftIn 1.8s cubic-bezier(.18,.72,.16,1) forwards;
+  }
+  .whatsappCollage.is-visible .whatsappShotCenter{
+    animation:whatsappCenterIn 1.8s cubic-bezier(.18,.72,.16,1) .18s forwards;
+  }
+  .whatsappCollage.is-visible .whatsappShotRight{
+    animation:whatsappRightIn 1.8s cubic-bezier(.18,.72,.16,1) .34s forwards;
+  }
+  @keyframes whatsappLeftIn{
+    from{ opacity:0; transform:translate(-152%, -54%) rotate(-12deg) scale(.94); }
+    to{ opacity:1; transform:translate(-112%, -54%) rotate(-7deg) scale(1); }
+  }
+  @keyframes whatsappCenterIn{
+    from{ opacity:0; transform:translate(-50%, -24%) rotate(0deg) scale(.94); }
+    to{ opacity:1; transform:translate(-50%, -51%) rotate(0deg) scale(1); }
+  }
+  @keyframes whatsappRightIn{
+    from{ opacity:0; transform:translate(52%, -49%) rotate(12deg) scale(.94); }
+    to{ opacity:1; transform:translate(12%, -49%) rotate(6deg) scale(1); }
+  }
+  .traceList{ display:grid; gap:10px; margin:24px 0; }
+  .traceList span{
+    display:flex; align-items:center; gap:10px; color:#0A2540; font-weight:800;
+  }
+  .traceList span::before{
+    content:""; width:8px; height:8px; border-radius:999px; background:var(--accent);
+    box-shadow:0 0 0 5px #EAF2FC;
+  }
+  .feedbackSection{ padding:74px 0 50px; background:#fff; }
+  .feedbackGrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
+  .feedbackCard{
+    display:grid; gap:24px; min-height:250px; padding:28px;
+    border:1px solid var(--border); border-radius:8px; background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.04);
+  }
+  .feedbackCard p{ color:#263747; font-size:1.03rem; line-height:1.7; }
+  .buyer{ display:flex; gap:14px; align-items:center; margin-top:auto; }
+  .buyerAvatar{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:42px; height:42px; border-radius:999px; background:#E8EFF7;
+    color:var(--accent); font-weight:900; flex:0 0 auto; overflow:hidden;
+  }
+  .buyerAvatarImage,.buyerAvatar :global(img){
+    display:block; width:100%; height:100%; max-width:100%; max-height:100%;
+    object-fit:cover; border-radius:inherit;
+  }
+  .buyer strong,.buyer small{ display:block; }
+  .buyer small{ margin-top:3px; color:var(--text-secondary); }
+  .timelineSection{ padding:26px 0 44px; background:#fff; }
+  .timelineShell{
+    display:grid; gap:30px; padding:34px; border:1px solid var(--border);
+    border-radius:8px; background:linear-gradient(135deg,#fff 0%,#F7FAFE 100%);
+  }
+  .timelineIntro .pageBadge{ margin-bottom:18px; }
+  .timelineIntro h2{ font-size:clamp(1.7rem,2.35vw,2.55rem); }
+  .timelineList{
+    display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px;
+    margin:0; padding:0; list-style:none;
+  }
+  .timelineList li{
+    position:relative; display:grid; align-content:start; gap:16px; min-height:178px;
+    padding:22px 18px; border:1px solid rgba(10,37,64,.08); border-radius:8px;
+    background:#fff;
+  }
+  .timelineList span{ color:var(--accent); font-size:1.25rem; font-weight:900; }
+  .timelineList p{ color:#394756; line-height:1.5; }
   .casesCtaSection{ padding:42px 0 78px; background:#fff; }
   .casesCta{
     display:grid; justify-items:center; text-align:center; gap:18px;
@@ -165,10 +443,34 @@ const cta = {
     transition:transform .16s ease, background-color .16s ease;
   }
   .ctaAction:hover{ transform:translateY(-2px); background:var(--accent-hover); }
+  @media (max-width:1100px){
+    .timelineList{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  }
   @media (max-width:900px){
     .casesOverview{ padding:56px 0 20px; }
-    .casesGrid{ grid-template-columns:1fr; }
+    .casesGrid,.communicationGrid,.feedbackGrid,.timelineShell,.timelineList{
+      grid-template-columns:1fr;
+    }
     .caseCard{ min-height:auto; }
+    .communicationSection,.feedbackSection{ padding:56px 0; }
+    .whatsappCollage{
+      min-height:560px;
+    }
+    .whatsappShot{
+      width:210px;
+      height:458px;
+    }
+    .whatsappShotLeft{
+      transform:translate(-96%, -44%) rotate(-6deg) scale(.9);
+    }
+    .whatsappShotCenter{
+      transform:translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+    .whatsappShotRight{
+      transform:translate(-5%, -42%) rotate(6deg) scale(.9);
+    }
+    .timelineShell{ padding:26px; }
+    .timelineList li{ min-height:auto; }
     .casesCtaSection{ padding:32px 0 56px; }
   }
 </style>

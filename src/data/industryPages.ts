@@ -15,6 +15,7 @@ export const industryPages = {
       src: "/images/industries/hero-electronics-electronic-components.png",
       alt: "Electronics and electronic components sourcing category",
     },
+    scopeImageBase: "/images/industries/scope/electronics",
     productScope: [
       "Electronic components",
       "Connectors and cables",
@@ -66,6 +67,7 @@ export const industryPages = {
       src: "/images/industries/hero-machinery-industrial-equipment.png",
       alt: "Machinery and industrial equipment sourcing category",
     },
+    scopeImageBase: "/images/industries/scope/machinery",
     productScope: [
       "Small machinery and equipment",
       "Motors and reducers",
@@ -118,6 +120,7 @@ export const industryPages = {
       src: "/images/industries/hero-hardware-products.png",
       alt: "Hardware products sourcing category",
     },
+    scopeImageBase: "/images/industries/scope/hardware",
     productScope: [
       "Fasteners",
       "Hand tools",
@@ -168,6 +171,7 @@ export const industryPages = {
       src: "/images/industries/hero-vehicle-parts.png",
       alt: "Commercial vehicle and passenger vehicle parts sourcing category",
     },
+    scopeImageBase: "/images/industries/scope/vehicle",
     productScope: [
       "Truck parts",
       "Bus parts",
@@ -220,6 +224,7 @@ export const industryPages = {
       src: "/images/industries/hero-new-energy-pv-ev-parts.png",
       alt: "New energy PV and EV parts sourcing category",
     },
+    scopeImageBase: "/images/industries/scope/energy",
     productScope: [
       "PV mounting accessories",
       "Solar cables and connectors",

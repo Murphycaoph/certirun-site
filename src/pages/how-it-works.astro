@@ -201,11 +201,16 @@ const page = {
   description="A clear CertiRun workflow for sourcing, supplier coordination, verification checkpoints, and delivery follow-up."
   canonical="/how-it-works/"
 >
-  <section class="subpageHero">
-    <div class="container wide">
-      <p class="eyebrow">CertiRun / How It Works</p>
-      <h1>{page.hero.title}</h1>
-      <p class="lead">{page.hero.subtitle}</p>
+  <section class="subpageHero mediaHero howHero">
+    <div class="container wide mediaHeroInner howHeroInner">
+      <div class="mediaHeroCopy">
+        <p class="eyebrow">CertiRun / How It Works</p>
+        <h1>{page.hero.title}</h1>
+        <p class="lead">{page.hero.subtitle}</p>
+      </div>
+      <figure class="mediaHeroImage">
+        <img src="/images/page-heroes/how-it-works.png" alt="Sourcing workflow from request to delivery" />
+      </figure>
     </div>
   </section>
 
@@ -302,6 +307,24 @@ const page = {
 </BaseLayout>
 
 <style>
+  .howHero{
+    padding:76px 0 80px;
+  }
+
+  .howHeroInner{
+    grid-template-columns:minmax(0, .95fr) minmax(360px, .58fr);
+    gap:48px;
+  }
+
+  .howHero .mediaHeroImage{
+    max-width:560px;
+    justify-self:end;
+  }
+
+  .howHero .mediaHeroImage img{
+    aspect-ratio:4 / 3;
+  }
+
   .workflowOverview{
     padding:76px 0 28px;
     background:#fff;
@@ -703,6 +726,15 @@ const page = {
   }
 
   @media (max-width: 900px){
+    .howHero{
+      padding:64px 0;
+    }
+
+    .howHero .mediaHeroImage{
+      max-width:100%;
+      justify-self:start;
+    }
+
     .workflowOverview{
       padding:56px 0 20px;
     }

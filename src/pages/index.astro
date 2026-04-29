@@ -35,11 +35,130 @@ const categoryLinks = [
     icon: "energy",
   },
 ];
+
+const services = [
+  {
+    title: "Supplier Sourcing",
+    icon: "people",
+    description:
+      "Find and compare supplier options based on category fit, production scope, response quality, and execution readiness.",
+    href: "/capabilities/",
+    tags: ["Supplier shortlist", "Quotation comparison", "Risk notes"],
+  },
+  {
+    title: "Verification Checkpoints",
+    icon: "shield",
+    description:
+      "Review product details, packing status, documents, and shipment readiness before the order moves too far.",
+    href: "/capabilities/",
+    tags: ["Product detail review", "Packing status", "Readiness confirmation"],
+  },
+  {
+    title: "Order Coordination",
+    icon: "target",
+    description:
+      "Keep supplier communication, timelines, sample status, and buyer decisions organized across execution.",
+    href: "/capabilities/",
+    tags: ["Follow-up tracking", "Decision records", "Supplier alignment"],
+  },
+  {
+    title: "Delivery Follow-Up",
+    icon: "truck",
+    description:
+      "Support shipment readiness, export document accuracy, dispatch updates, and post-shipment communication.",
+    href: "/capabilities/",
+    tags: ["Shipment readiness", "Document review", "Delivery visibility"],
+  },
+];
+
+const workflowSteps = [
+  {
+    step: "01",
+    icon: "document",
+    title: "Request Review",
+    description:
+      "Clarify product scope, quantity, standards, photos, packing needs, and delivery market before supplier contact.",
+  },
+  {
+    step: "02",
+    icon: "people",
+    title: "Supplier Shortlist",
+    description:
+      "Compare factories or trading partners by product fit, response quality, production capability, and sourcing risk.",
+  },
+  {
+    step: "03",
+    icon: "clipboard",
+    title: "Quotation Control",
+    description:
+      "Organize price, MOQ, lead time, payment terms, packing details, and document requirements for buyer decisions.",
+  },
+  {
+    step: "04",
+    icon: "truck",
+    title: "Verification & Delivery",
+    description:
+      "Track product details, packing status, shipment readiness, export documents, and dispatch follow-up.",
+  },
+];
+
+const cases = [
+  {
+    title: "Multi-Supplier Industrial Parts Order",
+    industry: "Machinery & Industrial Equipment",
+    icon: "factory",
+    summary:
+      "CertiRun structured supplier comparison, tracked quotation changes, and aligned shipment readiness before order movement.",
+  },
+  {
+    title: "Component Verification Before Shipment",
+    industry: "Electronics & Electronic Components",
+    icon: "chip",
+    summary:
+      "Key specifications, packing requirements, and supplier responses were reviewed before goods left the supplier side.",
+  },
+  {
+    title: "Vehicle Parts Follow-Up Across Suppliers",
+    industry: "Vehicle Parts",
+    icon: "vehicle",
+    summary:
+      "Supplier communication, order status, document points, and shipment follow-up were kept in one structured workflow.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "For mixed spare parts orders, CertiRun made supplier comparison much easier. The inspection notes were clear before we released the balance payment.",
+    name: "Kingsley O.",
+    role: "Vehicle Parts Buyer, Nigeria",
+    avatar: "/images/testimonials/kingsley.png",
+  },
+  {
+    quote:
+      "We needed several hardware suppliers coordinated under one shipment. CertiRun kept the documents, packing details, and timelines under control.",
+    name: "Jack T.",
+    role: "Hardware Buyer, Malaysia",
+    avatar: "/images/testimonials/jack.png",
+  },
+];
+
+const iconPaths = {
+  people: `<circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3 20c.8-4 3-6 6-6s5.2 2 6 6"></path><path d="M14 15c2.8.2 4.8 1.8 5.5 5"></path>`,
+  shield: `<path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"></path><path d="m9 12 2 2 4-5"></path>`,
+  target: `<circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M2 12h4"></path><path d="M18 12h4"></path>`,
+  truck: `<path d="M3 6h11v10H3z"></path><path d="M14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle>`,
+  document: `<path d="M8 3h7l4 4v14H8z"></path><path d="M15 3v5h5"></path><path d="M11 11h4"></path><path d="M11 15h3"></path><circle cx="17" cy="17" r="3"></circle><path d="m19.2 19.2 1.8 1.8"></path>`,
+  clipboard: `<rect x="6" y="5" width="12" height="16" rx="2"></rect><path d="M9 5V3h6v2"></path><path d="M9 12h6"></path><path d="M9 16h4"></path><circle cx="16" cy="17" r="2.5"></circle>`,
+  factory: `<path d="M3 21h18"></path><path d="M5 21V9l5 3V9l5 3V7h4v14"></path><path d="M8 16h2"></path><path d="M13 16h2"></path>`,
+  chip: `<rect x="7" y="7" width="10" height="10" rx="2"></rect><path d="M9 2v3"></path><path d="M15 2v3"></path><path d="M9 19v3"></path><path d="M15 19v3"></path><path d="M2 9h3"></path><path d="M2 15h3"></path><path d="M19 9h3"></path><path d="M19 15h3"></path>`,
+  vehicle: `<path d="M5 16h14l-1.5-5h-11z"></path><path d="M7 11l1.5-3h7L17 11"></path><circle cx="8" cy="17" r="2"></circle><circle cx="16" cy="17" r="2"></circle>`,
+};
 ---
 
 <BaseLayout
-  title="CertiRun | Operational Verification"
-  description="Industrial verification and operational control for sourcing, logistics, and execution workflows."
+  title="CertiRun | Reliable China Sourcing"
+  description="China sourcing support for supplier sourcing, verification checkpoints, order coordination, and delivery follow-up."
   canonical="/"
 >
   <section class="heroFrame">
@@ -83,134 +202,781 @@ const categoryLinks = [
     </div>
   </section>
 
-  <section class="sectionBlock">
+  <section class="homeServices">
+    <div class="container wide homeServicesGrid">
+      <div class="homeSectionCopy">
+        <p class="homeBadge">Services</p>
+        <h2>Operational support across the <span>sourcing cycle</span></h2>
+        <p>
+          Each service is designed to make sourcing work more visible,
+          comparable, and easier to control before commitments turn into risk.
+        </p>
+        <a class="homeTextLink" href="/capabilities/">Explore all services →</a>
+      </div>
+
+      <div class="serviceStack">
+        {services.map((service, index) => (
+          <a class={index === 0 ? "servicePreview featured" : "servicePreview"} href={service.href}>
+            <span class="serviceIcon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths[service.icon]} />
+            </span>
+            <span class="serviceIndex">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <ul>
+                {service.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="homeWorkflow">
     <div class="container wide">
-      <div class="sectionIntro">
-        <h2>Precision Services</h2>
-        <p>
-          Operational verification layers designed for high-velocity sourcing and
-          logistics workflows.
-        </p>
+      <div class="workflowHeader">
+        <div>
+          <p class="homeBadge dark">How It Works</p>
+          <h2>A controlled workflow from request to delivery.</h2>
+          <p>
+            We bring structure, visibility, and accountability to every step of
+            your sourcing process.
+          </p>
+        </div>
+        <a class="workflowLink" href="/how-it-works/">See full workflow →</a>
       </div>
 
-      <div class="featureGrid">
-        <article class="featurePanel">
-          <div class="featureIcon"></div>
-          <h3>Network Validation</h3>
-          <p>
-            Structured oversight for supplier coordination, handoff checkpoints, and
-            cross-border execution visibility.
-          </p>
-        </article>
+      <div class="workflowLine">
+        {workflowSteps.map((item) => (
+          <article class="workflowStep">
+            <span class="workflowNode">{item.step}</span>
+            <span class="workflowIcon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths[item.icon]} />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
 
-        <article class="featurePanel">
-          <div class="featureIcon"></div>
-          <h3>Certified Operations</h3>
-          <p>
-            Consistent review layers for documents, routing, and delivery readiness
-            across every operational touchpoint.
-          </p>
-        </article>
-
-        <article class="featurePanel">
-          <div class="featureIcon"></div>
-          <h3>Compliance Control</h3>
-          <p>
-            Clear operating standards for regulated workflows, partner alignment, and
-            execution confidence.
-          </p>
-        </article>
+      <div class="workflowNote">
+        <span class="workflowNoteIcon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths.shield} />
+        </span>
+        <strong>Visibility at every step.</strong>
+        <span>You stay informed. We keep it moving.</span>
       </div>
     </div>
   </section>
 
-  <section class="commandSection">
-    <div class="container wide commandGrid">
-      <div class="commandCopy">
-        <div class="statusPill">System Status: Active</div>
-        <h2>Operational Command</h2>
+  <section class="homeCases">
+    <div class="container wide casesLayout">
+      <div class="caseFeature">
+        <p class="homeBadge">Cases</p>
+        <h2>Common sourcing situations we help organize</h2>
         <p>
-          A single control surface for verification logic, sourcing readiness, and
-          movement integrity. Monitor checkpoints, audit handoffs, and maintain
-          execution discipline from one operational layer.
+          Case work usually starts with fragmented information. CertiRun makes the
+          problem clear enough for decisions, follow-up, and supplier execution.
         </p>
-
-        <div class="commandList">
-          <div class="commandItem">
-            <span class="commandCheck"></span>
-            <div>
-              <h3>Identity-Locked Verification</h3>
-              <p>Structured validation standards at each transfer, review, and release point.</p>
-            </div>
-          </div>
-
-          <div class="commandItem">
-            <span class="commandCheck"></span>
-            <div>
-              <h3>Traceable Audit Chains</h3>
-              <p>Operational records designed to reduce ambiguity across teams and geographies.</p>
-            </div>
-          </div>
-        </div>
+        <a class="homeTextLink" href="/cases/">View case patterns →</a>
       </div>
 
-      <div class="commandPanel">
-        <div class="commandTopbar">
-          <div class="commandDots">
-            <span></span><span></span><span></span>
-          </div>
-          <div class="commandLabel">LIVE_FEED_TRANSIT_V1</div>
-        </div>
-
-        <div class="statsGrid">
-          <div class="statCard">
-            <small>Total Verified Units</small>
-            <strong>14,292,042</strong>
-            <div class="statBar"><span class="brand-accent"></span></div>
-          </div>
-          <div class="statCard">
-            <small>Network Uptime</small>
-            <strong>99.998%</strong>
-            <div class="statBar">
-              <span class="green"></span>
-              <span class="green"></span>
-              <span class="green"></span>
-              <span class="green"></span>
+      <div class="caseList">
+        {cases.map((item, index) => (
+          <a class="caseRow" href="/cases/">
+            <span class="caseIcon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths[item.icon]} />
+            </span>
+            <div class="caseRowBody">
+              <span>{item.industry}</span>
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
             </div>
-          </div>
-        </div>
-
-        <div class="feedList">
-          <div class="feedRow">
-            <div><span class="pulse brand-accent"></span> HUB_CENTRAL_SHANGHAI: VERIFIED</div>
-            <small>12:04:12</small>
-          </div>
-          <div class="feedRow">
-            <div><span class="pulse brand-accent"></span> PORT_ROTTERDAM_GATE4: IN_TRANSIT</div>
-            <small>12:04:09</small>
-          </div>
-          <div class="feedRow">
-            <div><span class="pulse green"></span> AIR_FREIGHT_744: SECURE_LOCK</div>
-            <small>12:03:55</small>
-          </div>
-        </div>
-
-        <div class="floatingMetric">
-          <strong>2.4s</strong>
-          <span>AVG VERIFICATION TIME</span>
-        </div>
+            <strong>{String(index + 1).padStart(2, "0")}</strong>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="ctaBand">
-    <div class="container wide ctaBandInner">
-      <h2>Ready for Operational Certainty?</h2>
-      <p>
-        Start with a structured CertiRun layer for execution, verification, and partner
-        coordination.
-      </p>
-      <a class="button secondary ctaButton" href="/contact">Start Your Verification</a>
+  <section class="homeFeedback">
+    <div class="container wide feedbackLayout">
+      <div class="feedbackCopy">
+        <p class="homeBadge">Buyer Feedback</p>
+        <h2>Real feedback from buyers we work with.</h2>
+        <p>
+          Buyers rely on CertiRun when supplier comparison, documents, packing
+          details, and delivery timelines need a practical operating layer.
+        </p>
+        <a class="homeTextLink" href="/about/">More about CertiRun →</a>
+      </div>
+
+      <div class="quotePair">
+        {testimonials.map((item) => (
+          <article class="quoteCard">
+            <span class="quoteMark">“</span>
+            <p>“{item.quote}”</p>
+            <div class="quoteBuyer">
+              <img src={item.avatar} alt={`${item.name} buyer avatar`} width="48" height="48" />
+              <div>
+                <strong>{item.name}</strong>
+                <small>{item.role}</small>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="homeCta">
+    <div class="container wide homeCtaInner">
+      <div>
+        <p class="homeBadge">Next Step</p>
+        <h2>Start with a clearer sourcing path.</h2>
+        <p>
+          Send your product list, target quantity, and delivery market. CertiRun
+          will help structure the next step before supplier execution begins.
+        </p>
+      </div>
+      <a class="button secondary homeCtaButton" href="/contact/">Start Sourcing</a>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .homeBadge{
+    display:inline-flex;
+    align-items:center;
+    min-height:30px;
+    padding:0 13px;
+    margin:0 0 20px;
+    border:1px solid rgba(10,37,64,.28);
+    border-radius:8px;
+    background:#F1F4F8;
+    color:var(--accent);
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:.72rem;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+
+  .homeBadge.dark{
+    border-color:rgba(255,255,255,.24);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+  }
+
+  .homeSectionCopy h2,
+  .workflowHeader h2,
+  .caseFeature h2,
+  .feedbackCopy h2,
+  .homeCta h2{
+    max-width:760px;
+    font-size:clamp(2rem, 3.2vw, 3.45rem);
+    line-height:1.08;
+    letter-spacing:-.035em;
+    font-weight:800;
+  }
+
+  .homeSectionCopy h2 span,
+  .feedbackCopy h2 span{
+    color:var(--accent);
+  }
+
+  .homeSectionCopy p,
+  .caseFeature p,
+  .feedbackCopy p,
+  .homeCta p{
+    margin-top:18px;
+    max-width:620px;
+    color:var(--text-secondary);
+    font-size:var(--type-body-lg);
+    line-height:1.65;
+  }
+
+  .homeTextLink,
+  .workflowLink{
+    display:inline-flex;
+    margin-top:26px;
+    color:var(--accent);
+    font-weight:800;
+  }
+
+  .homeServices{
+    padding:92px 0 104px;
+    background:#fff;
+  }
+
+  .homeServicesGrid{
+    display:grid;
+    grid-template-columns:minmax(0, .78fr) minmax(0, 1.22fr);
+    gap:64px;
+    align-items:start;
+  }
+
+  .homeSectionCopy{
+    position:sticky;
+    top:112px;
+  }
+
+  .serviceStack{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:18px;
+  }
+
+  .servicePreview{
+    position:relative;
+    display:grid;
+    align-content:start;
+    gap:22px;
+    min-height:286px;
+    padding:32px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    border-left:3px solid var(--accent);
+    box-shadow:0 12px 32px rgba(10,37,64,.06);
+    transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+  }
+
+  .servicePreview.featured{
+    grid-row:auto;
+    align-content:start;
+    min-height:286px;
+    background:#fff;
+  }
+
+  .servicePreview:hover{
+    transform:translateY(-2px);
+    border-color:rgba(10,37,64,.22);
+    box-shadow:0 14px 34px rgba(10,37,64,.08);
+  }
+
+  .serviceIndex{
+    position:absolute;
+    top:30px;
+    right:32px;
+    color:rgba(10,37,64,.32);
+    font-family:"Work Sans", Arial, sans-serif;
+    font-weight:800;
+    font-size:2rem;
+    line-height:1;
+    letter-spacing:.02em;
+  }
+
+  .serviceIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:58px;
+    height:58px;
+    border-radius:999px;
+    background:var(--accent);
+    color:#fff;
+    box-shadow:0 12px 30px rgba(10,37,64,.18);
+  }
+
+  .serviceIcon svg{
+    width:29px;
+    height:29px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.75;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .servicePreview h3{
+    font-size:1.25rem;
+    font-weight:800;
+  }
+
+  .servicePreview p{
+    margin-top:14px;
+    color:var(--text-secondary);
+    line-height:1.62;
+  }
+
+  .servicePreview ul{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:0;
+    margin:22px 0 0;
+    list-style:none;
+  }
+
+  .servicePreview li{
+    padding:7px 9px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    color:#445160;
+    font-size:.78rem;
+    font-weight:700;
+  }
+
+  .homeWorkflow{
+    padding:92px 0 96px;
+    background:#0A2540;
+    color:#fff;
+  }
+
+  .workflowHeader{
+    display:flex;
+    justify-content:space-between;
+    gap:32px;
+    align-items:end;
+    margin-bottom:48px;
+  }
+
+  .workflowHeader h2{
+    color:#fff;
+  }
+
+  .workflowHeader p:not(.homeBadge){
+    margin-top:20px;
+    max-width:540px;
+    color:rgba(255,255,255,.68);
+    font-size:var(--type-body-lg);
+    line-height:1.65;
+  }
+
+  .workflowLink{
+    color:#fff;
+    margin:0 0 8px;
+  }
+
+  .workflowLine{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:24px;
+    padding-top:58px;
+  }
+
+  .workflowLine::before{
+    content:"";
+    position:absolute;
+    top:26px;
+    left:34px;
+    right:34px;
+    height:1px;
+    background:rgba(255,255,255,.26);
+  }
+
+  .workflowStep{
+    position:relative;
+    display:grid;
+    justify-items:center;
+    gap:16px;
+    min-height:318px;
+    padding:42px 28px 30px;
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:8px;
+    background:rgba(255,255,255,.06);
+    text-align:center;
+  }
+
+  .workflowNode{
+    position:absolute;
+    top:-58px;
+    left:50%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:54px;
+    height:54px;
+    border-radius:999px;
+    background:#fff;
+    color:var(--accent);
+    font-family:"Work Sans", Arial, sans-serif;
+    font-weight:800;
+    box-shadow:0 0 0 9px rgba(255,255,255,.12);
+    transform:translateX(-50%);
+  }
+
+  .workflowIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:72px;
+    height:72px;
+    border-radius:999px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+  }
+
+  .workflowIcon svg,
+  .workflowNoteIcon svg{
+    width:36px;
+    height:36px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.65;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .workflowStep h3{
+    margin-top:4px;
+    font-size:1.18rem;
+    font-weight:800;
+    color:#fff;
+  }
+
+  .workflowStep p{
+    color:rgba(255,255,255,.68);
+    line-height:1.62;
+  }
+
+  .workflowNote{
+    display:grid;
+    grid-template-columns:auto auto minmax(0, 1fr);
+    gap:28px;
+    align-items:center;
+    margin-top:28px;
+    padding:24px 32px;
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:8px;
+    background:rgba(255,255,255,.06);
+  }
+
+  .workflowNoteIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:52px;
+    height:52px;
+    border-radius:999px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+  }
+
+  .workflowNote strong{
+    color:#fff;
+    font-size:1.15rem;
+  }
+
+  .workflowNote span:last-child{
+    padding-left:28px;
+    border-left:1px solid rgba(255,255,255,.22);
+    color:rgba(255,255,255,.68);
+  }
+
+  .homeCases{
+    padding:96px 0;
+    background:#F7F9FC;
+  }
+
+  .casesLayout{
+    display:grid;
+    grid-template-columns:minmax(0, .82fr) minmax(0, 1.18fr);
+    gap:56px;
+    align-items:stretch;
+  }
+
+  .caseFeature{
+    display:grid;
+    align-content:start;
+    min-height:500px;
+    padding:56px 42px;
+    border-radius:8px;
+    background:#fff;
+    border:1px solid var(--border);
+    box-shadow:0 12px 32px rgba(10,37,64,.05);
+  }
+
+  .caseFeature h2::after,
+  .feedbackCopy h2::after{
+    content:"";
+    display:block;
+    width:54px;
+    height:3px;
+    margin-top:22px;
+    background:var(--accent);
+  }
+
+  .caseList{
+    display:grid;
+    gap:14px;
+  }
+
+  .caseRow{
+    display:grid;
+    grid-template-columns:auto minmax(0, 1fr) auto;
+    gap:28px;
+    align-items:center;
+    min-height:166px;
+    padding:26px 30px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 24px rgba(10,37,64,.04);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+
+  .caseRow:hover{
+    transform:translateY(-2px);
+    border-color:rgba(10,37,64,.2);
+    box-shadow:0 14px 32px rgba(10,37,64,.08);
+  }
+
+  .caseIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:72px;
+    height:72px;
+    border-radius:999px;
+    background:#EEF5FC;
+    color:var(--accent);
+  }
+
+  .caseIcon svg{
+    width:36px;
+    height:36px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.65;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .caseRowBody{
+    display:grid;
+    gap:10px;
+  }
+
+  .caseRowBody span{
+    color:var(--accent);
+    font-size:.74rem;
+    font-weight:800;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+
+  .caseRow h3{
+    font-size:1.34rem;
+    font-weight:800;
+  }
+
+  .caseRow p{
+    max-width:760px;
+    color:var(--text-secondary);
+    line-height:1.62;
+  }
+
+  .caseRow > strong{
+    color:rgba(10,37,64,.35);
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:2rem;
+    line-height:1;
+  }
+
+  .homeFeedback{
+    padding:96px 0;
+    background:#fff;
+  }
+
+  .feedbackLayout{
+    display:grid;
+    grid-template-columns:minmax(0, .72fr) minmax(0, 1.28fr);
+    gap:64px;
+    align-items:center;
+  }
+
+  .quotePair{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:22px;
+  }
+
+  .quoteCard{
+    position:relative;
+    display:grid;
+    gap:24px;
+    min-height:330px;
+    padding:34px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 24px rgba(10,37,64,.05);
+  }
+
+  .quoteCard:first-child{
+    transform:translateY(-20px);
+  }
+
+  .quoteMark{
+    color:var(--accent);
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:4rem;
+    font-weight:800;
+    line-height:.72;
+  }
+
+  .quoteCard p{
+    color:#263647;
+    font-size:1.05rem;
+    line-height:1.68;
+  }
+
+  .quoteBuyer{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:auto;
+    padding-top:22px;
+    border-top:1px solid var(--border);
+  }
+
+  .quoteBuyer img{
+    display:block;
+    width:48px;
+    height:48px;
+    border-radius:999px;
+    object-fit:cover;
+  }
+
+  .quoteBuyer strong,
+  .quoteBuyer small{
+    display:block;
+  }
+
+  .quoteBuyer small{
+    margin-top:4px;
+    color:var(--text-secondary);
+  }
+
+  .homeCta{
+    padding:78px 0 88px;
+    background:#EEF5FC;
+  }
+
+  .homeCtaInner{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) auto;
+    gap:42px;
+    align-items:center;
+  }
+
+  .homeCtaButton{
+    min-height:58px;
+    min-width:210px;
+    padding:0 32px;
+  }
+
+  @media (max-width:1180px){
+    .homeServicesGrid{
+      grid-template-columns:1fr;
+      gap:42px;
+    }
+
+    .homeSectionCopy{
+      position:static;
+    }
+
+    .servicePreview.featured{
+      grid-row:auto;
+      align-content:start;
+      min-height:286px;
+    }
+  }
+
+  @media (max-width:900px){
+    .homeServicesGrid,
+    .casesLayout,
+    .feedbackLayout,
+    .homeCtaInner{
+      grid-template-columns:1fr;
+    }
+
+    .homeSectionCopy{
+      position:static;
+    }
+
+    .serviceStack,
+    .workflowLine,
+    .quotePair{
+      grid-template-columns:1fr;
+    }
+
+    .workflowLine{
+      gap:20px;
+      padding-top:0;
+    }
+
+    .workflowLine::before{
+      display:none;
+    }
+
+    .workflowNode{
+      position:static;
+      transform:none;
+      margin-bottom:8px;
+    }
+
+    .servicePreview.featured,
+    .caseFeature,
+    .quoteCard{
+      min-height:auto;
+    }
+
+    .workflowHeader{
+      display:grid;
+      align-items:start;
+    }
+
+    .quoteCard:first-child{
+      transform:none;
+    }
+  }
+
+  @media (max-width:640px){
+    .homeServices,
+    .homeWorkflow,
+    .homeCases,
+    .homeFeedback,
+    .homeCta{
+      padding:72px 0;
+    }
+
+    .servicePreview{
+      grid-template-columns:1fr;
+      padding:24px;
+    }
+
+    .serviceIndex{
+      top:24px;
+      right:24px;
+    }
+
+    .caseFeature{
+      padding:28px;
+    }
+
+    .caseRow{
+      grid-template-columns:1fr;
+      gap:18px;
+    }
+
+    .workflowNote{
+      grid-template-columns:1fr;
+      justify-items:start;
+    }
+
+    .workflowNote span:last-child{
+      padding-left:0;
+      border-left:none;
+    }
+  }
+</style>
