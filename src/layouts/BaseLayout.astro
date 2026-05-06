@@ -13,6 +13,7 @@ const {
 } = Astro.props;
 
 const SITE_URL = "https://certirun.com";
+const GA_MEASUREMENT_ID = "G-S0SQWNMM9H";
 const canonicalUrl = canonical ? new URL(canonical, SITE_URL).toString() : undefined;
 const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
 ---
@@ -31,6 +32,15 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Work+Sans:wght@500;600;700;800&display=swap"
       rel="stylesheet"
+    />
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+    <script
+      set:html={`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GA_MEASUREMENT_ID}');
+      `}
     />
 
     <meta property="og:type" content="website" />
