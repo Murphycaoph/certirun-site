@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CategoryIcon from "../components/CategoryIcon.astro";
 
@@ -32,7 +32,7 @@ const page = {
       name: "Vehicle Parts",
       href: "/industries/vehicle-parts/",
       icon: "vehicle",
-      typicalProducts: ["Commercial vehicle parts", "Aftermarket components", "Service parts"],
+      typicalProducts: ["Category-level sourcing", "Supplier comparison", "Packing and document checks"],
     },
     {
       name: "New Energy / PV / EV Parts",
@@ -108,7 +108,7 @@ const page = {
                 <span class="industryIcon">
                   <CategoryIcon name={industry.icon} />
                 </span>
-                <span class="industryArrow" aria-hidden="true">→</span>
+                <span class="industryArrow" aria-hidden="true">&rarr;</span>
               </div>
               <h3>{industry.name}</h3>
               <ul>
@@ -198,10 +198,10 @@ const page = {
   .sectionHeading h2,
   .industriesCta h2{
     max-width:720px;
-    font-size:clamp(2rem, 3.2vw, 3.45rem);
+    font-size:clamp(1.55rem, 2.05vw, 2.35rem);
     line-height:1.1;
-    letter-spacing:-.035em;
-    font-weight:800;
+    letter-spacing:-.025em;
+    font-weight:700;
   }
 
   .industriesIntro p:not(.industriesBadge),

@@ -4,59 +4,59 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const capabilities = [
   {
     icon: "chat",
-    title: "Clear Communication",
+    title: "Requirement Clarification",
     description:
-      "We turn fragmented requests into clear supplier-facing questions and buyer-side records.",
-  },
-  {
-    icon: "search",
-    title: "Verification Mindset",
-    description:
-      "We check product details, supplier responses, and documents before they become bigger risks.",
+      "We turn photos, drawings, product lists, and partial notes into clearer supplier-facing RFQs.",
   },
   {
     icon: "document",
-    title: "Structured Records",
+    title: "Document & Detail Control",
     description:
-      "Key confirmations, changes, and open issues are recorded so nothing gets lost across suppliers.",
+      "We keep quotations, labels, packing notes, documents, and open questions visible before they become disputes.",
   },
   {
     icon: "box",
-    title: "Execution Follow-up",
+    title: "Traceable Coordination",
     description:
-      "We stay with the order through coordination, packing checks, readiness, and shipment follow-up.",
+      "We organize supplier replies, order details, readiness status, and delivery follow-up into a buyer-side record.",
   },
 ];
 
 const focusPoints = [
-  "Clarifying information and product scope",
-  "Comparing options with more than price",
-  "Checking details and documenting confirmations",
-  "Keeping track of changes and open issues",
-  "Helping buyers see the next decision clearly",
+  "Requirement brief before supplier outreach",
+  "Supplier comparison beyond unit price",
+  "Document and packing detail checks",
+  "Open issue tracking before shipment",
+  "Buyer-side decision records",
 ];
 
 const principles = [
   {
-    title: "Make unclear requirements visible",
+    title: "Clarify",
     description:
-      "Before comparing suppliers, the product scope needs to be clear enough to ask the right questions.",
+      "Make the request specific enough that suppliers can respond to the same scope.",
   },
   {
-    title: "Keep communication traceable",
+    title: "Compare",
     description:
-      "Important confirmations should not be buried inside scattered messages or informal follow-ups.",
+      "Review supplier replies by scope, MOQ, lead time, documents, packing, and response quality.",
   },
   {
-    title: "Compare more than price",
+    title: "Verify",
     description:
-      "Lead time, packing, readiness, and response quality all affect the outcome.",
+      "Flag details that require buyer confirmation before samples, payment, or shipment move forward.",
   },
   {
-    title: "Support buyer-side decisions",
+    title: "Follow Through",
     description:
-      "The goal is to make decisions easier, not to collect more information.",
+      "Keep decisions, open issues, document handoffs, and shipment readiness visible until the work is closed.",
   },
+];
+
+const boundaries = [
+  "We do not present CertiRun as an official authorized agent.",
+  "We do not publish unverified price, stock, lead time, fitment, or certification claims.",
+  "We do not turn sourcing requests into public SKU catalog pages.",
 ];
 
 const iconPaths = {
@@ -70,8 +70,8 @@ const iconPaths = {
 ---
 
 <BaseLayout
-  title="About CertiRun"
-  description="About CertiRun and its approach to structured sourcing, verification, and delivery follow-up."
+  title="About CertiRun | China Sourcing Execution Support"
+  description="About CertiRun's sourcing execution method: requirement clarification, document and detail control, and traceable coordination for China sourcing buyers."
   canonical="/about/"
 >
   <section class="subpageHero mediaHero">
@@ -80,8 +80,8 @@ const iconPaths = {
         <p class="eyebrow">CertiRun / About</p>
         <h1>Built for buyers who need sourcing execution to stay clear.</h1>
         <p class="lead">
-          We help structure the work between request clarification, supplier
-          comparison, verification, and delivery follow-up across China sourcing workflows.
+          CertiRun helps turn unclear product requirements, supplier replies,
+          document details, and delivery follow-up into a sourcing process buyers can actually track.
         </p>
       </div>
       <figure class="mediaHeroImage">
@@ -95,19 +95,18 @@ const iconPaths = {
       <div class="container wide">
         <div class="claritySplit">
           <div class="clarityTitle">
-            <p class="pageBadge">Who We Are</p>
-            <h2>Turning scattered information into a clearer execution path.</h2>
+            <p class="pageBadge">Why CertiRun Exists</p>
+            <h2>Most sourcing risk starts before the order is placed.</h2>
           </div>
           <div class="clarityCopy">
-            <p class="strongLine">Most sourcing problems start with unclear execution.</p>
+            <p class="strongLine">The problem is rarely just finding a supplier.</p>
             <p>
-              Requirements come in fragmented. Supplier responses are inconsistent.
-              Important details are confirmed across different messages.
+              Requirements arrive as photos, drawings, partial specifications, product lists,
+              or supplier messages. If those inputs stay scattered, quotations become hard to compare.
             </p>
             <p>
-              CertiRun helps organize these steps from request clarification to
-              supplier comparison and delivery follow-up, so buyers can actually
-              follow what is happening.
+              CertiRun is built to make that work clearer: define the request, compare supplier replies,
+              flag details that require confirmation, and keep follow-up visible through delivery handoff.
             </p>
           </div>
         </div>
@@ -130,21 +129,19 @@ const iconPaths = {
       <div class="container wide">
         <div class="founderPanel">
           <div class="founderCopy">
-            <p class="pageBadge">Founder / Background</p>
-            <h2>From verification and coordination work to sourcing execution.</h2>
+            <p class="pageBadge">Founder / Operating Method</p>
+            <h2>Audit-style discipline applied to sourcing execution.</h2>
             <p>
-              CertiRun was built from a simple observation: most sourcing problems
-              are not caused by a lack of suppliers. They are caused by unclear execution.
+              CertiRun was built from a practical observation: overseas buyers often do not need more
+              supplier names first. They need clearer requirements, comparable replies, and visible execution records.
             </p>
             <p>
-              Before working on sourcing execution, the founder spent years dealing
-              with structured verification, document review, and multi-party
-              coordination in audit-related work.
+              The founder's background in structured verification, document review, and multi-party coordination
+              shaped the operating method behind CertiRun.
             </p>
             <p>
-              That background shaped how CertiRun approaches sourcing: not as a
-              supplier search service, but as a way to make buyer-side execution
-              clearer, traceable, and comparable.
+              That method is now applied to sourcing work: clarify the request, compare what suppliers actually say,
+              verify details before they become disputes, and follow through on the open items buyers need to decide.
             </p>
           </div>
 
@@ -170,8 +167,8 @@ const iconPaths = {
     <section class="principlesSection">
       <div class="container wide">
         <div class="principlesHeader">
-          <p class="pageBadge">Founder-side Operating Principles</p>
-          <h2>The way we approach sourcing work.</h2>
+          <p class="pageBadge">Operating Method</p>
+          <h2>Clarify, compare, verify, and follow through.</h2>
         </div>
 
         <div class="principlesGrid">
@@ -182,6 +179,21 @@ const iconPaths = {
               <p>{item.description}</p>
             </article>
           ))}
+        </div>
+
+        <div class="boundaryPanel">
+          <div>
+            <p class="pageBadge">Boundaries</p>
+            <h2>Clear support without overclaiming.</h2>
+          </div>
+          <ul>
+            {boundaries.map((item) => (
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" set:html={iconPaths.check} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div class="aboutCta">
@@ -219,8 +231,8 @@ const iconPaths = {
   .founderCopy h2,
   .principlesHeader h2,
   .aboutCta h2{
-    max-width:760px; font-size:clamp(2rem,3.1vw,3.35rem); line-height:1.1;
-    letter-spacing:-.035em; font-weight:800;
+    max-width:760px; font-size:clamp(1.55rem,2.05vw,2.35rem); line-height:1.1;
+    letter-spacing:-.025em; font-weight:700;
   }
   .clarityCopy{
     display:grid; gap:18px; max-width:760px; color:var(--text-secondary);
@@ -229,7 +241,7 @@ const iconPaths = {
   .clarityCopy .strongLine{ color:#0A2540; font-weight:800; }
 
   .capabilityRail{
-    display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
     border-top:1px solid rgba(10,37,64,.1);
   }
   .capabilityItem{
@@ -312,6 +324,63 @@ const iconPaths = {
   }
   .principleCard p{ color:var(--text-secondary); line-height:1.65; }
 
+  .boundaryPanel{
+    display:grid;
+    grid-template-columns:minmax(0,.78fr) minmax(0,1fr);
+    gap:34px;
+    align-items:start;
+    margin-top:34px;
+    padding:30px 34px;
+    border:1px solid rgba(10,37,64,.08);
+    border-radius:8px;
+    background:#F7F9FC;
+  }
+
+  .boundaryPanel .pageBadge{
+    margin-bottom:16px;
+  }
+
+  .boundaryPanel h2{
+    max-width:520px;
+    color:#0A2540;
+    font-size:clamp(1.55rem,2.1vw,2.25rem);
+    line-height:1.12;
+    letter-spacing:-.025em;
+    font-weight:700;
+  }
+
+  .boundaryPanel ul{
+    display:grid;
+    gap:14px;
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+
+  .boundaryPanel li{
+    display:grid;
+    grid-template-columns:20px 1fr;
+    gap:12px;
+    align-items:start;
+    color:var(--text-secondary);
+    line-height:1.6;
+  }
+
+  .boundaryPanel li svg{
+    width:18px;
+    height:18px;
+    margin-top:3px;
+    border-radius:999px;
+    background:var(--accent);
+    color:#fff;
+    padding:4px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:2.4;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
   .aboutCta{
     display:grid; grid-template-columns:auto minmax(0,1fr) minmax(260px,.48fr) auto;
     gap:24px; align-items:center; margin-top:34px; padding:28px 34px;
@@ -338,7 +407,7 @@ const iconPaths = {
 
   @media (max-width:900px){
     .claritySection,.founderSection,.principlesSection{ padding:56px 0; }
-    .claritySplit,.founderPanel,.capabilityRail,.principlesGrid,.aboutCta{
+    .claritySplit,.founderPanel,.capabilityRail,.principlesGrid,.boundaryPanel,.aboutCta{
       grid-template-columns:1fr;
     }
     .clarityTitle{ padding-right:0; border-right:none; }

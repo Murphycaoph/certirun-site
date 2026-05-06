@@ -1,0 +1,603 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const SITE_URL = "https://certirun.com";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((p) => ({
+    params: { slug: p.slug },
+  }));
+}
+
+const allPosts = await getCollection("blog");
+allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const post = allPosts.find((p) => p.slug === Astro.params.slug);
+
+if (!post) {
+  throw new Error(`Post not found for slug: ${Astro.params.slug}`);
+}
+
+const estimateReadTime = (text = "") => {
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  const mins = Math.max(1, Math.round(words / 220));
+  return `${mins} min read`;
+};
+
+const { Content } = await post.render();
+
+const toAbsoluteUrl = (value) => new URL(value, SITE_URL).toString();
+
+const title = post.data.title;
+const description =
+  post.data.meta_description ||
+  post.data.excerpt ||
+  "CertiRun Insights";
+
+const tag = post.data.tag || "Insights";
+const date = post.data.date;
+const updatedDate = post.data.updatedDate || date;
+const readTime =
+  post.data.readTime || estimateReadTime(post.body || "");
+
+const keywords =
+  post.data.keywords?.filter(Boolean) || [
+    title,
+    tag,
+    "China industrial parts sourcing",
+    "industrial parts",
+    "CertiRun",
+  ];
+const canonical = `/blog/${post.slug}/`;
+const ogImage = post.data.ogImage || "/images/insights-hero-collage.webp";
+const ogImageUrl = toAbsoluteUrl(ogImage);
+
+const relatedPosts = allPosts
+  .filter((candidate) => candidate.slug !== post.slug)
+  .sort((a, b) => {
+    const aSameTag = (a.data.tag || "Insights") === tag ? 1 : 0;
+    const bSameTag = (b.data.tag || "Insights") === tag ? 1 : 0;
+    if (aSameTag !== bSameTag) return bSameTag - aSameTag;
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  })
+  .slice(0, 3);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: updatedDate,
+    image: [ogImageUrl],
+    keywords,
+    author: {
+      "@type": "Organization",
+      name: "CertiRun",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CertiRun",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/images/logo.webp`,
+      },
+    },
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}/`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Insights",
+        item: `${SITE_URL}/blog/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: title,
+        item: `${SITE_URL}/blog/${post.slug}/`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${title} | CertiRun`}
+  description={description}
+  keywords={keywords}
+  canonical={canonical}
+  ogImage={ogImage}
+  jsonLd={jsonLd}
+>
+
+  <style>
+    :root{
+      --article-ink:#121212;
+      --article-muted:#797676;
+      --article-line:#DFE6E9;
+      --article-accent:#0A2540;
+      --article-soft:#F4F7F8;
+    }
+
+    .contentSection{
+      background:linear-gradient(180deg, #fff 0%, #F7F9FC 100%);
+      border-top:1px solid var(--article-line);
+    }
+
+    :global(.topbar){
+      background:rgba(255,255,255,.92) !important;
+      border-bottom:1px solid var(--border) !important;
+      backdrop-filter:blur(14px);
+    }
+
+    :global(.menu),
+    :global(.menu a),
+    :global(.menu a:hover){
+      color:var(--text-primary) !important;
+    }
+
+    .articleHero{
+      border-bottom:1px solid var(--article-line);
+      padding:86px 0 72px;
+    }
+
+    .articleMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+      align-items:center;
+      margin-top:22px;
+      font-size:.9rem;
+      color:rgba(255,255,255,.74);
+    }
+
+    .articleTag{
+      padding:.26rem .58rem;
+      border-radius:4px;
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .tag{
+      padding:.26rem .58rem;
+      border-radius:4px;
+      border:1px solid rgba(10,37,64,.18);
+      background:#F1F4F8;
+      color:var(--article-accent);
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .dot{opacity:.6}
+
+    .wrap{padding:42px 0 76px}
+
+    .contentRail{
+      max-width:1120px;
+      margin:0 auto;
+    }
+
+    .article{
+      max-width:none;
+      margin:0;
+    }
+
+    .articleCard{
+      padding:46px 56px 34px;
+      border-top:3px solid var(--article-accent);
+      border-right:1px solid var(--article-line);
+      border-bottom:1px solid var(--article-line);
+      border-left:1px solid var(--article-line);
+      border-radius:0 0 8px 8px;
+      background:#fff;
+      box-shadow:0 18px 46px rgba(10,37,64,.06);
+    }
+
+    .back{
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      margin:0 0 18px;
+      padding:.55rem .75rem;
+      border:1px solid var(--article-line);
+      border-radius:999px;
+      background:rgba(255,255,255,.86);
+      color:var(--article-accent);
+      font-weight:700;
+      text-decoration:none;
+      box-shadow:none;
+    }
+
+    .back:hover{
+      border-color:rgba(10,37,64,.24);
+      background:var(--article-soft);
+    }
+
+    /* ===== Markdown Typography ===== */
+
+    .content{
+      color:#2d3436;
+      font-size:1.08rem;
+      max-width:860px;
+      margin:0 auto;
+    }
+
+    .content :global(h1){
+      margin:0 0 1.1rem;
+      color:var(--article-ink);
+      font-size:2rem;
+      line-height:1.15;
+      letter-spacing:-.03em;
+    }
+
+    .content :global(h2){
+      margin:2.4rem 0 .85rem;
+      padding-top:1.4rem;
+      border-top:1px solid var(--article-line);
+      color:var(--article-ink);
+      font-size:1.62rem;
+      letter-spacing:-.25px;
+      line-height:1.25;
+      scroll-margin-top:90px;
+    }
+
+    .content :global(hr + h2){
+      margin-top:0;
+      padding-top:0;
+      border-top:none;
+    }
+
+    .content :global(h3){
+      margin:1.5rem 0 .6rem;
+      color:var(--article-accent);
+      font-size:1.18rem;
+      letter-spacing:-.15px;
+      line-height:1.3;
+    }
+
+    .content :global(p){
+      margin:1rem 0;
+      line-height:1.92;
+      color:#2d3436;
+    }
+
+    .content :global(ul),
+    .content :global(ol){
+      margin:1rem 0;
+      padding-left:1.35rem;
+      line-height:1.9;
+      color:#2d3436;
+    }
+
+    .content :global(li){margin:.45rem 0}
+
+    .content :global(strong){
+      color:var(--article-ink);
+    }
+
+    .content :global(a){
+      color:var(--article-accent);
+      text-decoration:underline;
+      text-decoration-thickness:1.5px;
+      text-underline-offset:3px;
+    }
+
+    .content :global(blockquote){
+      margin:1.35rem 0;
+      padding:1rem 1.15rem;
+      border:1px solid var(--article-line);
+      border-left:3px solid var(--article-accent);
+      background:var(--article-soft);
+      border-radius:8px;
+      color:#2d3436;
+    }
+
+    .content :global(hr){
+      margin:2.2rem 0;
+      border:none;
+      border-top:1px solid var(--article-line);
+    }
+
+    .content :global(img){
+      display:block;
+      max-width:100%;
+      margin:1.3rem auto;
+      border-radius:8px;
+      border:1px solid var(--article-line);
+    }
+
+    .content :global(table){
+      display:block;
+      width:max-content;
+      max-width:min(1008px, calc(100vw - 72px));
+      border-collapse:collapse;
+      margin:1.45rem 50%;
+      transform:translateX(-50%);
+      overflow-x:auto;
+      border:1px solid var(--article-line);
+      border-radius:8px;
+      background:#fff;
+      font-size:.94rem;
+      box-shadow:0 10px 28px rgba(10,37,64,.045);
+    }
+
+    .content :global(th),
+    .content :global(td){
+      min-width:112px;
+      padding:.78rem .85rem;
+      border-bottom:1px solid rgba(29,42,54,.08);
+      text-align:left;
+      color:#2d3436;
+      vertical-align:top;
+    }
+
+    .content :global(th:first-child),
+    .content :global(td:first-child){
+      min-width:180px;
+      white-space:normal;
+    }
+
+    .content :global(th){
+      background:var(--article-soft);
+      color:var(--article-ink);
+      font-weight:800;
+    }
+
+    .content :global(code){
+      padding:.12rem .35rem;
+      border-radius:4px;
+      background:var(--article-soft);
+      border:1px solid var(--article-line);
+      color:var(--article-accent);
+      font-size:.92em;
+    }
+
+    .content :global(pre){
+      padding:1rem;
+      border-radius:8px;
+      background:var(--article-soft);
+      border:1px solid var(--article-line);
+      overflow:auto;
+    }
+
+    .content :global(pre code){
+      padding:0;
+      border:none;
+      background:transparent;
+    }
+
+    /* References block style */
+    .content :global(h2 + ul){
+      border:1px solid var(--article-line);
+      background:var(--article-soft);
+      border-radius:8px;
+      padding:14px 18px;
+    }
+
+    .divider{
+      max-width:none;
+      margin:34px 0 0;
+      border-top:1px solid var(--article-line);
+    }
+
+    .footerCta{
+      max-width:none;
+      margin:22px 0 0;
+      padding:24px 28px;
+      border-radius:8px;
+      border:1px solid rgba(10,37,64,.12);
+      background:linear-gradient(135deg, #F4F8FD 0%, #EEF5FC 100%);
+      color:#2d3436;
+      line-height:1.75;
+      box-shadow:none;
+    }
+
+    .footerCta a{
+      color:var(--article-accent);
+      font-weight:800;
+    }
+
+    .relatedWrap{
+      max-width:none;
+      margin:30px 0 0;
+      padding:28px 0 0;
+      border-top:1px solid var(--article-line);
+      background:#fff;
+      box-shadow:none;
+    }
+
+    .relatedTitle{
+      margin:0 0 12px;
+      color:var(--article-ink);
+      font-size:1.28rem;
+      letter-spacing:-.2px;
+    }
+
+    .relatedGrid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .relatedCard{
+      display:block;
+      min-height:214px;
+      padding:22px 22px 20px;
+      border-radius:8px;
+      border:1px solid var(--article-line);
+      background:#fff;
+      box-shadow:0 10px 26px rgba(10,37,64,.035);
+      text-decoration:none;
+      transition:transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+
+    .relatedCard:hover{
+      transform:translateY(-2px);
+      background:var(--article-soft);
+      border-color:rgba(10,37,64,.24);
+      box-shadow:0 16px 36px rgba(10,37,64,.07);
+    }
+
+    .relatedMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+      align-items:center;
+      font-size:.8rem;
+      color:var(--article-muted);
+      margin-bottom:10px;
+    }
+
+    .relatedCard h2{
+      margin:0 0 8px;
+      font-size:1.08rem;
+      line-height:1.4;
+      color:var(--article-accent);
+    }
+
+    .relatedCard p{
+      margin:0;
+      color:var(--article-muted);
+      line-height:1.65;
+      font-size:.92rem;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid var(--article-line);
+      margin-top:0 !important;
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:var(--article-ink);
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--article-muted);
+    }
+
+    :global(.footerNav a){
+      background:transparent;
+      border-color:transparent;
+    }
+
+    @media (max-width:980px){
+      .contentRail{max-width:92vw}
+      .articleCard{padding:32px 24px 20px}
+      .relatedWrap{padding-top:18px}
+      .relatedGrid{grid-template-columns:1fr}
+    }
+
+    @media (max-width:640px){
+      .articleHero{
+        padding:64px 0 52px;
+      }
+
+      .wrap{
+        padding:28px 0 56px;
+      }
+
+      .articleCard{
+        padding:28px 20px 18px;
+      }
+
+      .content{
+        font-size:1rem;
+      }
+
+      .content :global(table){
+        max-width:calc(100vw - 40px);
+        font-size:.88rem;
+      }
+
+      .content :global(th),
+      .content :global(td){
+        min-width:104px;
+        padding:.68rem .72rem;
+      }
+    }
+  </style>
+
+  <section class="subpageHero mediaHero articleHero">
+    <div class="container wide mediaHeroInner stacked">
+      <div class="mediaHeroCopy">
+        <p class="eyebrow">CertiRun / Insights</p>
+        <h1>{title}</h1>
+
+        <div class="articleMeta">
+          <span class="articleTag">{tag}</span>
+          <span class="dot">&middot;</span>
+          <span>{date}</span>
+          <span class="dot">&middot;</span>
+          <span>{readTime}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contentSection">
+    <div class="container wrap">
+      <div class="contentRail">
+        <article class="article">
+          <a class="back" href="/blog">&larr; Back to Insights</a>
+
+          <div class="articleCard">
+            <div class="content">
+              <Content />
+            </div>
+          </div>
+        </article>
+
+        <div class="divider"></div>
+
+        {relatedPosts.length > 0 && (
+          <section class="relatedWrap" aria-labelledby="related-posts-title">
+            <h2 class="relatedTitle" id="related-posts-title">Related insights</h2>
+            <div class="relatedGrid">
+              {relatedPosts.map((related) => (
+                <a class="relatedCard" href={`/blog/${related.slug}`}>
+                  <div class="relatedMeta">
+                    <span class="tag">{related.data.tag || "Insights"}</span>
+                    <span class="dot">&middot;</span>
+                    <span>{related.data.date}</span>
+                  </div>
+                  <h2>{related.data.title}</h2>
+                  <p>{related.data.excerpt || "Read the full article for sourcing, QC, and execution notes."}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <div class="footerCta">
+          Need sourcing support for industrial parts?
+          Send an RFQ via <a href="/contact">Contact</a> and we'll reply with a practical plan
+          (lead time, packing, docs, shipping options).
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroVisualPanel from "../components/HeroVisualPanel.astro";
 import CategoryIcon from "../components/CategoryIcon.astro";
@@ -6,31 +6,31 @@ import CategoryIcon from "../components/CategoryIcon.astro";
 const categoryLinks = [
   {
     href: "/industries/electronics-electronic-components/",
-    zh: "电子与电子元器件",
+    label: "Electronics",
     en: "Electronics & Electronic Components",
     icon: "electronics",
   },
   {
     href: "/industries/machinery-industrial-equipment/",
-    zh: "机械与机电设备",
+    label: "Machinery",
     en: "Machinery & Industrial Equipment",
     icon: "machinery",
   },
   {
     href: "/industries/hardware-products/",
-    zh: "五金产品",
+    label: "Hardware",
     en: "Hardware products",
     icon: "hardware",
   },
   {
     href: "/industries/vehicle-parts/",
-    zh: "商用车及乘用车零部件",
-    en: "Commercial vehicle and passenger vehicle parts",
+    label: "Vehicle Parts",
+    en: "High-level sourcing support",
     icon: "vehicle",
   },
   {
     href: "/industries/new-energy-pv-ev-parts/",
-    zh: "新能源与光伏 / 电动车零部件",
+    label: "New Energy",
     en: "New Energy / PV / EV Parts",
     icon: "energy",
   },
@@ -38,7 +38,7 @@ const categoryLinks = [
 
 const services = [
   {
-    title: "Supplier Sourcing",
+    title: "Supplier Search & Comparison",
     icon: "people",
     description:
       "Find and compare supplier options based on category fit, production scope, response quality, and execution readiness.",
@@ -118,11 +118,11 @@ const cases = [
       "Key specifications, packing requirements, and supplier responses were reviewed before goods left the supplier side.",
   },
   {
-    title: "Vehicle Parts Follow-Up Across Suppliers",
+    title: "Category-Level Vehicle Parts Sourcing Support",
     industry: "Vehicle Parts",
     icon: "vehicle",
     summary:
-      "Supplier communication, order status, document points, and shipment follow-up were kept in one structured workflow.",
+      "Requirement notes, supplier replies, packing checks, and buyer-confirm-required details were kept in one structured workflow.",
   },
 ];
 
@@ -194,7 +194,7 @@ const iconPaths = {
         <a href={item.href} class="categoryTile">
           <CategoryIcon name={item.icon} />
           <span class="categoryText">
-            <strong>{item.zh}</strong>
+            <strong>{item.label}</strong>
             <span>{item.en}</span>
           </span>
         </a>
@@ -211,7 +211,7 @@ const iconPaths = {
           Each service is designed to make sourcing work more visible,
           comparable, and easier to control before commitments turn into risk.
         </p>
-        <a class="homeTextLink" href="/capabilities/">Explore all services →</a>
+        <a class="homeTextLink" href="/capabilities/">Explore all services &rarr;</a>
       </div>
 
       <div class="serviceStack">
@@ -247,7 +247,7 @@ const iconPaths = {
             your sourcing process.
           </p>
         </div>
-        <a class="workflowLink" href="/how-it-works/">See full workflow →</a>
+        <a class="workflowLink" href="/how-it-works/">See full workflow &rarr;</a>
       </div>
 
       <div class="workflowLine">
@@ -282,7 +282,7 @@ const iconPaths = {
           Case work usually starts with fragmented information. CertiRun makes the
           problem clear enough for decisions, follow-up, and supplier execution.
         </p>
-        <a class="homeTextLink" href="/cases/">View case patterns →</a>
+        <a class="homeTextLink" href="/cases/">View case patterns &rarr;</a>
       </div>
 
       <div class="caseList">
@@ -312,14 +312,14 @@ const iconPaths = {
           Buyers rely on CertiRun when supplier comparison, documents, packing
           details, and delivery timelines need a practical operating layer.
         </p>
-        <a class="homeTextLink" href="/about/">More about CertiRun →</a>
+        <a class="homeTextLink" href="/about/">More about CertiRun &rarr;</a>
       </div>
 
       <div class="quotePair">
         {testimonials.map((item) => (
           <article class="quoteCard">
-            <span class="quoteMark">“</span>
-            <p>“{item.quote}”</p>
+            <span class="quoteMark">&ldquo;</span>
+            <p>&ldquo;{item.quote}&rdquo;</p>
             <div class="quoteBuyer">
               <img src={item.avatar} alt={`${item.name} buyer avatar`} width="48" height="48" />
               <div>
@@ -379,10 +379,10 @@ const iconPaths = {
   .feedbackCopy h2,
   .homeCta h2{
     max-width:760px;
-    font-size:clamp(2rem, 3.2vw, 3.45rem);
+    font-size:clamp(1.55rem, 2.05vw, 2.35rem);
     line-height:1.08;
-    letter-spacing:-.035em;
-    font-weight:800;
+    letter-spacing:-.025em;
+    font-weight:700;
   }
 
   .homeSectionCopy h2 span,

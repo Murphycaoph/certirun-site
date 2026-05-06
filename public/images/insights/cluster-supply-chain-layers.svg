@@ -1,0 +1,48 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="520" rx="18" fill="#FAFCFF"/>
+  <rect x="1" y="1" width="1198" height="518" rx="17" stroke="#D8E3F0"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#667085"/>
+    </marker>
+  </defs>
+
+  <text x="70" y="74" fill="#0A2540" font-family="Arial, sans-serif" font-size="28" font-weight="800">A Cluster Is More Than One Factory</text>
+  <text x="70" y="110" fill="#667085" font-family="Arial, sans-serif" font-size="17">Buyers are really working across several local capability layers.</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="70" y="188" width="142" height="86" rx="10" fill="#FFFFFF" stroke="#D8E3F0"/>
+    <text x="141" y="224" text-anchor="middle" fill="#0A2540" font-size="18" font-weight="800">Materials</text>
+    <text x="141" y="250" text-anchor="middle" fill="#667085" font-size="15">inputs</text>
+
+    <rect x="248" y="188" width="142" height="86" rx="10" fill="#FFFFFF" stroke="#D8E3F0"/>
+    <text x="319" y="224" text-anchor="middle" fill="#0A2540" font-size="18" font-weight="800">Processes</text>
+    <text x="319" y="250" text-anchor="middle" fill="#667085" font-size="15">CNC, casting</text>
+
+    <rect x="426" y="188" width="142" height="86" rx="10" fill="#FFFFFF" stroke="#D8E3F0"/>
+    <text x="497" y="224" text-anchor="middle" fill="#0A2540" font-size="18" font-weight="800">Core makers</text>
+    <text x="497" y="250" text-anchor="middle" fill="#667085" font-size="15">assembly</text>
+
+    <rect x="604" y="188" width="142" height="86" rx="10" fill="#FFFFFF" stroke="#D8E3F0"/>
+    <text x="675" y="224" text-anchor="middle" fill="#0A2540" font-size="18" font-weight="800">Testing</text>
+    <text x="675" y="250" text-anchor="middle" fill="#667085" font-size="15">QC, lab</text>
+
+    <rect x="782" y="188" width="142" height="86" rx="10" fill="#FFFFFF" stroke="#D8E3F0"/>
+    <text x="853" y="224" text-anchor="middle" fill="#0A2540" font-size="18" font-weight="800">Packing</text>
+    <text x="853" y="250" text-anchor="middle" fill="#667085" font-size="15">labels, pallets</text>
+
+    <rect x="960" y="188" width="170" height="86" rx="10" fill="#FFFFFF" stroke="#D8E3F0"/>
+    <text x="1045" y="224" text-anchor="middle" fill="#0A2540" font-size="18" font-weight="800">Export</text>
+    <text x="1045" y="250" text-anchor="middle" fill="#667085" font-size="15">docs, logistics</text>
+
+    <path d="M212 231H248" stroke="#667085" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M390 231H426" stroke="#667085" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M568 231H604" stroke="#667085" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M746 231H782" stroke="#667085" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M924 231H960" stroke="#667085" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <line x1="150" y1="360" x2="1050" y2="360" stroke="#D8E3F0"/>
+    <text x="600" y="400" text-anchor="middle" fill="#0A2540" font-size="22" font-weight="800">Cluster depth reduces coordination friction.</text>
+    <text x="600" y="432" text-anchor="middle" fill="#667085" font-size="17">The buyer still needs supplier screening, QC control, document checks, and a clear logistics handover.</text>
+  </g>
+</svg>

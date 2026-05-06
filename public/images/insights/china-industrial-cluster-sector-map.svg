@@ -1,0 +1,29 @@
+<svg width="1200" height="620" viewBox="0 0 1200 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="620" rx="18" fill="#FAFCFF"/>
+  <rect x="1" y="1" width="1198" height="618" rx="17" stroke="#D8E3F0"/>
+  <text x="70" y="74" fill="#0A2540" font-family="Arial, sans-serif" font-size="28" font-weight="800">China Industrial Parts Clusters by Sector</text>
+  <text x="70" y="110" fill="#667085" font-family="Arial, sans-serif" font-size="17">A sourcing-oriented view of representative regions, not an official national taxonomy.</text>
+
+  <g font-family="Arial, sans-serif">
+    <line x1="70" y1="160" x2="1130" y2="160" stroke="#D8E3F0"/>
+    <line x1="70" y1="244" x2="1130" y2="244" stroke="#D8E3F0"/>
+    <line x1="70" y1="328" x2="1130" y2="328" stroke="#D8E3F0"/>
+    <line x1="70" y1="412" x2="1130" y2="412" stroke="#D8E3F0"/>
+    <line x1="70" y1="496" x2="1130" y2="496" stroke="#D8E3F0"/>
+
+    <text x="90" y="211" fill="#0A2540" font-size="21" font-weight="800">Electronics</text>
+    <text x="330" y="211" fill="#344054" font-size="18">Shenzhen, Dongguan, Huizhou, Suzhou, Wuxi</text>
+
+    <text x="90" y="295" fill="#0A2540" font-size="21" font-weight="800">Machinery</text>
+    <text x="330" y="295" fill="#344054" font-size="18">Changsha, Changzhou, Xuzhou, Qingdao, Shenyang</text>
+
+    <text x="90" y="379" fill="#0A2540" font-size="21" font-weight="800">Hardware</text>
+    <text x="330" y="379" fill="#344054" font-size="18">Yongkang, Yueqing, Wenzhou, Foshan, Zhongshan</text>
+
+    <text x="90" y="463" fill="#0A2540" font-size="21" font-weight="800">Vehicle parts</text>
+    <text x="330" y="463" fill="#344054" font-size="18">Hubei corridor, Chongqing, Anhui, Changchun</text>
+
+    <text x="90" y="547" fill="#0A2540" font-size="21" font-weight="800">New energy</text>
+    <text x="330" y="547" fill="#344054" font-size="18">Ningde, Changzhou, Hefei, Wuhu, Shenzhen, Chengdu</text>
+  </g>
+</svg>

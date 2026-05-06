@@ -1,0 +1,460 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogArchive from "../components/BlogArchive.astro";
+import { getCollection } from "astro:content";
+import { getTagSummaries, mapBlogPosts } from "../lib/blogArchive";
+
+const rawPosts = await getCollection("blog");
+const posts = mapBlogPosts(rawPosts);
+const tagSummaries = getTagSummaries(posts);
+
+const featuredPosts = posts.filter((post) => post.featured).slice(0, 4);
+const clusters = tagSummaries
+  .map((tag) => ({
+    tag: tag.label,
+    items: posts.filter((post) => post.tagSlug === tag.slug).slice(0, 3),
+  }))
+  .filter((cluster) => cluster.items.length > 0);
+
+const currentTag = Astro.url.searchParams.get("tag") ?? "";
+const currentPageRaw = Number.parseInt(Astro.url.searchParams.get("page") ?? "1", 10);
+const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? currentPageRaw : 1;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "China Sourcing Insights",
+    description:
+      "A knowledge hub covering industrial parts sourcing in China, quality control, supplier selection, and industrial sourcing trends for B2B buyers.",
+    url: "https://certirun.com/blog/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certirun.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Insights",
+        item: "https://certirun.com/blog/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="China Sourcing Insights | CertiRun"
+  description="China sourcing insights for B2B buyers and sourcing managers, covering industrial parts sourcing in China, quality control, supplier selection, and aftermarket trends."
+  keywords={["China sourcing blog", "industrial sourcing insights", "China sourcing blog", "industrial parts quality control"]}
+  canonical="/blog/"
+  ogImage="/images/insights-hero-collage.webp"
+  jsonLd={jsonLd}
+>
+  <style>
+    :root{
+      --insight-ink:#121212;
+      --insight-muted:#797676;
+      --insight-line:#DFE6E9;
+      --insight-accent:#0A2540;
+      --insight-soft:#F4F7F8;
+    }
+
+    :global(main){
+      background:#fff;
+    }
+
+    :global(.topbar){
+      background:rgba(255,255,255,.92) !important;
+      border-bottom:1px solid var(--border) !important;
+      backdrop-filter:blur(14px);
+    }
+
+    :global(.menu),
+    :global(.menu a),
+    :global(.menu a:hover){
+      color:var(--text-primary) !important;
+    }
+
+    .insightsHero{
+      position:relative;
+      min-height:392px;
+      display:grid;
+      align-items:center;
+      overflow:hidden;
+      isolation:isolate;
+      border-bottom:1px solid var(--border);
+      background:var(--accent);
+      padding:50px 0 39px;
+    }
+
+    .insightsHeroImage{
+      position:absolute;
+      inset:-14px;
+      z-index:-2;
+      width:calc(100% + 28px);
+      height:calc(100% + 28px);
+      object-fit:cover;
+      filter:blur(3px) saturate(.96) contrast(.98);
+      transform:scale(1.01);
+    }
+
+    .insightsHero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(90deg, rgba(10,37,64,.76) 0%, rgba(10,37,64,.58) 48%, rgba(10,37,64,.34) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.04) 0%, rgba(0,0,0,.24) 100%);
+    }
+
+    .insightsHero :global(.mediaHeroInner){
+      display:block;
+    }
+
+    .insightsHero :global(.mediaHeroCopy){
+      position:relative;
+      z-index:2;
+      max-width:min(720px, 43vw);
+      transform:none;
+    }
+
+    .insightsForeground{
+      position:absolute;
+      right:0;
+      top:50%;
+      z-index:1;
+      transform:translateY(-50%);
+      margin:0;
+      overflow:hidden;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.08);
+      box-shadow:0 24px 70px rgba(0,0,0,.24);
+      width:min(67.6vw, 1274px);
+      max-width:none;
+    }
+
+    .insightsForeground img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+
+    .wrap{
+      padding:46px 0 0;
+    }
+
+    .featured{
+      padding:28px 0 42px;
+      border-bottom:1px solid var(--insight-line);
+    }
+
+    .sectionTitle{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:18px;
+      margin:0 0 22px;
+    }
+
+    .sectionTitle h2{
+      margin:0;
+      color:var(--insight-ink);
+      font-size:1.32rem;
+      letter-spacing:-.01em;
+    }
+
+    .sectionTitle p{
+      margin:0;
+      color:var(--insight-muted);
+      font-size:.9rem;
+      white-space:nowrap;
+    }
+
+    .featuredGrid,
+    .clusterGrid{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:18px;
+      padding:0;
+    }
+
+    .featuredCard,
+    .clusterCard{
+      border:1px solid var(--insight-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:none;
+    }
+
+    .featuredCard{
+      grid-column:span 6;
+      display:block;
+      min-height:220px;
+      padding:26px;
+      text-decoration:none;
+      border-top:3px solid var(--insight-accent);
+      box-shadow:0 10px 26px rgba(10,37,64,.035);
+      transition:transform .14s ease, border-color .14s ease, background .14s ease, box-shadow .14s ease;
+    }
+
+    .featuredCard:hover{
+      transform:translateY(-3px);
+      border-color:rgba(10,37,64,.28);
+      background:#FAFBFC;
+      box-shadow:0 16px 36px rgba(10,37,64,.07);
+    }
+
+    .featuredCard h3{
+      margin:18px 0 12px;
+      color:var(--insight-ink);
+      font-size:1.28rem;
+      line-height:1.35;
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+      overflow:hidden;
+    }
+
+    .clusters{
+      padding:42px 0;
+      border-bottom:1px solid var(--insight-line);
+    }
+
+    .clusterCard{
+      grid-column:span 4;
+      min-height:188px;
+      padding:22px;
+      background:linear-gradient(180deg, var(--insight-soft) 0%, #fff 100%);
+    }
+
+    .clusterCardHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:10px;
+    }
+
+    .tag,
+    .clusterTag{
+      display:inline-flex;
+      padding:.28rem .58rem;
+      border-radius:4px;
+      border:1px solid rgba(10,37,64,.18);
+      background:#fff;
+      color:var(--insight-accent);
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+      align-items:center;
+      color:var(--insight-muted);
+      font-size:.82rem;
+    }
+
+    .dot{
+      opacity:.6;
+    }
+
+    .excerpt{
+      margin:0;
+      color:var(--insight-muted);
+      line-height:1.6;
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:3;
+      overflow:hidden;
+    }
+
+    .clusterMiniList{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .miniLink{
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+      overflow:hidden;
+      color:var(--insight-ink);
+      font-size:.92rem;
+      font-weight:800;
+      line-height:1.35;
+      text-decoration:none;
+      opacity:.92;
+    }
+
+    .miniMeta{
+      margin-top:2px;
+      color:var(--insight-muted);
+      font-size:.78rem;
+    }
+
+    .archiveSection{
+      padding-top:8px;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid var(--insight-line);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--insight-muted);
+    }
+
+    :global(.footerNav a){
+      background:transparent;
+      border-color:transparent;
+    }
+
+    @media (max-width: 980px){
+      .insightsHero{
+        min-height:364px;
+        padding:39px 0 28px;
+      }
+
+      .insightsHero :global(.mediaHeroInner){
+        display:grid;
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+
+      .insightsHero :global(.mediaHeroCopy){
+        max-width:720px;
+        transform:none;
+      }
+
+      .insightsForeground{
+        position:relative;
+        right:auto;
+        top:auto;
+        transform:none;
+        justify-self:start;
+        max-width:680px;
+        width:100%;
+      }
+
+      .featuredCard,
+      .clusterCard{
+        grid-column:span 12;
+      }
+    }
+    @media (max-width: 640px){
+      .featuredCard h3{
+        -webkit-line-clamp:3;
+      }
+    }
+  </style>
+
+  <section class="subpageHero mediaHero insightsHero">
+    <img
+      class="insightsHeroImage"
+      src="/images/insights-hero-collage.webp"
+      alt=""
+      aria-hidden="true"
+      loading="eager"
+    />
+    <div class="container wide mediaHeroInner">
+      <div class="mediaHeroCopy">
+        <p class="eyebrow">CertiRun / Insights</p>
+        <h1>China sourcing intelligence for practical buyers</h1>
+        <p class="lead">
+          Field-level notes on supplier screening, quotation control, quality checkpoints,
+          trade terms, and multi-category sourcing execution across Chinese supply chains.
+        </p>
+      </div>
+
+      <figure class="insightsForeground" aria-label="Sourcing documents, inspection work, and logistics coordination">
+        <img src="/images/insights-hero-collage.webp" alt="Sourcing documents, inspection work, and logistics coordination" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="container wrap">
+    {featuredPosts.length > 0 && (
+      <section class="featured">
+        <div class="sectionTitle">
+          <h2>Featured Guides</h2>
+          <p>Key sourcing topics</p>
+        </div>
+
+        <div class="featuredGrid">
+          {featuredPosts.map((post) => (
+            <a class="featuredCard" href={post.href}>
+              <div class="meta">
+                <span class="tag">{post.tag}</span>
+                <span class="dot">&middot;</span>
+                <span>{post.date}</span>
+                <span class="dot">&middot;</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h3>{post.title}</h3>
+              <p class="excerpt">{post.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="clusters">
+      <div class="sectionTitle">
+        <h2>Topics</h2>
+        <p>Browse by sourcing theme</p>
+      </div>
+
+      <div class="clusterGrid">
+        {clusters.slice(0, 6).map((cluster) => (
+          <div class="clusterCard">
+            <div class="clusterCardHeader">
+              <span class="clusterTag">{cluster.tag}</span>
+            </div>
+
+            <div class="clusterMiniList">
+              {cluster.items.map((item) => (
+                <div>
+                  <a class="miniLink" href={item.href}>{item.title}</a>
+                  <div class="miniMeta">{item.date} &middot; {item.readTime}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="archiveSection">
+      <BlogArchive
+        posts={posts}
+        tagSummaries={tagSummaries}
+        requestedTag={currentTag}
+        requestedPage={currentPage}
+        basePath="/blog/"
+      />
+    </section>
+  </section>
+</BaseLayout>

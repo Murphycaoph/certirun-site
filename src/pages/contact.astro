@@ -2,8 +2,26 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const contactMethods = [
-  { type: "Email", value: "murphy@certispares.com", href: "mailto:murphy@certispares.com" },
+  { type: "Email", value: "murphy@certirun.com", href: "mailto:murphy@certirun.com" },
   { type: "WhatsApp", value: "+86 156 3302 2618", href: "https://wa.me/8615633022618" },
+  { type: "WeChat", value: "156 3302 2618", href: "#" },
+];
+
+const categories = [
+  "Electronics & Electronic Components",
+  "Machinery & Industrial Equipment",
+  "Hardware Products",
+  "Vehicle Parts - high-level sourcing",
+  "New Energy / PV / EV Parts",
+  "Other industrial sourcing request",
+];
+
+const supplierStatuses = [
+  "No supplier contacted yet",
+  "Already have supplier quotations",
+  "Need alternative suppliers",
+  "Need order follow-up with current supplier",
+  "Need pre-shipment / document checks",
 ];
 ---
 
@@ -35,7 +53,7 @@ const contactMethods = [
           <p class="pageBadge">Contact Methods</p>
           <h2>Reach CertiRun directly</h2>
           <p class="contactLead">
-            For faster review, include photos, part numbers, drawings, target quantity,
+            For faster review, include photos, drawings, specifications, target quantity,
             destination market, and any current supplier information.
           </p>
           <div class="methodGrid">
@@ -48,22 +66,72 @@ const contactMethods = [
           </div>
         </div>
 
-        <form class="contactForm" action="/thank-you/" method="get">
+        <form
+          class="contactForm"
+          name="sourcing-request"
+          action="/thank-you/"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="sourcing-request" />
+          <input type="hidden" name="subject" value="New CertiRun sourcing request" />
+          <p class="hiddenField">
+            <label>Do not fill this out: <input name="bot-field" /></label>
+          </p>
           <div class="formHead">
-            <p class="pageBadge">Inquiry Form</p>
-            <h3>Request details</h3>
+            <p class="pageBadge">Structured RFQ</p>
+            <h3>Sourcing request details</h3>
+          </div>
+          <div class="formTwo">
+            <label>
+              <span>Name</span>
+              <input name="name" type="text" autocomplete="name" placeholder="Your name" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" placeholder="name@company.com" />
+            </label>
           </div>
           <label>
-            <span>Name</span>
-            <input name="name" type="text" autocomplete="name" placeholder="Your name" />
+            <span>Category</span>
+            <select name="category">
+              <option value="">Select a sourcing category</option>
+              {categories.map((category) => (
+                <option value={category}>{category}</option>
+              ))}
+            </select>
           </label>
           <label>
-            <span>Email</span>
-            <input name="email" type="email" autocomplete="email" placeholder="name@company.com" />
+            <span>Product scope</span>
+            <textarea name="product_scope" rows="4" placeholder="Product name, photos or drawing notes, specifications, models, standards, or reference links"></textarea>
+          </label>
+          <div class="formTwo">
+            <label>
+              <span>Target quantity</span>
+              <input name="quantity" type="text" placeholder="Example: 500 pcs, 1 set, mixed order list" />
+            </label>
+            <label>
+              <span>Destination market</span>
+              <input name="destination" type="text" placeholder="Country / region" />
+            </label>
+          </div>
+          <label>
+            <span>Current supplier status</span>
+            <select name="supplier_status">
+              <option value="">Select current status</option>
+              {supplierStatuses.map((status) => (
+                <option value={status}>{status}</option>
+              ))}
+            </select>
           </label>
           <label>
-            <span>Message</span>
-            <textarea name="message" rows="7" placeholder="Product scope, quantity, supplier status, and delivery market"></textarea>
+            <span>Packing / document requirements</span>
+            <textarea name="packing_documents" rows="4" placeholder="Label, carton, certificate, datasheet, invoice, packing list, inspection, or shipment notes"></textarea>
+          </label>
+          <label>
+            <span>Additional details</span>
+            <textarea name="message" rows="5" placeholder="Open questions, timeline, supplier links, quality concerns, or execution challenges"></textarea>
           </label>
           <button class="submitButton" type="submit">Send Request</button>
         </form>
@@ -83,8 +151,8 @@ const contactMethods = [
     line-height:1; letter-spacing:.16em; text-transform:uppercase;
   }
   .contactGrid h2{
-    max-width:620px; font-size:clamp(2rem,3.2vw,3.45rem); line-height:1.1;
-    letter-spacing:-.035em; font-weight:800;
+    max-width:620px; font-size:clamp(1.55rem,2.05vw,2.35rem); line-height:1.1;
+    letter-spacing:-.025em; font-weight:700;
   }
   .contactLead{ margin-top:18px; max-width:620px; color:var(--text-secondary); font-size:var(--type-body-lg); line-height:1.7; }
   .methodGrid{ display:grid; gap:16px; margin-top:34px; }
@@ -102,8 +170,10 @@ const contactMethods = [
   }
   .formHead h3{ font-size:1.35rem; font-weight:800; }
   .formHead .pageBadge{ margin-bottom:14px; }
+  .hiddenField{ display:none; }
   .contactForm label{ display:grid; gap:8px; }
   .contactForm label span{ color:var(--text-primary); font-weight:800; font-size:.9rem; }
+  .formTwo{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
   .submitButton{
     display:inline-flex; align-items:center; justify-content:center; min-height:58px; padding:0 28px;
     border:none; border-radius:8px; background:var(--accent); color:#fff; font:inherit; font-weight:800;
@@ -114,5 +184,6 @@ const contactMethods = [
     .contactSection{ padding:56px 0; }
     .contactGrid{ grid-template-columns:1fr; }
     .contactForm{ padding:22px; }
+    .formTwo{ grid-template-columns:1fr; }
   }
 </style>

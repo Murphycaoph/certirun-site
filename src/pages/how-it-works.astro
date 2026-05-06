@@ -97,6 +97,9 @@ const page = {
       title: "Request Review",
       description:
         "We clarify the product scope, technical requirements, target quantity, market standards, and delivery expectations before supplier contact begins.",
+      buyerInput: "Product need, photos, drawings, BOM, quantity, and destination market.",
+      visibleOutput: "Structured RFQ brief.",
+      decisionPoint: "Approve the scope before supplier outreach.",
     },
     {
       step: "02",
@@ -104,6 +107,9 @@ const page = {
       title: "Supplier Shortlist",
       description:
         "Relevant factories or trading partners are compared by product fit, response quality, production capability, and sourcing risk.",
+      buyerInput: "Approved RFQ brief and any preferred supplier direction.",
+      visibleOutput: "Supplier response list and screening notes.",
+      decisionPoint: "Choose which suppliers should be compared further.",
     },
     {
       step: "03",
@@ -111,6 +117,9 @@ const page = {
       title: "Quotation Control",
       description:
         "Pricing, lead time, MOQ, packing, payment terms, and document requirements are organized into a clear comparison for decision-making.",
+      buyerInput: "Supplier replies, quotation files, terms, and open questions.",
+      visibleOutput: "Normalized quotation comparison sheet.",
+      decisionPoint: "Shortlist, request clarification, or pause a supplier.",
     },
     {
       step: "04",
@@ -118,6 +127,9 @@ const page = {
       title: "Sample Or Order Follow-Up",
       description:
         "Once a direction is confirmed, CertiRun follows key handoff points so supplier promises become trackable execution items.",
+      buyerInput: "Selected supplier path, sample request, or first order scope.",
+      visibleOutput: "Order detail record and open-issue list.",
+      decisionPoint: "Confirm what can move into execution.",
     },
     {
       step: "05",
@@ -125,6 +137,9 @@ const page = {
       title: "Verification Checkpoints",
       description:
         "Product details, packing status, document accuracy, and shipment readiness are reviewed before goods move into delivery.",
+      buyerInput: "Photos, sample notes, documents, certificates, labels, and packing details.",
+      visibleOutput: "Checkpoint notes with buyer-confirm-required flags.",
+      decisionPoint: "Proceed, revise, or hold shipment.",
     },
     {
       step: "06",
@@ -132,6 +147,9 @@ const page = {
       title: "Delivery Coordination",
       description:
         "Shipment progress, export documents, and post-dispatch communication are kept visible until the buyer has a clear delivery record.",
+      buyerInput: "Destination, shipment requirement, and document handover needs.",
+      visibleOutput: "Dispatch and document follow-up log.",
+      decisionPoint: "Accept handover or request issue follow-up.",
     },
   ],
   proof: [
@@ -237,6 +255,20 @@ const page = {
               </div>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
+              <dl class="stepDetails">
+                <div>
+                  <dt>Buyer input</dt>
+                  <dd>{item.buyerInput}</dd>
+                </div>
+                <div>
+                  <dt>Visible output</dt>
+                  <dd>{item.visibleOutput}</dd>
+                </div>
+                <div>
+                  <dt>Decision point</dt>
+                  <dd>{item.decisionPoint}</dd>
+                </div>
+              </dl>
               <span class="cardRule"></span>
             </article>
           ))}
@@ -356,10 +388,10 @@ const page = {
 
   .workflowIntro h2{
     max-width:620px;
-    font-size:clamp(2.25rem, 3.6vw, 3.9rem);
+    font-size:clamp(1.55rem, 2.05vw, 2.35rem);
     line-height:1.08;
-    letter-spacing:-.035em;
-    font-weight:800;
+    letter-spacing:-.025em;
+    font-weight:700;
   }
 
   .workflowIntro p:not(.workflowBadge){
@@ -380,7 +412,7 @@ const page = {
     position:relative;
     display:grid;
     align-content:start;
-    min-height:228px;
+    min-height:410px;
     padding:28px 28px 24px;
     border:1px solid var(--border);
     border-radius:8px;
@@ -451,6 +483,36 @@ const page = {
     max-width:360px;
     color:var(--text-secondary);
     line-height:1.62;
+  }
+
+  .stepDetails{
+    display:grid;
+    gap:10px;
+    margin:18px 0 0;
+  }
+
+  .stepDetails div{
+    display:grid;
+    gap:4px;
+    padding:10px 12px;
+    border:1px solid rgba(10,37,64,.1);
+    border-radius:8px;
+    background:#F7F9FC;
+  }
+
+  .stepDetails dt{
+    color:var(--accent);
+    font-size:.68rem;
+    font-weight:900;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+
+  .stepDetails dd{
+    margin:0;
+    color:var(--text-secondary);
+    font-size:.9rem;
+    line-height:1.5;
   }
 
   .cardRule{
@@ -533,10 +595,10 @@ const page = {
 
   .flowIntro h2{
     max-width:660px;
-    font-size:clamp(2rem, 3vw, 3.25rem);
+    font-size:clamp(1.5rem, 1.95vw, 2.25rem);
     line-height:1.14;
-    letter-spacing:-.03em;
-    font-weight:800;
+    letter-spacing:-.025em;
+    font-weight:700;
   }
 
   .flowIntro p:not(.workflowBadge){
@@ -686,9 +748,9 @@ const page = {
   .workflowCtaPanel h2{
     max-width:780px;
     color:var(--accent);
-    font-size:clamp(2rem, 3vw, 3.25rem);
+    font-size:clamp(1.5rem, 1.95vw, 2.25rem);
     line-height:1.1;
-    font-weight:800;
+    font-weight:700;
   }
 
   .workflowCtaPanel p:not(.workflowBadge){
@@ -809,7 +871,7 @@ const page = {
 
   @media (max-width: 640px){
     .workflowIntro h2{
-      font-size:2.15rem;
+      font-size:1.55rem;
     }
 
     .workflowCard{
@@ -818,7 +880,7 @@ const page = {
 
     .flowIntro h2,
     .workflowCtaPanel h2{
-      font-size:2rem;
+      font-size:1.5rem;
     }
 
     .flowContent{

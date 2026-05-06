@@ -1,44 +1,375 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Section from "../components/ui/Section.astro";
-import HeadingBlock from "../components/ui/HeadingBlock.astro";
-import Card from "../components/ui/Card.astro";
+
+const nextSteps = [
+  {
+    title: "Request review",
+    description:
+      "We review the category, product scope, quantity, destination market, and supplier status you submitted.",
+  },
+  {
+    title: "Missing details check",
+    description:
+      "If the request needs photos, drawings, datasheets, packing notes, or document requirements, we will ask for the missing inputs.",
+  },
+  {
+    title: "Sourcing path setup",
+    description:
+      "Once the request is clear enough, the next step is supplier search, comparison, verification, or order follow-up support.",
+  },
+];
+
+const helpfulLinks = [
+  {
+    href: "/capabilities/",
+    title: "Review service paths",
+    description: "See how supplier comparison, verification, coordination, and delivery follow-up fit together.",
+  },
+  {
+    href: "/how-it-works/",
+    title: "See the workflow",
+    description: "Understand what buyer input, visible output, and decision point each step should produce.",
+  },
+  {
+    href: "/blog/",
+    title: "Read sourcing insights",
+    description: "Browse practical notes on RFQs, supplier comparison, quality risk, trade terms, and logistics.",
+  },
+];
 ---
 
 <BaseLayout
-  title="CertiRun | Placeholder"
-  description="Neutral placeholder response page."
+  title="Sourcing Request Received | CertiRun"
+  description="Thank you for sending a structured sourcing request to CertiRun. We will review the request details and identify the next sourcing step."
   canonical="/thank-you/"
   robots="noindex, nofollow"
 >
-  <div class="container wide pageShell">
-    <section class="heroBlock">
-      <p class="eyebrow">CertiRun / Placeholder</p>
-      <h1>Placeholder response page.</h1>
-      <p class="lead">
-        This route remains available as a neutral endpoint while future form flows are
-        redesigned.
-      </p>
-    </section>
-
-    <Section surface="panel">
-      <div class="sectionStack">
-        <HeadingBlock
-          eyebrow="Response"
-          title="Route retained for future form flows"
-          description="This endpoint stays in place so future contact journeys can plug into the system without rebuilding basic route infrastructure."
-        />
-        <div class="cardGrid two">
-          <Card compact={true}>
-            <h3>Current role</h3>
-            <p>A neutral acknowledgement page for placeholder and future form submissions.</p>
-          </Card>
-          <Card compact={true}>
-            <h3>Next role</h3>
-            <p>Can later be refined into a real confirmation state once the final form experience is defined.</p>
-          </Card>
+  <section class="thankHero">
+    <div class="container wide thankHeroInner">
+      <div class="thankHeroCopy">
+        <p class="pageBadge">Request Received</p>
+        <h1>Your sourcing request has been sent.</h1>
+        <p class="lead">
+          Thank you for sharing the request details. CertiRun will review the product scope,
+          sourcing status, quantity, destination market, and any packing or document notes
+          so the next step can be handled with clearer context.
+        </p>
+        <div class="buttonRow">
+          <a class="button secondary" href="/capabilities/">Review Services</a>
+          <a class="button outline" href="/contact/">Send More Details</a>
         </div>
       </div>
-    </Section>
+
+      <div class="requestPanel" aria-label="Sourcing request review checklist">
+        <span class="panelLabel">RFQ Review Checklist</span>
+        <ul>
+          <li>Category and product scope</li>
+          <li>Quantity and destination market</li>
+          <li>Photos, drawings, datasheets, or links</li>
+          <li>Supplier status and quotation notes</li>
+          <li>Packing, label, document, and shipment needs</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="pageShell">
+    <section class="nextSection">
+      <div class="container wide">
+        <div class="sectionHeading">
+          <p class="pageBadge">What Happens Next</p>
+          <h2>We turn the request into a clearer sourcing path.</h2>
+          <p>
+            The first job is not to rush supplier contact. It is to make the request clear
+            enough that supplier replies, risks, and next decisions can be compared.
+          </p>
+        </div>
+
+        <div class="nextGrid">
+          {nextSteps.map((item, index) => (
+            <article class="nextCard">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="detailsSection">
+      <div class="container wide detailsShell">
+        <div>
+          <p class="pageBadge">Useful To Prepare</p>
+          <h2>Additional information can make the review faster.</h2>
+          <p>
+            If you have reference photos, drawings, datasheets, product lists, supplier links,
+            packing requirements, or current quotations, keep them ready. They help reduce
+            ambiguity before supplier comparison or order follow-up begins.
+          </p>
+        </div>
+        <a class="emailCard" href="mailto:murphy@certirun.com">
+          <span>Email additional details</span>
+          <strong>murphy@certirun.com</strong>
+        </a>
+      </div>
+    </section>
+
+    <section class="linksSection">
+      <div class="container wide">
+        <div class="linksGrid">
+          {helpfulLinks.map((item) => (
+            <a class="linkCard" href={item.href}>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>
+
+<style>
+  .thankHero{
+    padding:86px 0 74px;
+    background:#0A2540;
+    color:#fff;
+  }
+
+  .thankHeroInner{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(340px, .48fr);
+    gap:48px;
+    align-items:center;
+  }
+
+  .thankHeroCopy h1{
+    color:#fff;
+    max-width:760px;
+  }
+
+  .thankHeroCopy .lead{
+    color:rgba(255,255,255,.72);
+  }
+
+  .pageBadge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:30px;
+    width:max-content;
+    padding:0 14px;
+    margin:0 0 22px;
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:8px;
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:.72rem;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+
+  .nextSection .pageBadge,
+  .detailsSection .pageBadge{
+    border-color:rgba(10,37,64,.28);
+    background:#F1F4F8;
+    color:#0A2540;
+  }
+
+  .buttonRow{
+    margin-top:34px;
+  }
+
+  .requestPanel{
+    display:grid;
+    gap:22px;
+    padding:30px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:8px;
+    background:rgba(255,255,255,.08);
+    box-shadow:0 18px 42px rgba(0,0,0,.18);
+  }
+
+  .panelLabel{
+    color:rgba(255,255,255,.62);
+    font-size:.72rem;
+    font-weight:900;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+
+  .requestPanel ul{
+    display:grid;
+    gap:14px;
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+
+  .requestPanel li{
+    position:relative;
+    padding-left:22px;
+    color:rgba(255,255,255,.82);
+    line-height:1.5;
+  }
+
+  .requestPanel li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:.65em;
+    width:7px;
+    height:7px;
+    border-radius:999px;
+    background:#fff;
+  }
+
+  .nextSection,
+  .linksSection{
+    padding:72px 0 28px;
+    background:#fff;
+  }
+
+  .sectionHeading{
+    max-width:760px;
+    margin-bottom:30px;
+  }
+
+  .sectionHeading h2,
+  .detailsShell h2{
+    max-width:780px;
+    font-size:clamp(1.55rem, 2.05vw, 2.35rem);
+    line-height:1.1;
+    letter-spacing:-.025em;
+    font-weight:700;
+  }
+
+  .sectionHeading p:not(.pageBadge),
+  .detailsShell p:not(.pageBadge){
+    margin-top:18px;
+    max-width:700px;
+    color:var(--text-secondary);
+    font-size:var(--type-body-lg);
+    line-height:1.65;
+  }
+
+  .nextGrid,
+  .linksGrid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:22px;
+  }
+
+  .nextCard,
+  .linkCard{
+    display:grid;
+    align-content:start;
+    min-height:230px;
+    padding:28px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:0 8px 22px rgba(10,37,64,.04);
+  }
+
+  .nextCard span{
+    color:rgba(10,37,64,.42);
+    font-family:"Work Sans", Arial, sans-serif;
+    font-size:2rem;
+    font-weight:900;
+    line-height:1;
+  }
+
+  .nextCard h3,
+  .linkCard h3{
+    margin-top:18px;
+    font-size:1.18rem;
+    font-weight:800;
+  }
+
+  .nextCard p,
+  .linkCard p{
+    margin-top:16px;
+    color:var(--text-secondary);
+    line-height:1.62;
+  }
+
+  .detailsSection{
+    padding:44px 0;
+    background:#fff;
+  }
+
+  .detailsShell{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(320px, .42fr);
+    gap:36px;
+    align-items:center;
+    padding:38px;
+    border:1px solid rgba(10,37,64,.08);
+    border-radius:8px;
+    background:linear-gradient(135deg, #F4F8FD 0%, #EEF5FC 100%);
+  }
+
+  .emailCard{
+    display:grid;
+    gap:10px;
+    padding:26px;
+    border:1px solid rgba(10,37,64,.12);
+    border-radius:8px;
+    background:#fff;
+  }
+
+  .emailCard span{
+    color:var(--text-secondary);
+    font-size:.78rem;
+    font-weight:900;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+
+  .emailCard strong{
+    color:var(--accent);
+    font-size:1.18rem;
+  }
+
+  .linksSection{
+    padding-top:28px;
+    padding-bottom:76px;
+  }
+
+  .linkCard{
+    transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+  }
+
+  .linkCard:hover{
+    transform:translateY(-2px);
+    border-color:rgba(10,37,64,.18);
+    box-shadow:0 14px 32px rgba(10,37,64,.08);
+  }
+
+  @media (max-width:900px){
+    .thankHero{
+      padding:64px 0;
+    }
+
+    .thankHeroInner,
+    .nextGrid,
+    .linksGrid,
+    .detailsShell{
+      grid-template-columns:1fr;
+    }
+
+    .nextCard,
+    .linkCard{
+      min-height:auto;
+    }
+
+    .detailsShell{
+      padding:28px;
+    }
+  }
+</style>

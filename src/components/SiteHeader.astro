@@ -28,6 +28,7 @@ const nav = [
   },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/cases", label: "Cases" },
+  { href: "/blog", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -43,7 +44,17 @@ const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWit
         <img src="/images/brand/certirunlogo.webp" alt="CertiRun logo" class="brandLogoImage" />
       </a>
 
-      <nav class="menu" aria-label="Primary navigation">
+      <button
+        class="mobileMenuToggle"
+        type="button"
+        aria-controls="primary-navigation"
+        aria-expanded="false"
+      >
+        <span>Menu</span>
+        <span class="mobileMenuIcon" aria-hidden="true"></span>
+      </button>
+
+      <nav class="menu" id="primary-navigation" aria-label="Primary navigation">
         {nav.map((item) => (
           item.children ? (
             <div class="navDropdown">
@@ -66,3 +77,154 @@ const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWit
     </div>
   </Container>
 </div>
+
+<style is:global>
+  .mobileMenuToggle{
+    display:none;
+  }
+
+  @media (max-width: 640px){
+    .topbar .navShell{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) auto;
+      align-items:center;
+      gap:14px;
+      width:100%;
+    }
+
+    .topbar .brand{
+      min-width:0;
+    }
+
+    .topbar .mobileMenuToggle{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:42px;
+      padding:0 14px;
+      border:1px solid var(--border);
+      border-radius:8px;
+      background:#fff;
+      color:var(--text-primary);
+      font:inherit;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+
+    .topbar .mobileMenuIcon{
+      position:relative;
+      width:18px;
+      height:12px;
+      display:inline-block;
+      border-top:2px solid currentColor;
+      border-bottom:2px solid currentColor;
+    }
+
+    .topbar .mobileMenuIcon::before{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:50%;
+      height:2px;
+      background:currentColor;
+      transform:translateY(-50%);
+    }
+
+    .topbar .menu{
+      grid-column:1 / -1;
+      display:none;
+      width:100%;
+      max-height:calc(100vh - 94px);
+      overflow:auto;
+      padding:10px 0 2px;
+      border-top:1px solid var(--border);
+      flex-wrap:initial;
+      gap:0;
+    }
+
+    .topbar.is-menu-open .menu{
+      display:grid;
+    }
+
+    .topbar .navDropdown{
+      position:relative;
+      display:grid;
+      min-height:0;
+    }
+
+    .topbar .menu a,
+    .topbar .navDropdown > a{
+      justify-content:space-between;
+      min-height:46px;
+      padding:0;
+      border-bottom:1px solid rgba(10,37,64,.1);
+      letter-spacing:.05em;
+      white-space:normal;
+    }
+
+    .topbar .menu a::after{
+      display:none;
+    }
+
+    .topbar .navDropdownPanel{
+      position:static;
+      display:grid;
+      min-width:0;
+      padding:0 0 8px 14px;
+      border:none;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:none;
+    }
+
+    .topbar .navDropdownPanel::before{
+      display:none;
+    }
+
+    .topbar .menu .navDropdownPanel a{
+      min-height:40px;
+      padding:0;
+      border-bottom:1px solid rgba(10,37,64,.08);
+      color:#425366;
+      font-size:.8rem;
+      letter-spacing:.02em;
+      text-transform:none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const topbar = document.querySelector(".topbar");
+    const button = document.querySelector(".mobileMenuToggle");
+    const menu = document.getElementById("primary-navigation");
+    if (!topbar || !button || !menu) return;
+
+    const closeMenu = () => {
+      topbar.classList.remove("is-menu-open");
+      button.setAttribute("aria-expanded", "false");
+    };
+
+    button.addEventListener("click", () => {
+      const isOpen = topbar.classList.toggle("is-menu-open");
+      button.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) closeMenu();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 640) closeMenu();
+    });
+  })();
+</script>

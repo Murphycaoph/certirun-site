@@ -54,45 +54,31 @@ const page = {
   services: [
     {
       icon: "search",
-      title: "Supplier Sourcing",
+      title: "Supplier Search & Comparison",
       description:
-        "Find and compare supplier options based on category fit, production scope, response quality, and execution readiness.",
-      features: ["Supplier shortlist", "Quotation comparison", "Risk notes"],
+        "Turn a product request into a clearer supplier search path with comparable replies.",
+      features: ["Requirement brief", "Supplier shortlist", "Comparison table", "Response-quality notes"],
     },
     {
       icon: "verify",
       title: "Verification Checkpoints",
       description:
-        "Review the key details that usually create sourcing disputes before the order moves too far into execution.",
-      features: ["Product detail review", "Packing status check", "Readiness confirmation"],
+        "Review the details that can create sourcing disputes before payment, samples, or shipment move too far.",
+      features: ["Product photo checks", "Sample or pre-shipment checkpoints", "Document review notes", "Buyer-confirm-required flags"],
     },
     {
       icon: "coordinate",
       title: "Order Coordination",
       description:
-        "Keep supplier communication, timelines, sample status, and buyer decisions organized across the execution process.",
-      features: ["Follow-up tracking", "Decision records", "Supplier alignment"],
+        "Keep supplier communication, order details, labels, packing notes, and open issues organized.",
+      features: ["Confirmed order summary", "Label and packing notes", "Communication record", "Issue follow-up list"],
     },
     {
       icon: "logistics",
-      title: "Delivery Follow-Up",
+      title: "Delivery & Document Follow-Up",
       description:
-        "Support shipment readiness, document accuracy, dispatch updates, and post-shipment communication.",
-      features: ["Shipment readiness", "Export document review", "Delivery visibility"],
-    },
-    {
-      icon: "document",
-      title: "Document Control",
-      description:
-        "Help keep quotations, packing information, order details, and export documents clear and consistent.",
-      features: ["Quote structure", "Packing details", "Document accuracy"],
-    },
-    {
-      icon: "control",
-      title: "Execution Visibility",
-      description:
-        "Create a practical operating layer so buyers know what is confirmed, what is pending, and what needs attention.",
-      features: ["Status tracking", "Issue escalation", "Buyer-side clarity"],
+        "Keep packing, dispatch, export documents, and shipment handover visible through the final steps.",
+      features: ["Packing checklist", "Dispatch update log", "Document handover checklist", "Shipment milestone summary"],
     },
   ],
   process: [
@@ -105,9 +91,17 @@ const page = {
       steps: ["Confirm order details", "Check packing status", "Review documents", "Report readiness"],
     },
     {
-      service: "Delivery Follow-Up",
+      service: "Order Coordination",
+      steps: ["Confirm order details", "Track supplier replies", "Record open issues", "Align next decisions"],
+    },
+    {
+      service: "Delivery & Document Follow-Up",
       steps: ["Align shipment plan", "Track dispatch status", "Check export documents", "Keep buyer updated"],
     },
+  ],
+  controls: [
+    "Document control appears in every path so quotations, packing notes, order details, and export documents stay consistent.",
+    "Execution visibility appears in every path so buyers can see what is confirmed, what is pending, and what needs attention.",
   ],
   differentiation: [
     {
@@ -138,7 +132,7 @@ const page = {
 
 <BaseLayout
   title="Services | CertiRun"
-  description="CertiRun services for supplier sourcing, verification checkpoints, order coordination, document control, and delivery follow-up."
+  description="CertiRun services for supplier search, comparison, verification checkpoints, order coordination, and delivery document follow-up."
   canonical="/capabilities/"
 >
   <section class="subpageHero mediaHero">
@@ -193,8 +187,8 @@ const page = {
           <p class="servicesBadge">Process</p>
           <h2>How each service becomes a practical workflow</h2>
           <p>
-            Services are delivered as concrete steps, not vague support. Each track
-            has a clear sequence and visible output.
+            Services are delivered as concrete steps, not vague support. Each path
+            has a clear sequence, visible output, and buyer decision point.
           </p>
         </div>
 
@@ -211,6 +205,12 @@ const page = {
                 ))}
               </ol>
             </article>
+          ))}
+        </div>
+
+        <div class="controlNote">
+          {page.controls.map((control) => (
+            <p>{control}</p>
           ))}
         </div>
       </div>
@@ -297,10 +297,10 @@ const page = {
   .sectionHeading h2,
   .servicesCta h2{
     max-width:760px;
-    font-size:clamp(2rem, 3.2vw, 3.45rem);
+    font-size:clamp(1.55rem, 2.05vw, 2.35rem);
     line-height:1.1;
-    letter-spacing:-.035em;
-    font-weight:800;
+    letter-spacing:-.025em;
+    font-weight:700;
   }
 
   .servicesIntro p:not(.servicesBadge),
@@ -317,8 +317,16 @@ const page = {
   .processGrid,
   .differenceGrid{
     display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
     gap:22px;
+  }
+
+  .servicesGrid,
+  .processGrid{
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+  }
+
+  .differenceGrid{
+    grid-template-columns:repeat(3, minmax(0, 1fr));
   }
 
   .serviceCard,
@@ -444,6 +452,23 @@ const page = {
     font-weight:800;
   }
 
+  .controlNote{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:18px;
+    margin-top:24px;
+  }
+
+  .controlNote p{
+    margin:0;
+    padding:20px 22px;
+    border:1px solid rgba(10,37,64,.12);
+    border-radius:8px;
+    background:#F7F9FC;
+    color:var(--text-secondary);
+    line-height:1.62;
+  }
+
   .cardRule{
     width:42px;
     height:2px;
@@ -513,7 +538,8 @@ const page = {
 
     .servicesGrid,
     .processGrid,
-    .differenceGrid{
+    .differenceGrid,
+    .controlNote{
       grid-template-columns:1fr;
     }
 

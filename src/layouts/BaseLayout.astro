@@ -5,9 +5,11 @@ import SiteFooter from "../components/SiteFooter.astro";
 const {
   title = "CertiRun",
   description = "Neutral frontend foundation for CertiRun.",
+  keywords,
   canonical,
   ogImage,
   robots,
+  jsonLd,
 } = Astro.props;
 
 const SITE_URL = "https://certirun.com";
@@ -21,6 +23,7 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={Array.isArray(keywords) ? keywords.join(", ") : keywords} />}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     {robots && <meta name="robots" content={robots} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,6 +39,7 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
     <meta property="og:description" content={description} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
     <style is:global>
       :root{
@@ -81,7 +85,7 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
         --container-wide:1440px;
 
         --type-h1:clamp(3.1rem, 5vw, 5.5rem);
-        --type-h2:clamp(2rem, 3vw, 3rem);
+        --type-h2:clamp(1.5rem, 1.95vw, 2.25rem);
         --type-h3:1.3125rem;
         --type-body-lg:1.125rem;
         --type-body:1rem;
@@ -1036,9 +1040,9 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
       h2{
         font-size:var(--type-h2);
         line-height:1.04;
-        letter-spacing:-.035em;
+        letter-spacing:-.025em;
         font-family:"Work Sans", "Arial Narrow", Arial, sans-serif;
-        font-weight:800;
+        font-weight:700;
         text-wrap:balance;
       }
 
@@ -1278,8 +1282,8 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
       .footerShell{
         display:flex;
         justify-content:space-between;
-        gap:var(--space-8);
-        padding:var(--space-10) 0 var(--space-12);
+        gap:var(--space-16);
+        padding:var(--space-12) 0 var(--space-12);
       }
 
       .footerLogoImage{
@@ -1291,7 +1295,7 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
 
       .footerMeta{
         display:grid;
-        gap:var(--space-2);
+        gap:var(--space-3);
         max-width:520px;
       }
 
@@ -1307,24 +1311,65 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
       }
 
       .footerNav{
-        display:flex;
-        flex-wrap:wrap;
-        align-content:flex-start;
-        gap:var(--space-3);
-        max-width:520px;
+        display:grid;
+        grid-template-columns:repeat(4, max-content);
+        align-content:start;
+        justify-content:end;
+        gap:14px 30px;
+        min-width:min(560px, 100%);
+        padding-top:8px;
+        position:relative;
+      }
+
+      .footerNav::before{
+        content:"Navigation";
+        grid-column:1 / -1;
+        margin-bottom:6px;
+        color:var(--text-secondary);
+        font-family:"Work Sans", Arial, sans-serif;
+        font-size:.68rem;
+        font-weight:800;
+        letter-spacing:.16em;
+        text-transform:uppercase;
         justify-content:flex-end;
       }
 
       .footerNav a{
+        position:relative;
         display:inline-flex;
         align-items:center;
-        min-height:44px;
-        padding:0 16px;
-        border-radius:10px;
-        border:1px solid var(--border);
-        background:var(--surface);
+        min-height:30px;
+        padding:0 0 6px;
+        border:none;
+        border-radius:0;
+        background:transparent;
         font-size:var(--type-body-sm);
-        font-weight:600;
+        font-weight:800;
+        letter-spacing:.01em;
+        color:var(--text-primary);
+        transition:color .16s ease, transform .16s ease;
+      }
+
+      .footerNav a::after{
+        content:"";
+        position:absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        height:1px;
+        background:var(--accent);
+        transform:scaleX(0);
+        transform-origin:left center;
+        transition:transform .16s ease;
+      }
+
+      .footerNav a:hover{
+        color:var(--accent);
+        transform:translateY(-1px);
+      }
+
+      .footerNav a:hover::after{
+        transform:scaleX(1);
       }
 
       @media (max-width: 900px){
@@ -1399,6 +1444,8 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
 
         .footerNav{
           justify-content:flex-start;
+          grid-template-columns:repeat(3, max-content);
+          min-width:0;
         }
 
         .mediaHeroImage{
@@ -1473,6 +1520,11 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
           min-height:92px;
           border-left:1px solid var(--border);
           border-top:1px solid var(--border);
+        }
+
+        .footerNav{
+          grid-template-columns:repeat(2, minmax(0, max-content));
+          gap:12px 24px;
         }
       }
     </style>

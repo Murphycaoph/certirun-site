@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BlogArchive from "../../../components/BlogArchive.astro";
+import { getCollection } from "astro:content";
+import {
+  findTagSummary,
+  getTagSummaries,
+  mapBlogPosts,
+} from "../../../lib/blogArchive";
+
+export async function getStaticPaths() {
+  const posts = mapBlogPosts(await getCollection("blog"));
+  const tagSummaries = getTagSummaries(posts);
+
+  return tagSummaries.map((tag) => ({
+    params: { tag: tag.slug },
+  }));
+}
+
+const posts = mapBlogPosts(await getCollection("blog"));
+const tagSummaries = getTagSummaries(posts);
+const requestedTag = Astro.params.tag ?? "";
+const activeTag = findTagSummary(tagSummaries, requestedTag);
+const currentPageRaw = Number.parseInt(Astro.url.searchParams.get("page") ?? "1", 10);
+const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? currentPageRaw : 1;
+---
+
+<BaseLayout
+  title={`Insights | ${activeTag?.label ?? "Topic"} | CertiRun`}
+  description={
+    activeTag
+      ? `Insights under ${activeTag.label}: sourcing, QC, trade terms, documentation, and shipping guidance for B2B buyers.`
+      : "Browse sourcing insights, trade guidance, and quality control articles for industrial sourcing buyers."
+  }
+  canonical={activeTag ? `/blog/?tag=${activeTag.slug}` : "/blog/"}
+>
+  <style>
+    :global(main){
+      background:#fff;
+    }
+
+    :global(.topbar){
+      background:rgba(255,255,255,.92) !important;
+      border-bottom:1px solid var(--border) !important;
+      backdrop-filter:blur(14px);
+    }
+
+    :global(.menu),
+    :global(.menu a),
+    :global(.menu a:hover){
+      color:var(--text-primary) !important;
+    }
+
+    .wrap{
+      padding:42px 0 20px;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid var(--border);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:#5f6d86;
+    }
+
+    :global(.footerNav a){
+      background:transparent;
+      border-color:transparent;
+    }
+  </style>
+
+  <section class="container wrap">
+    <BlogArchive
+      posts={posts}
+      tagSummaries={tagSummaries}
+      requestedTag={requestedTag}
+      requestedPage={currentPage}
+      basePath="/blog/"
+    />
+  </section>
+</BaseLayout>
